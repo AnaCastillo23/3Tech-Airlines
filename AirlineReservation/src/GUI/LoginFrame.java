@@ -1,7 +1,9 @@
+package GUI;
+
 import javax.swing.*;
 
-public class MainFrame extends JFrame {
-    private JPanel panelMain;
+public class LoginFrame extends JFrame {
+    private JPanel panelLogin;
     private JPasswordField passwordField1;
     private JTextField textField1;
     private JButton logInButton;
@@ -9,8 +11,8 @@ public class MainFrame extends JFrame {
     private JButton registerButton;
 
 
-    public MainFrame() {
-        setContentPane(panelMain);
+    public LoginFrame() {
+        setContentPane(panelLogin);
         setTitle("3Tech-Airlines");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -18,6 +20,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        MainFrame myFrame = new MainFrame();
+        LoginFrame loginFrame = new LoginFrame();
     }
 }

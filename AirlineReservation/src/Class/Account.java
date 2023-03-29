@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Account {
-    private final String username;
-    private final String password;
-    private final String firstName;
-    private final String lastName;
-    private final String emailAddress;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String emailAddress;
+    private String phoneNumber;
 
     private static final Map<String, String> loginAccount = new HashMap<>();
 
@@ -18,15 +20,19 @@ public class Account {
         this.password = "";
         this.firstName = "";
         this.lastName = "";
+        this.address = "";
         this.emailAddress = "";
+        this.phoneNumber = "";
     }
 
-    public Account(String username, String password, String firstName, String lastName, String emailAddress) {
+    public Account(String username, String password, String firstName, String lastName, String address, String emailAddress, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
         this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
     }
 
 
@@ -46,16 +52,49 @@ public class Account {
         return this.lastName;
     }
 
+    public String getAddress() { return this.address; }
+
     public String getEmailAddress() {
         return this.emailAddress;
     }
+
+    public String getPhoneNumber() { return this.phoneNumber; }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 
 
     public Map<String, String> getLoginAccount() {
         return loginAccount;
     }
 
-    public void register(Account account) {
+    public static void register(Account account) {
         loginAccount.put(account.getUsername(), account.getPassword());
     }
 
@@ -67,8 +106,16 @@ public class Account {
         }
     }
 
-    public boolean isRegistered(Account account){
+    public static boolean isRegistered(Account account){
         if(loginAccount.containsKey(account.getUsername()) && loginAccount.containsValue(account.getPassword())){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean accountExists(String username) {
+        if(loginAccount.containsKey(username)) {
             return true;
         } else {
             return false;
