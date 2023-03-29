@@ -66,8 +66,14 @@ public class RegisterFrame extends JFrame {
             if(!Account.accountExists(username)) {
                 Account account = new Account(username,password,firstName,lastName,address,emailAddress,phone);
                 Account.register(account);
+
+                JOptionPane.showMessageDialog(this, "Account successfully created", "Registered", JOptionPane.PLAIN_MESSAGE);
+                LoginFrame loginFrame = new LoginFrame();
+                setVisible(false);
+                loginFrame.setVisible(true);
+
             } else {
-                JOptionPane.showMessageDialog(this, "Thiat username is already taken", "Invalid Registration", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "That username is already taken", "Invalid Registration", JOptionPane.ERROR_MESSAGE);
                 //return;
             }
         } catch(Exception e) {

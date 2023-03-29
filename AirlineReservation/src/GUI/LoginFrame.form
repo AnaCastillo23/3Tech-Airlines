@@ -29,7 +29,7 @@
           <text value="Enter Password"/>
         </properties>
       </component>
-      <component id="39ab" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
+      <component id="39ab" class="javax.swing.JPasswordField" binding="pfPassword">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -37,7 +37,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="b6151" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="b6151" class="javax.swing.JTextField" binding="tfUsername">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

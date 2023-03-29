@@ -7,6 +7,9 @@ public class gsedfrgh extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JRadioButton radioButton1;
+    private JComboBox comboBox1;
+    private JTextArea helloWorldBlahblahblahFkljsdgdfskgTextArea;
 
     public gsedfrgh() {
         setContentPane(contentPane);

@@ -12,7 +12,7 @@ public class Account {
     private String emailAddress;
     private String phoneNumber;
 
-    private static final Map<String, String> loginAccount = new HashMap<>();
+    private static final Map<String, Account> loginAccount = new HashMap<>();
 
 
     public Account() {
@@ -90,24 +90,25 @@ public class Account {
 
 
 
-    public Map<String, String> getLoginAccount() {
+    public static Map<String, Account> getLoginAccount() {
         return loginAccount;
     }
 
     public static void register(Account account) {
-        loginAccount.put(account.getUsername(), account.getPassword());
+        loginAccount.put(account.getUsername(), account);
     }
 
-    public void login(Account account) {
+    /*
+    public boolean login(Account account) {
         if(isRegistered(account)) {
-
+            return true;
         } else {
-
+            return false;
         }
-    }
+    }*/
 
     public static boolean isRegistered(Account account){
-        if(loginAccount.containsKey(account.getUsername()) && loginAccount.containsValue(account.getPassword())){
+        if(loginAccount.containsKey(account.getUsername()) && loginAccount.containsValue(account)){
             return true;
         } else {
             return false;
