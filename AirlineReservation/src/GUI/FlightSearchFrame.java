@@ -15,7 +15,6 @@ public class FlightSearchFrame extends JFrame {
     private JButton OKButton;
     private JButton cancelButton;
     private JPanel flightPanel;
-    private JList list1;
 
     public FlightSearchFrame() {
         setContentPane(flightPanel);
