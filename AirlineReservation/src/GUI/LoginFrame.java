@@ -61,6 +61,10 @@ public class LoginFrame extends JFrame {
                 if(password.equals(account.getPassword())) {
                     JOptionPane.showMessageDialog(this, "Login successful", "account", JOptionPane.PLAIN_MESSAGE);
 
+                    FlightSearchFrame flightSearchFrame = new FlightSearchFrame();
+                    setVisible(false);
+                    flightSearchFrame.setVisible(true);
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Wrong Password", "Invalid Login", JOptionPane.ERROR_MESSAGE);
                 }

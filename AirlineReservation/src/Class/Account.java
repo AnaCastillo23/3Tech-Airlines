@@ -98,14 +98,6 @@ public class Account {
         loginAccount.put(account.getUsername(), account);
     }
 
-    /*
-    public boolean login(Account account) {
-        if(isRegistered(account)) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
 
     public static boolean isRegistered(Account account){
         if(loginAccount.containsKey(account.getUsername()) && loginAccount.containsValue(account)){
