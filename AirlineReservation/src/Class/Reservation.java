@@ -1,3 +1,4 @@
+package Class;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -5,6 +6,13 @@ import java.util.Date;
 
 //Data init
 public class Reservation {
+
+    // helper class
+    // one flight per destination - one way: one Flight class
+    //                            - round trip: two Flight classes
+    protected Flight departureFlight;
+    protected Flight arrivalFlight;
+
     private int reservationID;
     private Date departureDate;//is this correct?
     private Date returnDate;//is this correct?
