@@ -65,7 +65,6 @@ public class FlightSearchFrame extends JFrame {
                 try {
                     System.out.println("hello");
                     ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(flight, airport);
-                    //System.out.println(flightDataArrayList);
 
                     for(int i = 0; i < flightDataArrayList.size(); i++) {
                         JSONObject jsonObj1 = (JSONObject) flightDataArrayList.get(i);
