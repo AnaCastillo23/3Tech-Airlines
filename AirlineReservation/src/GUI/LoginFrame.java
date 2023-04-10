@@ -73,7 +73,10 @@ public class LoginFrame extends JFrame {
         } catch(Exception e) {}
     }
 
+    //@SpringBootApplication
     public static void main(String[] args) {
         LoginFrame loginFrame = new LoginFrame();
+
+        //SpringApplication.run();
     }
 }
