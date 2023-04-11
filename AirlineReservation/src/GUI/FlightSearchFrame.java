@@ -58,37 +58,39 @@ public class FlightSearchFrame extends JFrame {
                 ArrayList<JSONObject> searchData = new ArrayList<>();
 
 
-                airport.setAirportCode(tfDeparture.getText());
-                //airport.setAirportCode(tfArrival.getText());
-                flight.setDepartureDate(tfDepartureDate.getText());
+                if(searchFlight()) {
+                    airport.setAirportCode(tfDeparture.getText());
+                    //airport.setAirportCode(tfArrival.getText());
+                    flight.setDepartureDate(tfDepartureDate.getText());
 
-                try {
-                    System.out.println("hello");
-                    ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(flight, airport);
+                    try {
+                        System.out.println("hello");
+                        ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(flight, airport);
 
-                    for(int i = 0; i < flightDataArrayList.size(); i++) {
-                        JSONObject jsonObj1 = (JSONObject) flightDataArrayList.get(i);
-                        System.out.println("jsonObj(" + i + ") : " + jsonObj1.get("destination"));
-                        Object obj = jsonObj1.get("destination");
+                        for (int i = 0; i < flightDataArrayList.size(); i++) {
+                            JSONObject jsonObj1 = (JSONObject) flightDataArrayList.get(i);
+                            System.out.println("jsonObj(" + i + ") : " + jsonObj1.get("destination"));
+                            Object obj = jsonObj1.get("destination");
 
-                        JSONObject jsonObj2 = new JSONObject(String.valueOf(obj));
-                        System.out.println("code(" + i + ") : " + jsonObj2.get("code"));
-                        String code = (String) jsonObj2.get("code");
+                            JSONObject jsonObj2 = new JSONObject(String.valueOf(obj));
+                            System.out.println("code(" + i + ") : " + jsonObj2.get("code"));
+                            String code = (String) jsonObj2.get("code");
 
-                        System.out.println(tfArrival.getText());
-                        System.out.println(code);
-                        if(code.equals(String.valueOf(tfArrival.getText()))) {
-                            System.out.println(true);
-                            searchData.add(jsonObj1);
-                        } else {
-                            System.out.println(false);
+                            System.out.println(tfArrival.getText());
+                            System.out.println(code);
+                            if (code.equals(String.valueOf(tfArrival.getText()))) {
+                                System.out.println(true);
+                                searchData.add(jsonObj1);
+                            } else {
+                                System.out.println(false);
+                            }
                         }
+
+                        generateSearchList(searchData);
+
+                    } catch (MalformedURLException ex) {
+                        throw new RuntimeException(ex);
                     }
-
-                    generateSearchList(searchData);
-
-                } catch (MalformedURLException ex) {
-                    throw new RuntimeException(ex);
                 }
             }
         });
@@ -131,7 +133,7 @@ public class FlightSearchFrame extends JFrame {
      * Method for searching a flight which works in conjunction with API and user input.
      *
      */
-    private void addFlight() {
+    private boolean searchFlight() {
         String departureLocation = tfDeparture.getText();
         String arrivalLocation = tfArrival.getText();
         String departureDate = tfDepartureDate.getText(); //how would program know if date was entered correctly using correct number of characters
@@ -139,18 +141,21 @@ public class FlightSearchFrame extends JFrame {
 
         if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
         //add if statement for locations formatter
 
 
 
-
+        //commented out until date formatter is fixed
+        /*
         if (valDate(departureDate) && valDateReturn(returnDate)) { //add error check for sanity of date here?
             dispose();
             ReviewFrame review = new ReviewFrame();
             review.setVisible(true);//might need to change this because of use of API. Might need to change it to be used with search button after error checks have come clean (then API comes in) and then the OK button connects to review frame
-        }
-
+            return false;
+        }*/
+        return true;
     }
     //add locations formatter (how does API make use of location input?)
 
