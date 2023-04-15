@@ -1,9 +1,11 @@
 package Class;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Account {
+    protected ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
     private String username;
     private String password;
     private String firstName;

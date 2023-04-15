@@ -14,11 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
-/**
- *
- * This method is for creating and displaying a desktop window to a specific size as program runs. Displays text boxes for user to input flight characteristics.
- *
- */
 public class FlightSearchFrame extends JFrame {
     private JTextField tfDeparture;
     private JTextField tfArrival;
@@ -32,6 +27,12 @@ public class FlightSearchFrame extends JFrame {
     private JPanel searchList;
     private JScrollPane searchScroll;
 
+
+    /**
+     *
+     * Method is for creating and displaying a desktop window to a specific size as program runs.
+     *
+     */
     public FlightSearchFrame() {
         setContentPane(flightPanel);
         setTitle("Flight Information");
@@ -66,6 +67,7 @@ public class FlightSearchFrame extends JFrame {
                     try {
                         System.out.println("hello");
                         ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(flight, airport);
+                        //System.out.println(flightDataArrayList);
 
                         for (int i = 0; i < flightDataArrayList.size(); i++) {
                             JSONObject jsonObj1 = (JSONObject) flightDataArrayList.get(i);
@@ -104,13 +106,17 @@ public class FlightSearchFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                //go back to dashboard??????????
             }
         });
-
-        //add listener to radio buttons to be able to display user's choice of trip in review window (next window). Might need to say that this listener extends the review window?
-        //How to group two radio buttons so that only one can be chosen at a time?
     }
 
+    /**
+     *
+     * Method for printing the available flights into a list after user has clicked the OK button
+     * @param obj obj
+     *
+     */
     private void generateSearchList(ArrayList<JSONObject> obj) {
         System.out.println(obj);
         System.out.println(obj.size());
@@ -130,7 +136,8 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Method for searching a flight which works in conjunction with API and user input.
+     * Method for error checking user input in Flight Search Frame and activating API
+     * (list of available flights according to user's specifications)
      *
      */
     private boolean searchFlight() {
@@ -145,8 +152,6 @@ public class FlightSearchFrame extends JFrame {
         }
         //add if statement for locations formatter
 
-
-
         //commented out until date formatter is fixed
         /*
         if (valDate(departureDate) && valDateReturn(returnDate)) { //add error check for sanity of date here?
@@ -158,11 +163,6 @@ public class FlightSearchFrame extends JFrame {
         return true;
     }
     //add locations formatter (how does API make use of location input?)
-
-
-
-
-
 
 
     /**
@@ -202,32 +202,6 @@ public class FlightSearchFrame extends JFrame {
             return false;
         }
     }
-
-    /**
-     *
-     * This method checks for the sanity of departure date.
-     *
-     * @param departureDate
-     * @return
-     *
-     */
-    /*public boolean isDateSane(String departureDate) {
-        try {
-            DateFormat dateSanity = new SimpleDateFormat(departureDate);
-            dateSanity.setLenient(false);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Please enter date in correct format.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }*/
-
-    //add method for sanity of return date
-
-
-
-
-
 
 
     /**
