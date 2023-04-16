@@ -1,3 +1,31 @@
+/**
+ *
+ * Module name\Class name: FlightSearchFrame (class)
+ * @since 2023-04-05
+ * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
+ * (see on GitHub branch-ana>FlightSearchGUI for Ana's specific contributions to code and main>AirlineReservation for Carlos' specific contributions).
+ *
+ * Description of the class/module: The Flight Search GUI is used to create a desktop application
+ * for a flight reservation system. This specific GUI called "MainFrame" helps user search for flights that are available for reservation.
+ * Makes use of an API to accomplish this task, along with user input.
+ *
+ * Explanation of important functions: GUI implements user input into text fields to search for available flights. Such input includes the
+ * area user departs from (in ICAO format), area user wants to arrive to, as well as dates of departure and return in dd/mm/yyyy format.
+ * User should also specify if the trip is one-way of round. The system also checks if user has inputted data in the corerct format.
+ * If not, user is not able to proceed with reservation.
+ * The system, with the aid of an API, outputs a list of available flights according to the user's specifications.
+ *
+ * Important data structure in class/important methods in class:
+ * generateSearchList(ArrayList<JSONObject> obj): used for diplaying list of available flights accoding to user input.
+ * searchFlight(): used to error check user input which prompts user to enter any incorrect data into the correct format.
+ * valDate(String departureDate): error checks the departure date.
+ * valDateReturn(String returnDate): error check the reeturn date (in case trip is round).
+ *
+ *
+ * Any algorithms used? Not at the moment.
+ *
+ */
+
 package GUI;
 
 import Class.Flight;
@@ -46,12 +74,12 @@ public class FlightSearchFrame extends JFrame {
             /**
              *
              * Action listener used to code the OK button of current frame if user decides to continue
-             * with flight reservation.
+             * with flight reservation and search for available flights with the aid of an API.
              *
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //insert method name here for displaying flight info in a new window for its review before user confirms reservation
+                //Ana-insert method name here for displaying flight info in a new window for its review before user confirms reservation!!!!!
                 FlightController flightController = new FlightController();
 
                 FlightSearchHelper searchHelper;
@@ -61,7 +89,7 @@ public class FlightSearchFrame extends JFrame {
 
                 if(searchFlight()) {
                     //airport.setAirportCode(tfDeparture.getText());
-                        //airport.setAirportCode(tfArrival.getText());
+                    //airport.setAirportCode(tfArrival.getText());
                     //flight.setDepartureDate(tfDepartureDate.getText());
 
                     //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
@@ -141,7 +169,7 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Method for error checking user input in Flight Search Frame and activating API
+     * Method for error checking user input in current frame and activating API
      * (list of available flights according to user's specifications)
      *
      */
@@ -155,9 +183,6 @@ public class FlightSearchFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        //add if statement for locations formatter
-
-        //commented out until date formatter is fixed
 
         if (valDate(departureDate) && valDateReturn(returnDate)) { //add error check for sanity of date here?
             /*
@@ -170,7 +195,6 @@ public class FlightSearchFrame extends JFrame {
         }
         return false;
     }
-    //add locations formatter (how does API make use of location input?)
 
 
     /**
@@ -214,7 +238,7 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Main Program. Creates a new frame.
+     * Main Program. Creates a new frame (new object of the current frame).
      *
      * @param args Unused.
      *
