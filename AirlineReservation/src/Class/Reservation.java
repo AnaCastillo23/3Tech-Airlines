@@ -10,28 +10,52 @@ public class Reservation {
     // helper class
     // one flight per destination - one way: one Flight class
     //                            - round trip: two Flight classes
-    protected Flight departureFlight;
-    protected Flight arrivalFlight;
+    private static Flight departureFlight;
+    private static Flight arrivalFlight;
 
     private int reservationID;
-    private Date departureDate;//is this correct?
-    private Date returnDate;//is this correct?
+    private Date departureDate;
+    private Date returnDate;
     private boolean roundTrip;
     private String departFlightNumber;
     private String returnFlightNumber;
     private int partySize;
-    ArrayList party = new ArrayList(); //correct?
+    public static ArrayList<Passenger> party = new ArrayList<>();
     //private int seatNumber; how to represent reserved seat?
 
 
-    public Reservation(int reservationID, Date departureDate, Date returnDate, boolean roundTrip, String departFlightNumber, String returnFlightNumber, int partySize) {
+    public Reservation() {
+        this.reservationID = 0;
+        this.departureDate = null;
+        this.returnDate = null;
+        this.roundTrip = false;
+        this.departFlightNumber = null;
+        this.returnFlightNumber = null;
+        this.partySize = 0;
+    }
+
+    // one way trip
+    public Reservation(int reservationID, Date departureDate, String departFlightNumber, String returnFlightNumber, int partySize, ArrayList<Passenger> party) {
+        this.reservationID = reservationID;
+        this.departureDate = departureDate;
+        this.returnDate = null;
+        this.roundTrip = false;
+        this.departFlightNumber = departFlightNumber;
+        this.returnFlightNumber = null;
+        this.partySize = partySize;
+        this.party = party;
+    }
+
+    // round trip
+    public Reservation(int reservationID, Date departureDate, Date returnDate, String departFlightNumber, String returnFlightNumber, int partySize, ArrayList<Passenger> party) {
         this.reservationID = reservationID;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
-        this.roundTrip = roundTrip;
+        this.roundTrip = true;
         this.departFlightNumber = departFlightNumber;
         this.returnFlightNumber = returnFlightNumber;
         this.partySize = partySize;
+        this.party = party;
     }
 
     //Getters
@@ -63,7 +87,7 @@ public class Reservation {
         return this.partySize;
     }
 
-    public ArrayList getParty() {//work in this
+    public ArrayList<Passenger> getParty() {//work in this
         return this.getParty();
     }
 

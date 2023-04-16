@@ -33,7 +33,7 @@ public class FlightController {
 
         ApiClient apiClient = new ApiClient(flightAPI);
 
-        JSONArray jsonArray =  (apiClient.getJSONArray(flight.getDepartureDate(), airport.getAirportCode(), API_KEY));
+        JSONArray jsonArray =  (apiClient.getJSONArray(flight.getDepartureDateAPI(), airport.getAirportCode(), API_KEY));
 
         for(int i = 0; i < jsonArray.length(); i++) {
             JSONObject departuresObject = jsonArray.getJSONObject(i);

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Account {
-    protected ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+    private static ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
     private String username;
     private String password;
     private String firstName;
@@ -18,13 +18,13 @@ public class Account {
 
 
     public Account() {
-        this.username = "";
-        this.password = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.address = "";
-        this.emailAddress = "";
-        this.phoneNumber = "";
+        this.username = null;
+        this.password = null;
+        this.firstName = null;
+        this.lastName = null;
+        this.address = null;
+        this.emailAddress = null;
+        this.phoneNumber = null;
     }
 
     public Account(String username, String password, String firstName, String lastName, String address, String emailAddress, String phoneNumber) {
@@ -115,5 +115,9 @@ public class Account {
         } else {
             return false;
         }
+    }
+
+    public static void addReservation(Reservation reservation) {
+        reservationList.add(reservation);
     }
 }
