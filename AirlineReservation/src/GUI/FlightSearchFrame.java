@@ -168,7 +168,7 @@ public class FlightSearchFrame extends JFrame {
             */
             return true;
         }
-        return true;
+        return false;
     }
     //add locations formatter (how does API make use of location input?)
 
