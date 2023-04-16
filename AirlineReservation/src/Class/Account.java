@@ -120,4 +120,8 @@ public class Account {
     public static void addReservation(Reservation reservation) {
         reservationList.add(reservation);
     }
+
+    public ArrayList<Reservation> getReservationList() {
+        return this.reservationList;
+    }
 }

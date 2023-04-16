@@ -1,6 +1,6 @@
 package Class;
 
-import java.text.SimpleDateFormat;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class Reservation {
     // one flight per destination - one way: one Flight class
     //                            - round trip: two Flight classes
     private static Flight departureFlight;
-    private static Flight arrivalFlight;
+    private static Flight returnFlight;
 
     private int reservationID;
     private Date departureDate;
@@ -125,10 +125,12 @@ public class Reservation {
         this.party = party;
     }
 
-    /* ignore
-    public void setFlightDate() {
-        Date flightD = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        this.flightDate = dateFormat.format(flightD.getTime());
-    }*/
+    public void setDepartureFlight(String flightID, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime, String departureLocation, String arrivalLocation) {
+        departureFlight = new Flight(flightID, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
+    }
+
+    // roundTrip
+    public void setReturnFlight(String flightID, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime, String departureLocation, String arrivalLocation) {
+        returnFlight = new Flight(flightID, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
+    }
 }

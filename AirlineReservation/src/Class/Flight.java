@@ -31,7 +31,7 @@ public class Flight {
         this.arrivalLocation = null;
     }
 
-    public Flight(String flightID, Date departureDate, String arrivalDateAPI, Date arrivalDate, Time departureTime, Time arrivalTime, String departureLocation, String arrivalLocation) {
+    public Flight(String flightID, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime, String departureLocation, String arrivalLocation) {
         this.flightID = flightID;
 
         //setDepartureDate(departureDate);
