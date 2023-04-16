@@ -1,17 +1,23 @@
-package GUI;
-
 /**
  *
- * The Flight Search GUI is used to create a desktop application
- * for a flight reservation system. This GUI called "Review" helps user to review the flight they choose from a list
- * and confirm booking.
- * Makes use of an API to accomplish this task, along with user input.
- *
+ * Module name\Class name: ReviewFrame (class)
+ * @since
  * @author Ana Emily Castillo Perez
- * @version 1.1
- * @since  2023-04-05
+ *
+ *
+ * Description of the class/module:
+ *
+ * Explanation of important functions:
+ *
+ * Important data structure in class/important methods in class:
+ *
+ *
+ * Any algorithms used?
  *
  */
+
+package GUI;
+
 
 import javax.swing.*;
 

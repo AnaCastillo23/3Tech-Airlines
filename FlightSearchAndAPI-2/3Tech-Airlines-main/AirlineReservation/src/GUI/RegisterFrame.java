@@ -1,3 +1,21 @@
+/**
+ *
+ * Module name\Class name: RegisterFrame (class)
+ * @since
+ * @author Carlos Figueroa
+ *
+ *
+ * Description of the class/module:
+ *
+ * Explanation of important functions:
+ *
+ * Important data structure in class/important methods in class:
+ *
+ *
+ * Any algorithms used?
+ *
+ */
+
 package GUI;
 
 import Class.Account;
