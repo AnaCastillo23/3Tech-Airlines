@@ -2,6 +2,7 @@ package GUI;
 
 import Class.Flight;
 import Class.Airport;
+import Class.FlightSearchHelper;
 import API.FlightController;
 import org.json.JSONObject;
 
@@ -53,20 +54,24 @@ public class FlightSearchFrame extends JFrame {
                 //insert method name here for displaying flight info in a new window for its review before user confirms reservation
                 FlightController flightController = new FlightController();
 
-                Airport airport = new Airport();
-                Flight flight = new Flight();
+                FlightSearchHelper searchHelper;
 
                 ArrayList<JSONObject> searchData = new ArrayList<>();
 
 
                 if(searchFlight()) {
-                    airport.setAirportCode(tfDeparture.getText());
-                    //airport.setAirportCode(tfArrival.getText());
-                    flight.setDepartureDate(tfDepartureDate.getText());
+                    //airport.setAirportCode(tfDeparture.getText());
+                        //airport.setAirportCode(tfArrival.getText());
+                    //flight.setDepartureDate(tfDepartureDate.getText());
+
+                    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+
+                    searchHelper = new FlightSearchHelper(tfDeparture.getText(), tfDepartureDate.getText());
+
 
                     try {
                         System.out.println("hello");
-                        ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(flight, airport);
+                        ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(searchHelper);
                         //System.out.println(flightDataArrayList);
 
                         for (int i = 0; i < flightDataArrayList.size(); i++) {
@@ -153,13 +158,16 @@ public class FlightSearchFrame extends JFrame {
         //add if statement for locations formatter
 
         //commented out until date formatter is fixed
-        /*
+
         if (valDate(departureDate) && valDateReturn(returnDate)) { //add error check for sanity of date here?
+            /*
+            THIS CODE WILL BE CALLED AFTER USER SELECTS FLIGHT
             dispose();
             ReviewFrame review = new ReviewFrame();
             review.setVisible(true);//might need to change this because of use of API. Might need to change it to be used with search button after error checks have come clean (then API comes in) and then the OK button connects to review frame
-            return false;
-        }*/
+            */
+            return true;
+        }
         return true;
     }
     //add locations formatter (how does API make use of location input?)

@@ -2,6 +2,7 @@ package API;
 
 import Class.Flight;
 import Class.Airport;
+import Class.FlightSearchHelper;
 import GUI.FlightSearchFrame;
 
 import org.json.JSONArray;
@@ -27,13 +28,13 @@ public class FlightController {
 
 
     @GetMapping("/flight-data")
-    public ArrayList<JSONObject> getFlightData(Flight flight, Airport airport) throws MalformedURLException {
+    public ArrayList<JSONObject> getFlightData(FlightSearchHelper searchHelper) throws MalformedURLException {
 
         ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
 
         ApiClient apiClient = new ApiClient(flightAPI);
 
-        JSONArray jsonArray =  (apiClient.getJSONArray(flight.getDepartureDateAPI(), airport.getAirportCode(), API_KEY));
+        JSONArray jsonArray =  (apiClient.getJSONArray(searchHelper.getDepartureDateAPI(), searchHelper.getAirportCode(), API_KEY));
 
         for(int i = 0; i < jsonArray.length(); i++) {
             JSONObject departuresObject = jsonArray.getJSONObject(i);

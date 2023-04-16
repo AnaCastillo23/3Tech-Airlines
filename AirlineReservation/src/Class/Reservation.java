@@ -10,8 +10,8 @@ public class Reservation {
     // helper class
     // one flight per destination - one way: one Flight class
     //                            - round trip: two Flight classes
-    private static Flight departureFlight;
-    private static Flight returnFlight;
+    private Flight departureFlight;
+    private Flight returnFlight;
 
     private int reservationID;
     private Date departureDate;
@@ -133,4 +133,14 @@ public class Reservation {
     public void setReturnFlight(String flightID, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime, String departureLocation, String arrivalLocation) {
         returnFlight = new Flight(flightID, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
     }
+
+    // NOT SURE IF THIS IS NEEDED
+    /*
+    public Flight getDepartureFlight() {
+        return getDepartureFlight();
+    }
+
+    public Flight getReturnFlight() {
+        return getReturnFlight();
+    }*/
 }
