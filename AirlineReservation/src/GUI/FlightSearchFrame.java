@@ -1,9 +1,7 @@
 package GUI;
 
-import Class.Flight;
-import Class.Airport;
-import Class.FlightSearchHelper;
-import API.FlightController;
+import API.FlightModel;
+import Helper.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -52,46 +50,19 @@ public class FlightSearchFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //insert method name here for displaying flight info in a new window for its review before user confirms reservation
-                FlightController flightController = new FlightController();
+                FlightModel flightModel = new FlightModel();
 
-                FlightSearchHelper searchHelper;
+                ScheduledDeparturesFilter searchFilter;
 
                 ArrayList<JSONObject> searchData = new ArrayList<>();
 
 
                 if(searchFlight()) {
-                    //airport.setAirportCode(tfDeparture.getText());
-                        //airport.setAirportCode(tfArrival.getText());
-                    //flight.setDepartureDate(tfDepartureDate.getText());
-
-                    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-
-                    searchHelper = new FlightSearchHelper(tfDeparture.getText(), tfDepartureDate.getText());
-
-
                     try {
-                        System.out.println("hello");
-                        ArrayList<JSONObject> flightDataArrayList = flightController.getFlightData(searchHelper);
+                        // API Call
+                        searchFilter = new ScheduledDeparturesFilter(tfDeparture.getText(), tfArrival.getText(), tfDepartureDate.getText());
+                        searchData = flightModel.getScheduledDepartuesFiltered(searchFilter);
                         //System.out.println(flightDataArrayList);
-
-                        for (int i = 0; i < flightDataArrayList.size(); i++) {
-                            JSONObject jsonObj1 = (JSONObject) flightDataArrayList.get(i);
-                            System.out.println("jsonObj(" + i + ") : " + jsonObj1.get("destination"));
-                            Object obj = jsonObj1.get("destination");
-
-                            JSONObject jsonObj2 = new JSONObject(String.valueOf(obj));
-                            System.out.println("code(" + i + ") : " + jsonObj2.get("code"));
-                            String code = (String) jsonObj2.get("code");
-
-                            System.out.println(tfArrival.getText());
-                            System.out.println(code);
-                            if (code.equals(String.valueOf(tfArrival.getText()))) {
-                                System.out.println(true);
-                                searchData.add(jsonObj1);
-                            } else {
-                                System.out.println(false);
-                            }
-                        }
 
                         generateSearchList(searchData);
 
@@ -155,9 +126,7 @@ public class FlightSearchFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        //add if statement for locations formatter
 
-        //commented out until date formatter is fixed
 
         if (valDate(departureDate) && valDateReturn(returnDate)) { //add error check for sanity of date here?
             /*

@@ -31,12 +31,12 @@ public class ApiClient {
         this.urlString = url;
     }
 
-    public JSONArray getJSONArray(String dateQuery, String airportQuery, String API_KEY){
+    public JSONObject getJSONObject(String API_KEY){
         try {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(urlString + "airports/" + airportQuery + "/flights/scheduled_departures?type=Airline&start=" + dateQuery + "&end=" + dateQuery + "T23%3A59%3A59Z"))
+                    .uri(URI.create(urlString))
                     .headers("x-apikey", API_KEY)
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -49,16 +49,9 @@ public class ApiClient {
             String dataString = "";
             dataString = response.body();
 
-            JSONObject jsonObject = new JSONObject(dataString);
-            JSONArray jsonArray = jsonObject.getJSONArray("scheduled_departures");
+            return new JSONObject(dataString);
 
-            return jsonArray;
-
-            } catch (MalformedURLException ex) {
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        } catch (InterruptedException ex) {
+            } catch (InterruptedException | IOException ex) {
             throw new RuntimeException(ex);
         }
     }

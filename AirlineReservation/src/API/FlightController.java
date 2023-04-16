@@ -2,19 +2,14 @@ package API;
 
 import Class.Flight;
 import Class.Airport;
-import Class.FlightSearchHelper;
-import GUI.FlightSearchFrame;
+import Helper.ScheduledDeparturesFilter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -28,13 +23,14 @@ public class FlightController {
 
 
     @GetMapping("/flight-data")
-    public ArrayList<JSONObject> getFlightData(FlightSearchHelper searchHelper) throws MalformedURLException {
+    public ArrayList<JSONObject> getScheduledDepartures(ScheduledDeparturesFilter filter) throws MalformedURLException {
+
+        ApiClient apiClient = new ApiClient(flightAPI + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z");
 
         ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
 
-        ApiClient apiClient = new ApiClient(flightAPI);
-
-        JSONArray jsonArray =  (apiClient.getJSONArray(searchHelper.getDepartureDateAPI(), searchHelper.getAirportCode(), API_KEY));
+        JSONObject jsonObject =  apiClient.getJSONObject(API_KEY);
+        JSONArray jsonArray = jsonObject.getJSONArray("scheduled_departures");
 
         for(int i = 0; i < jsonArray.length(); i++) {
             JSONObject departuresObject = jsonArray.getJSONObject(i);
