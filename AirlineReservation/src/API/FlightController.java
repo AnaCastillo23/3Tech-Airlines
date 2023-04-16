@@ -42,10 +42,20 @@ public class FlightController {
 
         return jsonObjectArrayList;
     }
-
-
+    /*
+    Example:
+    Depart from: LAX		Arrive to: SEA
+    Los Angeles		  	Seattle
+04/17/2023 11:11 am		04/17/2023 02:14 am
+*/
     @GetMapping("/airport-list")
-    public ArrayList<JSONObject> getAirportList(Flight flight, Airport airport) {
+    public ArrayList<JSONObject> getAirportList() {
+        return null;
+    }
+
+
+    @GetMapping("/operator-name")
+    public ArrayList<JSONObject> getOperatorName() {
         return null;
     }
 }

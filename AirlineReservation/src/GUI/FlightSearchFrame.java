@@ -30,6 +30,7 @@ package GUI;
 
 import API.FlightModel;
 import Helper.ScheduledDeparturesFilter;
+import Helper.SearchDisplay;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -53,6 +54,11 @@ public class FlightSearchFrame extends JFrame {
     private JPanel flightPanel;
     private JPanel searchList;
     private JScrollPane searchScroll;
+    private JButton bookButton;
+    ButtonClicked clicked = new ButtonClicked();
+
+
+    ArrayList<SearchDisplay> searchDisplayData;
 
 
     /**
@@ -83,7 +89,6 @@ public class FlightSearchFrame extends JFrame {
 
                 ArrayList<JSONObject> searchData = new ArrayList<>();
 
-
                 if(searchFlight()) {
                     try {
                         // API Call
@@ -108,11 +113,17 @@ public class FlightSearchFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                //dispose();
                 //go back to dashboard??????????
             }
         });
+
+
+        // bookButton will be assigned to the book button the user selects in flight search results
+        // call method first to assign bookButton
     }
+
+
 
     /**
      *
@@ -127,15 +138,36 @@ public class FlightSearchFrame extends JFrame {
 
         searchList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        for(int i = 0; i < obj.size(); i++) {
-            JLabel label = new JLabel();
 
+        // bookButton is assigned here:
+        // loop
+            // assigns every FlightDisplay object and its assigned book button with int i and stores into arrayList<FlightDisplay> and arrayList<Button>
+                // FlightDisplay will contain for both depart and arrival: airportCode, cityName, date, time, airline operator
+                    // arrayList<FlightDisplay> should be global and then reset if roundtrip is selected
+                // every book button will be automatically be assigned a unique name: JButton bookButtonTemp.setName("bookButton" + str(i))
+            // bookButtonList.add(bookButtonTemp) for every iteration
+        for (int i = 0; i < obj.size(); i++) {
+            // pane maker
+            JLabel label = new JLabel();
             searchList.add(label);
             label.setText("Flight Number: " + obj.get(i).get("ident"));
             searchScroll.setViewportView(searchList);
 
+
+            // This works....need to fix pane
+            bookButton = new JButton();
+            // Apply an identifier to the Button:
+            bookButton.setName(new StringBuilder("bookButton").append(i).toString());
+            bookButton.setText("Book");
+            //button.setBackground(Color.LIGHT_GRAY);
+            bookButton.addActionListener(clicked);
+            //gbc.gridx = j;
+            //gbc.gridy = i;
+            searchList.add(bookButton);
         }
+
     }
+
 
     /**
      *
@@ -202,6 +234,33 @@ public class FlightSearchFrame extends JFrame {
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Please enter return date in correct format.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+    }
+
+
+
+    private class ButtonClicked implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JButton btn = (JButton) e.getSource();
+            System.out.println(btn.getName());
+            System.out.println(e.toString());
+            if (e.toString().contains("cmd=Book")) {
+                System.out.println(true);
+                // Using searchDisplayData.get(i), send all SearchDisplay data to Class folder to book reservation and store flight information
+                // reset searchDisplayData array and bookButton array
+                // if booking round-trip, then clear search list and display destination -> home flights
+                // fill in searchDisplayData array and bookButton array based on api call
+
+                // go to ReviewFrame
+                // if(!roundTrip) -> dispose()
+                if(true) {
+                    dispose();
+                    ReviewFrame review = new ReviewFrame();
+                    review.setVisible(true);
+                }
+            } else {
+                System.out.println(false);
+            }
         }
     }
 
