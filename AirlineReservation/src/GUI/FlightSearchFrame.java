@@ -57,8 +57,7 @@ public class FlightSearchFrame extends JFrame {
     private JButton bookButton;
     ButtonClicked clicked = new ButtonClicked();
 
-
-    ArrayList<SearchDisplay> searchDisplayData;
+    ArrayList<JSONObject> searchData;
 
 
     /**
@@ -87,7 +86,8 @@ public class FlightSearchFrame extends JFrame {
                 FlightModel flightModel = new FlightModel();
                 ScheduledDeparturesFilter searchFilter;
 
-                ArrayList<JSONObject> searchData = new ArrayList<>();
+                // reset display arrays(REFRESH):
+                searchData = new ArrayList<>();
 
                 if(searchFlight()) {
                     try {
@@ -128,12 +128,12 @@ public class FlightSearchFrame extends JFrame {
     /**
      *
      * Method for printing the available flights into a list after user has clicked the OK button
-     * @param obj obj
+     * @param searchResult searchResult
      *
      */
-    private void generateSearchList(ArrayList<JSONObject> obj) {
-        System.out.println(obj);
-        System.out.println(obj.size());
+    private void generateSearchList(ArrayList<JSONObject> searchResult) {
+        System.out.println(searchResult);
+        System.out.println(searchResult.size());
         System.out.println();
 
         searchList = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -146,11 +146,11 @@ public class FlightSearchFrame extends JFrame {
                     // arrayList<FlightDisplay> should be global and then reset if roundtrip is selected
                 // every book button will be automatically be assigned a unique name: JButton bookButtonTemp.setName("bookButton" + str(i))
             // bookButtonList.add(bookButtonTemp) for every iteration
-        for (int i = 0; i < obj.size(); i++) {
+        for (int i = 0; i < searchResult.size(); i++) {
             // pane maker
             JLabel label = new JLabel();
             searchList.add(label);
-            label.setText("Flight Number: " + obj.get(i).get("ident"));
+            label.setText("Flight Number: " + searchResult.get(i).get("ident"));
             searchScroll.setViewportView(searchList);
 
 
@@ -160,7 +160,7 @@ public class FlightSearchFrame extends JFrame {
             bookButton.setName(new StringBuilder("bookButton").append(i).toString());
             bookButton.setText("Book");
             //button.setBackground(Color.LIGHT_GRAY);
-            bookButton.addActionListener(clicked);
+            bookButton.addActionListener(clicked); // <= private class ButtonClicked implements ActionListener
             //gbc.gridx = j;
             //gbc.gridy = i;
             searchList.add(bookButton);
@@ -186,13 +186,7 @@ public class FlightSearchFrame extends JFrame {
             return false;
         }
 
-        if (valDate(departureDate) && valDateReturn(returnDate)) { //add error check for sanity of date here?
-            /*
-            THIS CODE WILL BE CALLED AFTER USER SELECTS FLIGHT
-            dispose();
-            ReviewFrame review = new ReviewFrame();
-            review.setVisible(true);//might need to change this because of use of API. Might need to change it to be used with search button after error checks have come clean (then API comes in) and then the OK button connects to review frame
-            */
+        if (valDate(departureDate) && valDateReturn(returnDate)) {
             return true;
         }
         return false;
@@ -246,10 +240,10 @@ public class FlightSearchFrame extends JFrame {
             System.out.println(e.toString());
             if (e.toString().contains("cmd=Book")) {
                 System.out.println(true);
-                // Using searchDisplayData.get(i), send all SearchDisplay data to Class folder to book reservation and store flight information
-                // reset searchDisplayData array and bookButton array
+                // Using searchResult.get(i) data to Class folder to book reservation and store flight information
+                // reset searchData array and bookButton array
                 // if booking round-trip, then clear search list and display destination -> home flights
-                // fill in searchDisplayData array and bookButton array based on api call
+                // fill in searchData array and bookButton array based on api call
 
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
