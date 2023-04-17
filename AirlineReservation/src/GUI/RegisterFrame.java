@@ -37,7 +37,11 @@ public class RegisterFrame extends JFrame {
     private JPasswordField pfConfirmPassword;
     private JTextField tfPhone;
 
-
+    /**
+     *
+     * Add comment here
+     *
+     */
     public RegisterFrame() {
         setContentPane(panelRegister);
         setTitle("Register");
@@ -60,6 +64,13 @@ public class RegisterFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     *
+     *
+     * Add comment here
+     *
+     *
+     */
     private void registerUser() {
         String username = tfUsername.getText();
         String password = String.valueOf(pfPassword.getPassword());
@@ -99,6 +110,11 @@ public class RegisterFrame extends JFrame {
         }
     }
 
+    /**
+     *
+     * Main Program. Creates a new frame (new object of the current frame).
+     * @param args Unused.
+     */
     public static void main(String[] args) {
         RegisterFrame registerFrame = new RegisterFrame();
     }
