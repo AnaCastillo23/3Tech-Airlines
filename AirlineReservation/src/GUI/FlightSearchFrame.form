@@ -56,7 +56,7 @@
         </constraints>
         <properties>
           <text value=""/>
-          <toolTipText value="dd/mm/yyyy"/>
+          <toolTipText value="mm/dd/yyyy"/>
         </properties>
       </component>
       <component id="2e2d5" class="javax.swing.JTextField" binding="tfArrival">
@@ -66,7 +66,7 @@
           </grid>
         </constraints>
         <properties>
-          <toolTipText value="City, State, Country"/>
+          <toolTipText value="ICAO code"/>
         </properties>
       </component>
       <component id="b3822" class="javax.swing.JTextField" binding="tfDeparture">
@@ -76,7 +76,7 @@
           </grid>
         </constraints>
         <properties>
-          <toolTipText value="City, State, Country"/>
+          <toolTipText value="ICAO code"/>
         </properties>
       </component>
       <component id="a8562" class="javax.swing.JTextField" binding="tfReturnDate">
@@ -87,7 +87,7 @@
         </constraints>
         <properties>
           <text value=""/>
-          <toolTipText value="dd/mm/yyyy"/>
+          <toolTipText value="mm/dd/yyyy"/>
         </properties>
       </component>
       <component id="3af0b" class="javax.swing.JRadioButton" binding="roundTripRadioButton" default-binding="true">
@@ -354,4 +354,10 @@
       </scrollpane>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="buttonGroup1">
+      <member id="3af0b"/>
+      <member id="3b677"/>
+    </group>
+  </buttonGroups>
 </form>
