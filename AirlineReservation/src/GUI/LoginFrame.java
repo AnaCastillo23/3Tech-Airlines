@@ -32,7 +32,11 @@ public class LoginFrame extends JFrame {
     private JButton forgotPasswordButton;
     private JButton registerButton;
 
-
+    /**
+     *
+     * Method for...
+     *
+     */
     public LoginFrame() {
         setContentPane(panelLogin);
         setTitle("3Tech-Airlines");
@@ -62,6 +66,13 @@ public class LoginFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     *
+     * Method for error checking user input in text fields of the current frame.
+     * Also checks if text fields are empty.
+     * Registers a new user by setting a new username and password or checks if account already exists.
+     *
+     */
     private void loginUser() {
         String username = tfUsername.getText();
         String password = String.valueOf(pfPassword.getPassword());
@@ -91,6 +102,11 @@ public class LoginFrame extends JFrame {
         } catch(Exception e) {}
     }
 
+    /**
+     *
+     * Main Program. Creates a new frame (new object of the current frame).
+     * @param args Unused.
+     */
     //@SpringBootApplication
     public static void main(String[] args) {
         LoginFrame loginFrame = new LoginFrame();
