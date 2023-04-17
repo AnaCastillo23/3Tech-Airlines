@@ -51,7 +51,7 @@ public class ScheduledDeparturesFilter {
     public void setDepartureDateAPI(String departureDate) {
         String departureDateAPIStr;
 
-        departureDateAPIStr = departureDate.substring(6) + "-" + departureDate.substring(3,5) + "-" + departureDate.substring(0,2);
+        departureDateAPIStr = departureDate.substring(6) + "-" + departureDate.substring(0,2) + "-" + departureDate.substring(3,5);
         System.out.println(departureDateAPIStr);
         this.departureDateAPI = departureDateAPIStr;
     }
