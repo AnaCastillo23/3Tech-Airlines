@@ -30,7 +30,6 @@ package GUI;
 
 import API.FlightModel;
 import Helper.ScheduledDeparturesFilter;
-import Helper.SearchDisplay;
 import org.json.JSONObject;
 
 import javax.swing.*;
