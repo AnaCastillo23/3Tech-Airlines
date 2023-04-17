@@ -1,9 +1,8 @@
 /**
  *
  * Module name\Class name: ReviewFrame (class)
- * @since 2023-04-05
+ * @since 03/27/2023
  * @author Ana Emily Castillo Perez
- *
  *
  * Description of the class/module: The Review GUI is used to display a desktop application
  * window which displays user's selection of flight that they wish to book in order for the user to review if
