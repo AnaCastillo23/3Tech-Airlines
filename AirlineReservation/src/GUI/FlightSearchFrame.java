@@ -47,7 +47,7 @@ public class FlightSearchFrame extends JFrame {
     private JTextField tfReturnDate;
     private JRadioButton roundTripRadioButton;
     private JRadioButton oneWayRadioButton;
-    private JButton OKButton;
+    private JButton searchButton;
     private JButton cancelButton;
     private JPanel flightPanel;
     private JPanel searchList;
@@ -56,7 +56,6 @@ public class FlightSearchFrame extends JFrame {
     ButtonClicked clicked = new ButtonClicked();
 
     ArrayList<JSONObject> searchData;
-
 
     /**
      *
@@ -71,7 +70,7 @@ public class FlightSearchFrame extends JFrame {
         setVisible(true);
 
         //Button actions
-        OKButton.addActionListener(new ActionListener() {
+        searchButton.addActionListener(new ActionListener() {
             /**
              *
              * Action listener used to code the OK button of current frame if user decides to continue
@@ -121,8 +120,6 @@ public class FlightSearchFrame extends JFrame {
         // call method first to assign bookButton
     }
 
-
-
     /**
      *
      * Method for printing the available flights into a list after user has clicked the OK button
@@ -171,6 +168,7 @@ public class FlightSearchFrame extends JFrame {
      *
      * Method for error checking user input in text fields of the current frame and activating API
      * (list of available flights according to user's specifications appears after error checks come clean).
+     * Checks if text fields are empty.
      *
      */
     private boolean searchFlight() {
@@ -189,7 +187,6 @@ public class FlightSearchFrame extends JFrame {
         }
         return false;
     }
-
 
     /**
      *
@@ -234,7 +231,6 @@ public class FlightSearchFrame extends JFrame {
      * Action Listener used for?
      *
      */
-
     private class ButtonClicked implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JButton btn = (JButton) e.getSource();
@@ -259,7 +255,6 @@ public class FlightSearchFrame extends JFrame {
             }
         }
     }
-
 
     /**
      *
