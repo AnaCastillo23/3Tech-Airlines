@@ -200,7 +200,7 @@ public class FlightSearchFrame extends JFrame {
      *
      */
     public boolean valDate(String departureDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm/dd/yyyy");
         try {
             formatter.parse(departureDate);
             return true;
@@ -219,7 +219,7 @@ public class FlightSearchFrame extends JFrame {
      *
      */
     public boolean valDateReturn(String returnDate) {
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("mm/dd/yyyy");
         try {
             formatter2.parse(returnDate);
             return true;
