@@ -3,10 +3,9 @@
  * Module name\Class name: FlightSearchFrame (class)
  * @since 2023-04-05
  * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
- * (see on GitHub branch-ana>FlightSearchGUI for Ana's specific contributions to code and main>AirlineReservation for Carlos' specific contributions).
  *
  * Description of the class/module: The Flight Search GUI is used to create a desktop application
- * for a flight reservation system. This specific GUI called "MainFrame" helps user search for flights that are available for reservation.
+ * for a flight reservation system. This specific GUI called "FlightSearchFrame" helps user search for flights that are available for reservation.
  * Makes use of an API to accomplish this task, along with user input.
  *
  * Explanation of important functions: GUI implements user input into text fields to search for available flights. Such input includes the
@@ -19,7 +18,7 @@
  * generateSearchList(ArrayList<JSONObject> obj): used for diplaying list of available flights accoding to user input.
  * searchFlight(): used to error check user input which prompts user to enter any incorrect data into the correct format.
  * valDate(String departureDate): error checks the departure date.
- * valDateReturn(String returnDate): error check the reeturn date (in case trip is round).
+ * valDateReturn(String returnDate): error checks the return date (in case trip is round).
  *
  *
  * Any algorithms used? Not at the moment.
@@ -61,7 +60,7 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Method is for creating and displaying a desktop window to a specific size as program runs.
+     * Method is for creating and displaying a desktop window to a specific size as FlightSearchFrame runs.
      *
      */
     public FlightSearchFrame() {
@@ -113,7 +112,7 @@ public class FlightSearchFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //dispose();
-                //go back to dashboard??????????
+                //Ana-go back to dashboard??????????
             }
         });
 
@@ -170,15 +169,15 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Method for error checking user input in current frame and activating API
-     * (list of available flights according to user's specifications)
+     * Method for error checking user input in text fields of the current frame and activating API
+     * (list of available flights according to user's specifications appears after error checks come clean).
      *
      */
     private boolean searchFlight() {
         String departureLocation = tfDeparture.getText();
         String arrivalLocation = tfArrival.getText();
-        String departureDate = tfDepartureDate.getText(); //how would program know if date was entered correctly using correct number of characters
-        String returnDate = tfReturnDate.getText(); //how would program know if date was entered correctly using correct number of characters
+        String departureDate = tfDepartureDate.getText();
+        String returnDate = tfReturnDate.getText();
 
         if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
@@ -230,7 +229,11 @@ public class FlightSearchFrame extends JFrame {
         }
     }
 
-
+    /**
+     *
+     * Action Listener used for?
+     *
+     */
 
     private class ButtonClicked implements ActionListener {
         public void actionPerformed(ActionEvent e) {
