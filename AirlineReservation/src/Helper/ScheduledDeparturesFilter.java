@@ -35,7 +35,7 @@ public class ScheduledDeparturesFilter {
 
     /**
      *
-     * Method is for...
+     * Method for referencing the current object.
      *
      * @param airportDepartureCode airportDepartureCode
      * @param airportArrivalCode airportArrivalCode
