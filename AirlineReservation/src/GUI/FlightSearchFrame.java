@@ -1,7 +1,7 @@
 /**
  *
  * Module name\Class name: FlightSearchFrame (class)
- * @since 2023-04-05
+ * @since 03/27/2023
  * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
  *
  * Description of the class/module: The Flight Search GUI is used to create a desktop application
