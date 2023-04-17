@@ -13,7 +13,7 @@
  * and CANCEL button (to return users to their dashboard(??????)).
  *
  * Important data structure in class/important methods in class:
- *
+ * ReviewFrame(): used for displaying a Java Swing window where flight details are displayed for passenger's review.
  *
  * Any algorithms used? Not at the moment.
  *
@@ -39,18 +39,18 @@ public class ReviewFrame extends JFrame {
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
     /**
      * Action listener used to code the CONFIRM button of current frame if user decides to confirm
      * flight reservation.
      */
+    //Ana-Still not done
     //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
-
-
 
     /**
      * Action listener used to code the CANCEL button of current frame if user decides to cancel
      * flight reservation and return to dashboard.
      */
+    //Ana-Still not done
     //add listener for canceling booking which returns user to dashboard
-
 }
