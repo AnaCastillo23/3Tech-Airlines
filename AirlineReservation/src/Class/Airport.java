@@ -40,7 +40,7 @@ public class Airport {
     /**
      *
      * Method for creating a new airport and set its properties. Information gathered from the API is stored here for later
-     * retrieval by system (allows returning users to view which to which airport their reservation was placed to).
+     * retrieval by system (allows returning users to view to which airport their reservation was placed to).
      *
      * @param airportCode airportCode
      * @param airportName airportName
