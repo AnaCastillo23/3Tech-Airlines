@@ -1,21 +1,3 @@
-/**
- *
- * Module name\Class name: RegisterFrame (class)
- * @since
- * @author Carlos Figueroa
- *
- *
- * Description of the class/module:
- *
- * Explanation of important functions:
- *
- * Important data structure in class/important methods in class:
- *
- *
- * Any algorithms used?
- *
- */
-
 package GUI;
 
 import Class.Account;
@@ -24,6 +6,27 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @since 04/18/2023
+ * @author Carlos Figueroa (developed structure) and Ana Emily Castillo Perez (added documentiton comments).
+ * <p>
+ * <b>Description of the class/module:</b> The Register GUI is used to create a desktop application
+ * for a flight reservation system. This specific GUI called "RegisterFrame" helps users to create a new account
+ * in order to book a flight.
+ * <p>
+ * <b>Explanation of important functions:</b> GUI implements user input into text fields by gathering username and password that
+ * user wants to use to create the account. This information is saved in the system for supporting returning users.
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>registerUser():</i> used for error checking usesr input.</li>
+ *
+ * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
 public class RegisterFrame extends JFrame {
     private JPanel panelRegister;
     private JButton buttonRegister;
@@ -39,7 +42,7 @@ public class RegisterFrame extends JFrame {
 
     /**
      *
-     * Add comment here
+     *Method is for creating and displaying a desktop window to a specific size as RegisterFrame runs.
      *
      */
     public RegisterFrame() {
@@ -49,12 +52,24 @@ public class RegisterFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         buttonRegister.addActionListener(new ActionListener() {
+            /**
+             *
+             * Action listener used to code the Register button of current frame if user decides to continue
+             * enrollment in the system.
+             *
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 registerUser();
             }
         });
         buttonCancel.addActionListener(new ActionListener() {
+            /**
+             *
+             * Action listener used to code the Cancel button of current frame if user decides to not continue with the
+             * enrollment in the system.
+             *
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -66,9 +81,9 @@ public class RegisterFrame extends JFrame {
 
     /**
      *
-     *
-     * Add comment here
-     *
+     * Method for error checking user input in text fields of the current frame and activating following frame to continue
+     * with booking.
+     * Checks if text fields are empty.
      *
      */
     private void registerUser() {
@@ -113,7 +128,9 @@ public class RegisterFrame extends JFrame {
     /**
      *
      * Main Program. Creates a new frame (new object of the current frame).
+     *
      * @param args Unused.
+     *
      */
     public static void main(String[] args) {
         RegisterFrame registerFrame = new RegisterFrame();
