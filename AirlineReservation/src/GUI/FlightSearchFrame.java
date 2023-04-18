@@ -120,7 +120,8 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Method for printing the available flights into a list after user has clicked the OK button
+     * Method for displaying the available flights into a list after user has clicked the OK button.  Also generates "Book"
+     * buttons for each flight that is displayed
      * @param searchResult searchResult
      *
      */
@@ -226,10 +227,15 @@ public class FlightSearchFrame extends JFrame {
 
     /**
      *
-     * Action Listener used for?
+     * ActionListener Class specifically designed for auto-generated "Book" button.
      *
      */
     private class ButtonClicked implements ActionListener {
+        /**
+         *
+         * Action listener that identifies which "Book" button is clicked
+         *
+         */
         public void actionPerformed(ActionEvent e) {
             JButton btn = (JButton) e.getSource();
             System.out.println(btn.getName());

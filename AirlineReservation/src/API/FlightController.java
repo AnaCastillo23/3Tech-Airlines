@@ -13,7 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-
+/**
+ * @since 04/17/2023
+ * @author Carlos Figueroa (built structure of class)
+ * <p>
+ * <b>Description of the class/module:</b>
+ * <p>
+ * <b>Explanation of important functions:</b>
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ *  * <li><i></i></li>
+ *  * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
 @RestController
 public class FlightController {
 
@@ -42,12 +58,7 @@ public class FlightController {
 
         return jsonObjectArrayList;
     }
-    /*
-    Example:
-    Depart from: LAX		Arrive to: SEA
-    Los Angeles		  	Seattle
-04/17/2023 11:11 am		04/17/2023 02:14 am
-*/
+
     @GetMapping("/airport-list")
     public ArrayList<JSONObject> getAirportList() {
         return null;
