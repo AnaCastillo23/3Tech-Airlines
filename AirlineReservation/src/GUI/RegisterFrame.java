@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
  * for a flight reservation system. This specific GUI called "RegisterFrame" helps users to create a new account
  * in order to book a flight.
  * <p>
- * <b>Explanation of important functions:</b> GUI implements user input into text fields by gathering useername and password that
+ * <b>Explanation of important functions:</b> GUI implements user input into text fields by gathering username and password that
  * user wants to use to create the account. This information is saved in the system for supporting returning users.
  * <p>
  * <b>Important data structure in class/important methods in class:</b>
