@@ -1,3 +1,21 @@
+/**
+ *
+ * Module name\Class name: ApiClient (class)
+ * @since 04/17/2023
+ * @author Carlos Figueroa (built structure of class)
+ *
+ * Description of the class/module:
+ *
+ * Explanation of important functions:
+ *
+ * Important data structure in class/important methods in class:
+ *
+ *
+ *
+ * Any algorithms used? Not at the moment.
+ *
+ */
+
 package API;
 
 import java.io.BufferedReader;

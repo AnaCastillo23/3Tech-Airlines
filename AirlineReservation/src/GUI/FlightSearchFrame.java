@@ -1,6 +1,20 @@
+
+
+package GUI;
+
+import API.FlightModel;
+import Helper.ScheduledDeparturesFilter;
+import org.json.JSONObject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 /**
- *
- * Module name\Class name: FlightSearchFrame (class)
  * @since 03/27/2023
  * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
  *
@@ -24,22 +38,6 @@
  * Any algorithms used? Not at the moment.
  *
  */
-
-package GUI;
-
-import API.FlightModel;
-import Helper.ScheduledDeparturesFilter;
-import org.json.JSONObject;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-
 public class FlightSearchFrame extends JFrame {
     private JTextField tfDeparture;
     private JTextField tfArrival;
