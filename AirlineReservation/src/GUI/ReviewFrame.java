@@ -1,26 +1,26 @@
-/**
- *
- * Module name\Class name: ReviewFrame (class)
- * @since 03/27/2023
- * @author Ana Emily Castillo Perez
- *
- * Description of the class/module: The Review GUI is used to display a desktop application
- * window which displays user's selection of flight that they wish to book in order for the user to review if
- * details about the flight are correct.
- *
- * Explanation of important functions: Displays user's choice of flight for its review. Displays CONFIRM button (to finish booking)
- * and CANCEL button (to return users to their dashboard(??????)).
- *
- * Important data structure in class/important methods in class:
- * ReviewFrame(): used for displaying a Java Swing window where flight details are displayed for passenger's review.
- *
- * Any algorithms used? Not at the moment.
- *
- */
-
 package GUI;
 
 import javax.swing.*;
+/**
+ * @since 03/27/2023
+ * @author Ana Emily Castillo Perez
+ * <p>
+ * <b>Description of the class/module:</b> The Review GUI is used to display a desktop application
+ * window which displays user's selection of flight that they wish to book in order for the user to review if
+ * details about the flight are correct.
+ * <p>
+ * <b>Explanation of important functions:</b> Displays user's choice of flight for its review. Displays CONFIRM button (to finish booking)
+ * and CANCEL button (to return users to their dashboard).
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>ReviewFrame(): </i> used for displaying a Java Swing window where flight details are displayed for passenger's review.</li>
+ *</ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
 
 public class ReviewFrame extends JFrame {
 
