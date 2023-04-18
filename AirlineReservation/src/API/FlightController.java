@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @since 04/17/2023
  * @author Carlos Figueroa (built structure of class)
  * <p>
- * <b>Description of the class/module:</b> 
+ * <b>Description of the class/module:</b>
  * <p>
  * <b>Explanation of important functions:</b>
  * <p>
