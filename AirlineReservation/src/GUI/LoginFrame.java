@@ -1,21 +1,3 @@
-/**
- *
- * Module name\Class name: LoginFrame (class)
- * @since
- * @author Carlos Figueroa
- *
- *
- * Description of the class/module:
- *
- * Explanation of important functions:
- *
- * Important data structure in class/important methods in class:
- *
- *
- * Any algorithms used?
- *
- */
-
 package GUI;
 
 import Class.Account;
@@ -24,6 +6,25 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @since 04/18/2023
+ * @author Carlos Figueroa (developed structure) and Ana Emily Castillo Perez (added documentiton comments).
+ * <p>
+ * <b>Description of the class/module:</b> The Login GUI is used to create a desktop application
+ * for a flight reservation system. This specific GUI called "LoginFrame" helps users to log into their alreadyd existing account.
+ * <p>
+ * <b>Explanation of important functions:</b> GUI implements user input into text fields by gathering username and password that
+ * user wants has used to create the account. This information is saved in the system for supporting returning users.
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>loginUser():</i> used for error checking user's input as well as checking if account already exists.</li>
+ * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
 public class LoginFrame extends JFrame {
     private JPanel panelLogin;
     private JPasswordField pfPassword;
