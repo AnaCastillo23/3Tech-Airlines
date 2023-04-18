@@ -27,10 +27,12 @@ import java.util.ArrayList;
  * The system, with the aid of an API, outputs a list of available flights according to the user's specifications.
  * <p>
  * <b>Important data structure in class/important methods in class:</b>
- * <ul><i>generateSearchList(ArrayList<JSONObject> obj):</i> used for diplaying list of available flights accoding to user input.</ul>
- * <ul><i>searchFlight():</i> used to error check user input which prompts user to enter any incorrect data into the correct format.</ul>
- * <ul><i>valDate(String departureDate):</i> error checks the departure date.</ul>
- * <ul><i>valDateReturn(String returnDate):</i> error checks the return date (in case trip is round).</ul>
+ * <ul>
+ * <li><i>generateSearchList(ArrayList<JSONObject> obj):</i> used for diplaying list of available flights accoding to user input.</li>
+ * <li><i>searchFlight():</i> used to error check user input which prompts user to enter any incorrect data into the correct format.</li>
+ * <li><i>valDate(String departureDate):</i> error checks the departure date.</li>
+ * <li><i>valDateReturn(String returnDate):</i> error checks the return date (in case trip is round).</li>
+ * </ul>
  * <p>
  *
  * <b>Any algorithms used?</b> Not at the moment.
