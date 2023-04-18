@@ -1,3 +1,22 @@
+/**
+ *
+ * Module name\Class name: FlightSearchFrame (class)
+ * @since 02/28/2023
+ * @author Ana Emily Castillo Perez (built structure of class)
+ *
+ * Description of the class/module:
+ *
+ * Explanation of important functions:
+ *
+ * Important data structure in class/important methods in class:
+ *
+ *
+ *
+ * Any algorithms used? Not at the moment.
+ *
+ */
+
+
 package Class;
 
 import java.sql.Time;
