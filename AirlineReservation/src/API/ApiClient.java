@@ -50,17 +50,25 @@ import org.json.JSONString;
  */
 public class ApiClient {
 
-    private String urlString;
+    private final String urlString;
 
-    public ApiClient() {
-        this.urlString = "";
-    }
-
-    public ApiClient(String url) throws MalformedURLException {
+    /**
+     *
+     * Constructor Method that takes url String for API request
+     * @param url url address used for HttpRequest.
+     *
+     */
+    public ApiClient(String url) {
         this.urlString = url;
     }
 
-    public JSONObject getJSONObject(String API_KEY){
+    /**
+     *
+     * Method that makes HttpRequest to AeroAPI for real-time flight data using API_KEY and url.  Returns data as JSON Object.
+     * @param API_KEY code used to identify AeroAPI user.  Required for API request.
+     *
+     */
+    public JSONObject getJSONObject(String API_KEY) {
         try {
 
             HttpClient client = HttpClient.newHttpClient();
