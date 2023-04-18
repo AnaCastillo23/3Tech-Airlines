@@ -3,16 +3,16 @@
  * Module name\Class name: ApiClient (class)
  * @since 04/17/2023
  * @author Carlos Figueroa (built structure of class)
+ * <p>
+ * <b>Description of the class/module:</b>  The ApiClient class is used to request scheduled departures, airport lists, and
+ * airline operator names in JSON format.  Type of http request depends on url given by user.
+ * <p>
+ * <b>Explanation of important functions:</b>
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <p>
  *
- * Description of the class/module:
- *
- * Explanation of important functions:
- *
- * Important data structure in class/important methods in class:
- *
- *
- *
- * Any algorithms used? Not at the moment.
+ * <b>Any algorithms used?</b> Not at the moment.
  *
  */
 

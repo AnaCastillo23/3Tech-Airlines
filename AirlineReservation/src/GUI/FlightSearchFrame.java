@@ -1,5 +1,3 @@
-
-
 package GUI;
 
 import API.FlightModel;
@@ -17,25 +15,25 @@ import java.util.ArrayList;
 /**
  * @since 03/27/2023
  * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
- *
- * Description of the class/module: The Flight Search GUI is used to create a desktop application
+ * <p>
+ * <b>Description of the class/module:</b> The Flight Search GUI is used to create a desktop application
  * for a flight reservation system. This specific GUI called "FlightSearchFrame" helps user search for flights that are available for reservation.
  * Makes use of an API to accomplish this task, along with user input.
- *
- * Explanation of important functions: GUI implements user input into text fields to search for available flights. Such input includes the
+ * <p>
+ * <b>Explanation of important functions:</b> GUI implements user input into text fields to search for available flights. Such input includes the
  * area user departs from (in ICAO format), area user wants to arrive to, as well as dates of departure and return in dd/mm/yyyy format.
  * User should also specify if the trip is one-way of round. The system also checks if user has inputted data in the corerct format.
  * If not, user is not able to proceed with reservation.
  * The system, with the aid of an API, outputs a list of available flights according to the user's specifications.
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul><i>generateSearchList(ArrayList<JSONObject> obj):</i> used for diplaying list of available flights accoding to user input.</ul>
+ * <ul><i>searchFlight():</i> used to error check user input which prompts user to enter any incorrect data into the correct format.</ul>
+ * <ul><i>valDate(String departureDate):</i> error checks the departure date.</ul>
+ * <ul><i>valDateReturn(String returnDate):</i> error checks the return date (in case trip is round).</ul>
+ * <p>
  *
- * Important data structure in class/important methods in class:
- * generateSearchList(ArrayList<JSONObject> obj): used for diplaying list of available flights accoding to user input.
- * searchFlight(): used to error check user input which prompts user to enter any incorrect data into the correct format.
- * valDate(String departureDate): error checks the departure date.
- * valDateReturn(String returnDate): error checks the return date (in case trip is round).
- *
- *
- * Any algorithms used? Not at the moment.
+ * <b>Any algorithms used?</b> Not at the moment.
  *
  */
 public class FlightSearchFrame extends JFrame {
