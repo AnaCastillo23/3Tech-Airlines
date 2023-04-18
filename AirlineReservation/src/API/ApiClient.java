@@ -1,21 +1,3 @@
-/**
- *
- * Module name\Class name: ApiClient (class)
- * @since 04/17/2023
- * @author Carlos Figueroa (built structure of class)
- * <p>
- * <b>Description of the class/module:</b>  The ApiClient class is used to request scheduled departures, airport lists, and
- * airline operator names in JSON format.  Type of http request depends on url given by user.
- * <p>
- * <b>Explanation of important functions:</b>
- * <p>
- * <b>Important data structure in class/important methods in class:</b>
- * <p>
- *
- * <b>Any algorithms used?</b> Not at the moment.
- *
- */
-
 package API;
 
 import java.io.BufferedReader;
@@ -37,6 +19,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONString;
 
+/**
+ * @since 04/17/2023
+ * @author Carlos Figueroa
+ * <p>
+ * <b>Description of the class/module:</b>  The ApiClient class is used to send http requests to AeroAPI for real-time
+ * flight data including scheduled departures, airport lists, and airline operator names in JSON format.  Type of http
+ * request depends on url given by user.
+ * <p>
+ * <b>Explanation of important functions:</b>  URL for http request is given when the user creates an ApiClient object
+ * from the FlightController class.  URL depends on request type from user.  URL consists of "https://aeroapi.flightaware.com/aeroapi" appended
+ * with GET paths including:
+ * <ul>
+ * <li><i>Scheduled Departures:</i>   "/airports/{id}/flights/scheduled_departures"</li>
+ * <li><i>Airport Lists:</i>   "/airports"</li>
+ * <li><i>Airline Operator:</i>   "/operators/{id}"</li>
+ * </ul>
+ * Once an ApiClient object has been created along with its designated URL, the user calls getJSONObject(API_KEY) and
+ * passes an AeroAPI API_KEY from the FlightController class.  The API_KEY is required to make a http request to the
+ * AeroAPI website to return real-time flight data.  The data is returned to the FlightController class as a JSONObject
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>getJSONObject(String API_KEY):</i> used to get real-time flight data in the form of a JSONObject</li>
+ * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
 public class ApiClient {
 
     private String urlString;

@@ -6,6 +6,23 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+/**
+ * @since 04/17/2023
+ * @author Carlos Figueroa
+ * <p>
+ * <b>Description of the class/module:</b>
+ * <p>
+ * <b>Explanation of important functions:</b>
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ *  * <li><i></i></li>
+ *  * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
 public class FlightModel {
     // 1. Schedule Departures
     // 2. Airport List (JScroll)
