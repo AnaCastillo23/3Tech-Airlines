@@ -13,12 +13,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * @since 03/27/2023
- * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
- * <p>
- * <b>Description of the class/module:</b> The Flight Search GUI is used to create a desktop application
+ * The Flight Search GUI is used to create a desktop application
  * for a flight reservation system. This specific GUI called "FlightSearchFrame" helps user search for flights that are available for reservation.
  * Makes use of an API to accomplish this task, along with user input.
+ * <p>
+ * @since 03/27/2023
+ * @author Ana Emily Castillo Perez (built structure of frame) and Carlos Figueroa (implemented API into GUI).
  * <p>
  * <b>Explanation of important functions:</b> GUI implements user input into text fields to search for available flights. Such input includes the
  * area user departs from (in ICAO format), area user wants to arrive to, as well as dates of departure and return in dd/mm/yyyy format.
@@ -52,7 +52,7 @@ public class FlightSearchFrame extends JFrame {
     private JScrollPane searchScroll;
     private JButton bookButton;
     ButtonClicked clicked = new ButtonClicked();
-
+    Boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
     ArrayList<JSONObject> searchData;
 
     /**
@@ -243,9 +243,25 @@ public class FlightSearchFrame extends JFrame {
             if (e.toString().contains("cmd=Book")) {
                 System.out.println(true);
                 // Using searchResult.get(i) data to Class folder to book reservation and store flight information
-                // reset searchData array and bookButton array
+                // reset searchData array
                 // if booking round-trip, then clear search list and display destination -> home flights
                 // fill in searchData array and bookButton array based on api call
+                // reset searchData and jscroll pane
+                searchData = new ArrayList<>();
+                /*
+                if(displayReturnFlights) {
+                    try {
+                        // API Call
+                        ScheduledDeparturesFilter searchFilter = new ScheduledDeparturesFilter(tfArrival.getText(), tfDeparture.getText(), tfReturnDate.getText());
+                        searchData = flightModel.getScheduledDepartuesFiltered(searchFilter);
+
+                        displayReturnFlights = false;
+                        generateSearchList(searchData);
+
+                    } catch (MalformedURLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }*/
 
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()

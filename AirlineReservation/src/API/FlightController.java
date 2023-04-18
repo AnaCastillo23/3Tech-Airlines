@@ -1,7 +1,5 @@
 package API;
 
-import Class.Flight;
-import Class.Airport;
 import Helper.ScheduledDeparturesFilter;
 
 import org.json.JSONArray;
@@ -14,17 +12,23 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
+ * The FlightController is used to make specific API calls to the ApiClient class
+ * Type of API calls include scheduled departures, airport lists, and airline operators.  This data sent from the ApiClient
+ * is then returned to the original calling method in the form of ArrayList&lt;JSONObject>
+ * <p>
  * @since 04/17/2023
- * @author Carlos Figueroa (built structure of class)
- * <p>
- * <b>Description of the class/module:</b>
- * <p>
- * <b>Explanation of important functions:</b>
+ * @author Carlos Figueroa
+ * <b>Explanation of important functions:</b>  There are three methods used for different api requests.  getScheduledDepartures(ScheduledDeparturesFilter filter)
+ * takes an entire list of arriving and departing flights from a certain airport and narrows it down to all departing flights.
+ * getAirportICAOList() returns an entire list of known airports.  Finally, given an airline operator code,
+ * getOperatorName(String operatorCode) returns the String name of the airline.
  * <p>
  * <b>Important data structure in class/important methods in class:</b>
  * <ul>
- *  * <li><i></i></li>
- *  * </ul>
+ * <li><i>getScheduledDepartures(ScheduledDeparturesFilter filter)</i></li>
+ * <li><i>getAirportICAOList()</i></li>
+ * <li><i>getOperatorName(String operatorCode)</i></li>
+ * </ul>
  * <p>
  *
  * <b>Any algorithms used?</b> Not at the moment.
@@ -33,15 +37,21 @@ import java.util.ArrayList;
 @RestController
 public class FlightController {
 
-    private final String airportAPI = "";
-    private final String flightAPI = "https://aeroapi.flightaware.com/aeroapi/";
+    private final String aeroApiUrl = "https://aeroapi.flightaware.com/aeroapi/";
+    private final String airportAPI = "https://aeroapi.flightaware.com/aeroapi/airports";
     private String API_KEY = "NMHhMozcCtn3FBViMiczGJBcA1mDCuA1";
 
-
+    /**
+     *
+     * Method that makes an API call to ApiClient for all departing and arriving flights at a specific airport.
+     * Uses a filter to narrow list to scheduled_departures from departing airport to arriving airport.  Returns ArrayList &lt;JSONObject>
+     * @param filter query parameters for api call
+     * @return ArrayList&lt;JSONObject>
+     */
     @GetMapping("/flight-data")
     public ArrayList<JSONObject> getScheduledDepartures(ScheduledDeparturesFilter filter) throws MalformedURLException {
 
-        ApiClient apiClient = new ApiClient(flightAPI + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z");
+        ApiClient apiClient = new ApiClient(aeroApiUrl + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z");
 
         ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
 
@@ -59,14 +69,25 @@ public class FlightController {
         return jsonObjectArrayList;
     }
 
+    /**
+     *
+     * Method that makes API call to ApiClient for all airport ICAO codes and stores in ArrayList.
+     * @return ArrayList&lt;JSONObject>
+     */
     @GetMapping("/airport-list")
-    public ArrayList<JSONObject> getAirportList() {
+    public ArrayList<JSONObject> getAirportICAOList() {
         return null;
     }
 
-
+    /**
+     * Method that makes API call to ApiClient for airline information given an operator code and stores in ArrayList.
+     * Information such as airline name, airline headquarters, airline phone number, etc.  Method will be called multiple
+     * times from FlightSearchFrame gui and make multiple API calls depending on how many flights are displayed for booking.
+     * @param operatorCode airline operator code such as DEL for Delta or UAL for United Airlines
+     * @return ArrayList&lt;JSONObject>
+     */
     @GetMapping("/operator-name")
-    public ArrayList<JSONObject> getOperatorName() {
+    public ArrayList<JSONObject> getOperatorName(String operatorCode) {
         return null;
     }
 }

@@ -1,26 +1,33 @@
-/**
- *
- * Module name\Class name: ScheduledDepartureFilter (class)
- * @since
- * @author Carlos Figueroa
- *
- *
- * Description of the class/module:
- *
- * Explanation of important functions:
- *
- * Important data structure in class/important methods in class:
- *
- *
- * Any algorithms used?
- *
- */
-
 package Helper;
 
 /**
+ * Creates object that serves as parameters that filters API call dataset.  Essential in
+ * GUI FlightSearchFrame using "Depart From", "Arrive to", and "Date" forms.  This object is used for FlightModel class.
+ * <p>
  *
- * Class is for...
+ * @since 04/17/2023
+ * @author Carlos Figueroa
+ * <p>
+ *
+ * <b>Explanation of important functions:</b>  Constructor creates parameters that will filter large dataset from Api call.
+ * SetDepartureDateAPI(String departureDate) converts date given by user in FlightSearchFrame from Date format to a String format
+ * that is used as a parameter in the api call.
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>ScheduledDeparturesFilter(String airportDepartureCode, String airportArrivalCode, String departureDate)</i></i></li>
+ * <li><i>getAirportDepartureCode()</i></li>
+ * <li><i>getAirportArrivalCode()</i></li>
+ * <li><i>getDepartureDate()</i></li>
+ * <li><i>getDepartureDateAPI()</i></li>
+ * <li><i>setAirportDepartureCode(String airportDepartureCode)</i></li>
+ * <li><i>setAirportArrivalCode(String airportDepartureCode)</i></li>
+ * <li><i>setDepartureDate(String departureDate)</i></li>
+ * <li><i>setDepartureDateAPI(String departureDate)</i></li>
+ * </ul>
+ * <p>
+ *
+ * Any algorithms used?
  *
  */
 public class ScheduledDeparturesFilter {
@@ -29,13 +36,12 @@ public class ScheduledDeparturesFilter {
     private String departureDate;
     private String departureDateAPI;
 
-
     public ScheduledDeparturesFilter() {
     }
 
     /**
      *
-     * Method for referencing the current object.
+     * Constructor Method
      *
      * @param airportDepartureCode airportDepartureCode
      * @param airportArrivalCode airportArrivalCode
@@ -85,7 +91,7 @@ public class ScheduledDeparturesFilter {
 
     /**
      *
-     * Method for retrieving the user's departure date from API (?)
+     * Method for retrieving the user's departure date in API format
      *
      * @return departureDateAPI
      */
@@ -93,23 +99,38 @@ public class ScheduledDeparturesFilter {
         return departureDateAPI;
     }
 
-    //These methods do not get used! Delete them?????
 
+    /**
+     *
+     * Method for setting airport departure code for api parameter
+     *
+     */
     public void setAirportDepartureCode(String airportDepartureCode) {
         this.airportDepartureCode = airportDepartureCode;
     }
 
+    /**
+     *
+     * Method for setting airport arrival code for api parameter
+     *
+     */
     public void setAirportArrivalCode(String airportDepartureCode) {
         this.airportArrivalCode = airportArrivalCode;
     }
 
+    /**
+     *
+     * Method for setting departure date for api parameter
+     *
+     */
     public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
 
     /**
      *
-     * Method for setting the departure date and connecting user's dates input (and their format) to work with API.
+     * Method converts date given by user in FlightSearchFrame from Date format to a String format that is used as a parameter
+     * in the api call.  When making api request for returning flight, simply replace parameter departureDate to returnDate.
      *
      * @param departureDate departureDate
      *

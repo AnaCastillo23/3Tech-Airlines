@@ -20,13 +20,12 @@ import org.json.JSONException;
 import org.json.JSONString;
 
 /**
- * @since 04/17/2023
- * @author Carlos Figueroa
- * <p>
- * <b>Description of the class/module:</b>  The ApiClient class is used to send http requests to AeroAPI for real-time
+ * The ApiClient class is used to send http requests to AeroAPI for real-time
  * flight data including scheduled departures, airport lists, and airline operator names in JSON format.  Type of http
  * request depends on url given by user.
  * <p>
+ * @since 04/17/2023
+ * @author Carlos Figueroa
  * <b>Explanation of important functions:</b>  URL for http request is given when the user creates an ApiClient object
  * from the FlightController class.  URL depends on request type from user.  URL consists of "https://aeroapi.flightaware.com/aeroapi" appended
  * with GET paths including:
@@ -66,7 +65,7 @@ public class ApiClient {
      *
      * Method that makes HttpRequest to AeroAPI for real-time flight data using API_KEY and url.  Returns data as JSON Object.
      * @param API_KEY code used to identify AeroAPI user.  Required for API request.
-     *
+     * @return JSONObject
      */
     public JSONObject getJSONObject(String API_KEY) {
         try {
