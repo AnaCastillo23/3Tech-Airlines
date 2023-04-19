@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Type of API calls include scheduled departures, airport lists, and airline operators.  This data sent from the ApiClient
  * is then returned to the original calling method in the form of ArrayList&lt;JSONObject>
  * <p>
- * @since 04/17/2023
+ * @since 04/04/2023
  * @author Carlos Figueroa
  * <b>Explanation of important functions:</b>  There are three methods used for different api requests.  getScheduledDepartures(ScheduledDeparturesFilter filter)
  * takes an entire list of arriving and departing flights from a certain airport and narrows it down to all departing flights.

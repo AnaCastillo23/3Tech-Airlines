@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * The model for flight data and blueprint that molds incoming API data.  Filters
  * out unnecessary data from API.
  * <p>
- * @since 04/17/2023
+ * @since 04/04/2023
  * @author Carlos Figueroa
  * <b>Explanation of important functions:</b>
  * <p>

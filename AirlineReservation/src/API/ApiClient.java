@@ -24,7 +24,7 @@ import org.json.JSONString;
  * flight data including scheduled departures, airport lists, and airline operator names in JSON format.  Type of http
  * request depends on url given by user.
  * <p>
- * @since 04/17/2023
+ * @since 04/04/2023
  * @author Carlos Figueroa
  * <b>Explanation of important functions:</b>  URL for http request is given when the user creates an ApiClient object
  * from the FlightController class.  URL depends on request type from user.  URL consists of "https://aeroapi.flightaware.com/aeroapi" appended
