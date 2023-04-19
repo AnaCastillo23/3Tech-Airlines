@@ -4,11 +4,10 @@ import java.sql.Time;
 import java.util.Date;
 
 /**
+ * The Flight class is used in conjunction with information recollected from
+ * the API used in this project. All data concerning a flights will land in this class.
  * @since 04/18/2023
  * @author Carlos Figueroa (developed class) and Ana Emily Castillo Perez (added documentation comments).
- * <p>
- * <b>Description of the class/module:</b> The Flight class is used in conjunction with information recollected from
- * the API used in this project. All data concerning a flights will land in this class.
  * <p>
  * <b>Explanation of important functions:</b> Class implements user's flight choice when API lists relevant flights
  * according to user's inputted flight characteristics.
@@ -323,13 +322,11 @@ public class Flight {
      *
      * Method for setting Airline according to data gathered from API. To be used later in project.
      *
-     * @param airlineOperator airlineOperator
+     * @param airlineName airlineName
      *
      */
-    public static void setAirline(String airlineOperator) {
-        // API call to "GET /operators/{id}" to get airline name using id = airlineID
-        // String airlineName = API call
+    public static void setAirline(String airlineName) {
 
-        airline = new Airline(airlineOperator, null);
+        airline = new Airline(airlineName, null);
     }
 }

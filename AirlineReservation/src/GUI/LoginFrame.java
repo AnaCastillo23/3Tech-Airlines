@@ -7,11 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * The Login GUI is used to create a desktop application
+ * for a flight reservation system. This specific GUI called "LoginFrame" helps users to log into their alreadyd existing account.
  * @since 04/18/2023
  * @author Carlos Figueroa (developed structure) and Ana Emily Castillo Perez (added documentiton comments).
- * <p>
- * <b>Description of the class/module:</b> The Login GUI is used to create a desktop application
- * for a flight reservation system. This specific GUI called "LoginFrame" helps users to log into their alreadyd existing account.
  * <p>
  * <b>Explanation of important functions:</b> GUI implements user input into text fields by gathering username and password that
  * user has used to create the account. This information is saved in the system for supporting returning users.

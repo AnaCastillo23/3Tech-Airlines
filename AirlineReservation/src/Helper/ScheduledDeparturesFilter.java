@@ -15,7 +15,7 @@ package Helper;
  * <p>
  * <b>Important data structure in class/important methods in class:</b>
  * <ul>
- * <li><i>ScheduledDeparturesFilter(String airportDepartureCode, String airportArrivalCode, String departureDate)</i></i></li>
+ * <li><i>ScheduledDeparturesFilter(String airportDepartureCode, String airportArrivalCode, String departureDate)</i></li>
  * <li><i>getAirportDepartureCode()</i></li>
  * <li><i>getAirportArrivalCode()</i></li>
  * <li><i>getDepartureDate()</i></li>

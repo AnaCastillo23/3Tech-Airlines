@@ -1,11 +1,10 @@
 package Class;
 
 /**
+ * The Airport class is used in conjunction with information recollected from
+ * the API used in this project. All data concerning an airport will land in this class.
  * @since 03/27/2023
  * @author Carlos Figueroa (developed class) and Ana Emily Castillo Perez (added documentation comments).
- * <p>
- * <b>Description of the class/module:</b> The Airport class is used in conjunction with information recollected from
- * the API used in this project. All data concerning an airport will land in this class.
  * <p>
  * <b>Explanation of important functions:</b> Class implements user's flight choice when API lists relevant flights
  * according to user's inputted flight characteristics.

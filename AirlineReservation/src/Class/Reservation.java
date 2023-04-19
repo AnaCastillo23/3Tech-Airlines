@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * The Reservation class is used in conjunction with information recollected from
+ * the API used in this project. All data concerning a booking will land in this class.
  * @since 03/27/2023
  * @author Ana Emily Castillo Perez (added to general structure of class), Carlos Figueroa (addde to general structure of class).
- * <p>
- * <b>Description of the class/module:</b> The Reservation class is used in conjunctioin with information recollected from
- * the API used in this project. All data concerning a booking will land in this class.
  * <p>
  * <b>Explanation of important functions:</b> Class implements user input entered during the FlightSearchFrame utilization
  * and after user has choosen their desired flight for booking. Such data concerning the choosen flights goes here

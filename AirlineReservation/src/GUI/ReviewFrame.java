@@ -2,12 +2,11 @@ package GUI;
 
 import javax.swing.*;
 /**
- * @since 03/27/2023
- * @author Ana Emily Castillo Perez
- * <p>
- * <b>Description of the class/module:</b> The Review GUI is used to display a desktop application
+ * The Review GUI is used to display a desktop application
  * window which displays user's selection of flight that they wish to book in order for the user to review if
  * details about the flight are correct.
+ * @since 03/27/2023
+ * @author Ana Emily Castillo Perez
  * <p>
  * <b>Explanation of important functions:</b> Displays user's choice of flight for its review. Displays CONFIRM button (to finish booking)
  * and CANCEL button (to return users to their dashboard).

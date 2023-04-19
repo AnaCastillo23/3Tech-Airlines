@@ -7,12 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @since 04/18/2023
- * @author Carlos Figueroa (developed structure) and Ana Emily Castillo Perez (added documentiton comments).
- * <p>
- * <b>Description of the class/module:</b> The Register GUI is used to create a desktop application
+ * The Register GUI is used to create a desktop application
  * for a flight reservation system. This specific GUI called "RegisterFrame" helps users to create a new account
  * in order to book a flight.
+ * @since 04/18/2023
+ * @author Carlos Figueroa (developed structure) and Ana Emily Castillo Perez (added documentiton comments).
  * <p>
  * <b>Explanation of important functions:</b> GUI implements user input into text fields by gathering username and password that
  * user wants to use to create the account. This information is saved in the system for supporting returning users.
