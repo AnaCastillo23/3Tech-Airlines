@@ -52,8 +52,9 @@ public class FlightSearchFrame extends JFrame {
     private JScrollPane searchScroll;
     private JButton bookButton;
     ButtonClicked clicked = new ButtonClicked();
-    Boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
+    Boolean displayReturnFlights = true;   // true if roundtrip radio button is checked otherwise false
     ArrayList<JSONObject> searchData;
+    ArrayList<JSONObject> bookedFlights; // send to ReviewFrame (size: 0,1(one way),2(round-trip))
 
     /**
      *
@@ -66,6 +67,9 @@ public class FlightSearchFrame extends JFrame {
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
+        bookedFlights = new ArrayList<>();
+
 
         //Button actions
         searchButton.addActionListener(new ActionListener() {
@@ -242,30 +246,42 @@ public class FlightSearchFrame extends JFrame {
             System.out.println(e.toString());
             if (e.toString().contains("cmd=Book")) {
                 System.out.println(true);
-                // Using searchResult.get(i) data to Class folder to book reservation and store flight information
+                // Using searchResult.get(i) data to Class folder to send flight info to ReviewFrame
                 // reset searchData array
                 // if booking round-trip, then clear search list and display destination -> home flights
                 // fill in searchData array and bookButton array based on api call
                 // reset searchData and jscroll pane
+
+                if(bookedFlights.size() > 0) {
+                    displayReturnFlights = false;
+                }
+
+                //bookButton.setName(new StringBuilder("bookButton").append(i).toString());
+                    // bookButton1
+                    // bookButton2
+                    // etc ...
+                int bookButtonIndex = Integer.parseInt(bookButton.getName().substring(bookButton.getName().length() - 1));
+                System.out.println(searchData.get(bookButtonIndex)); // test
+                bookedFlights.add(searchData.get(bookButtonIndex));
                 searchData = new ArrayList<>();
-                /*
+                System.out.println(bookedFlights); // test
                 if(displayReturnFlights) {
                     try {
-                        // API Call
+                        // API Call for return flight
+                        FlightModel flightModel = new FlightModel();
+
                         ScheduledDeparturesFilter searchFilter = new ScheduledDeparturesFilter(tfArrival.getText(), tfDeparture.getText(), tfReturnDate.getText());
                         searchData = flightModel.getScheduledDepartuesFiltered(searchFilter);
-
-                        displayReturnFlights = false;
+                        System.out.println(searchData); // test
                         generateSearchList(searchData);
-
                     } catch (MalformedURLException ex) {
                         throw new RuntimeException(ex);
                     }
-                }*/
+                }
 
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
-                if(true) {
+                if(!displayReturnFlights) {
                     dispose();
                     ReviewFrame review = new ReviewFrame();
                     review.setVisible(true);
