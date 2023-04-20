@@ -203,6 +203,7 @@ public class FlightSearchFrame extends JFrame {
         String departureDate = tfDepartureDate.getText();
         String returnDate = tfReturnDate.getText();
 
+        /*
         if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -211,7 +212,8 @@ public class FlightSearchFrame extends JFrame {
         if (valDate(departureDate) && valDateReturn(returnDate)) {
             return true;
         }
-        return false;
+        return false;*/
+        return true; // temp
     }
 
     /**
@@ -275,6 +277,7 @@ public class FlightSearchFrame extends JFrame {
                 // reset searchData and jscroll pane
 
                 if(bookedFlights.size() > 0) {
+                    // after flight search display has been refreshed one time (round-trip)
                     displayReturnFlights = false;
                 }
 
@@ -304,8 +307,9 @@ public class FlightSearchFrame extends JFrame {
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
                 if(!displayReturnFlights) {
-                    BookedFlightsReview bookedFlightsReview = new BookedFlightsReview();
-                    bookedFlightsReview.bookedFlightsToReview(bookedFlights);
+                    //BookedFlightsReview bookedFlightsReview = new BookedFlightsReview();
+                    //bookedFlightsReview.bookedFlightsToReview(bookedFlights);
+                    BookedFlightsReview bookedFlightsReview = new BookedFlightsReview(null, bookedFlights);
 
                     ReviewFrame review = new ReviewFrame();
                     dispose();
