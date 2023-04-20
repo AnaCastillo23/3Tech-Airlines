@@ -108,7 +108,7 @@ public class RegisterFrame extends JFrame {
             // TRY AGAIN!
             if(!Account.accountExists(username)) {
                 Account account = new Account(username,password,firstName,lastName,address,emailAddress,phone);
-                Account.register(account);
+                account.registerOrUpdate(account);
 
                 JOptionPane.showMessageDialog(this, "Account successfully created", "Registered", JOptionPane.PLAIN_MESSAGE);
                 LoginFrame loginFrame = new LoginFrame();

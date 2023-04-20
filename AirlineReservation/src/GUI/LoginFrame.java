@@ -1,6 +1,7 @@
 package GUI;
 
 import Class.Account;
+import Helper.AccountAccessor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -102,13 +103,15 @@ public class LoginFrame extends JFrame {
 
         try {
             if(Account.accountExists(username)) {
-                Account account;
-                account = Account.getLoginAccount().get(username);
+                Account account = new Account();
+                account = account.getLoginAccount().get(username);
 
                 if(password.equals(account.getPassword())) {
                     JOptionPane.showMessageDialog(this, "Login successful", "account", JOptionPane.PLAIN_MESSAGE);
 
                     FlightSearchFrame flightSearchFrame = new FlightSearchFrame();
+                    AccountAccessor accountAccessor = new AccountAccessor(username);  // account access throughout gui
+
                     setVisible(false);
                     flightSearchFrame.setVisible(true);
 

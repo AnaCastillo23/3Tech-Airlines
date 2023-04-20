@@ -50,7 +50,7 @@ import java.util.Map;
  *
  */
 public class Account {
-    private static ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+    private ArrayList<Reservation> reservationList;
     private Reservation reservation;
     private String username;
     private String password;
@@ -69,6 +69,7 @@ public class Account {
      *
      */
     public Account() {
+        reservationList = new ArrayList<Reservation>();
         this.username = null;
         this.password = null;
         this.firstName = null;
@@ -91,6 +92,7 @@ public class Account {
      *
      */
     public Account(String username, String password, String firstName, String lastName, String address, String emailAddress, String phoneNumber) {
+        reservationList = new ArrayList<Reservation>();
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -214,7 +216,7 @@ public class Account {
      * Method that returns hashmap containing all app accounts
      * @return loginAccount
      */
-    public static Map<String, Account> getLoginAccount() {
+    public Map<String, Account> getLoginAccount() {
         return loginAccount;
     }
 
@@ -222,7 +224,7 @@ public class Account {
      * Method that takes new registered user's account information and stores it into hashmap with unique key.
      * @param account contains new user's account information
      */
-    public static void register(Account account) {
+    public void registerOrUpdate(Account account) {
         loginAccount.put(account.getUsername(), account);
     }
 
