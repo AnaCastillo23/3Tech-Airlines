@@ -32,7 +32,7 @@ public class ReviewFrame extends JFrame {
     private JTextArea welcomeToNextPaneTextArea;
 
     BookedFlightsReview bookedFlightsReview;
-    ArrayList<JSONObject> bookedFlights = new ArrayList<>();
+    BookedFlightsReview.BookedFlightBundle bookedFlights = new BookedFlightsReview.BookedFlightBundle();
 
     /**
      *
@@ -48,9 +48,9 @@ public class ReviewFrame extends JFrame {
         bookedFlightsReview = new BookedFlightsReview();
         bookedFlights = bookedFlightsReview.getBookedFlightsReview("temp");
 
-        System.out.println("Departing Flight: " + bookedFlights.get(0)); // test
-        if(bookedFlights.size() > 0) {
-            System.out.println("Returning Flight: " + bookedFlights.get(1)); // test
+        System.out.println("Departing Flight: " + bookedFlights.getBookedFlights().get(0)); // test
+        if(bookedFlights.getBookedFlights().size() > 0) {
+            System.out.println("Returning Flight: " + bookedFlights.getBookedFlights().get(1)); // test
         }
     }
 

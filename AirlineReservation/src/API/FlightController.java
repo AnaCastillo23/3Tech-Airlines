@@ -52,10 +52,10 @@ public class FlightController {
     public ArrayList<JSONObject> getScheduledDepartures(ScheduledDeparturesFilter filter) throws MalformedURLException {
 
         // one page
-        //ApiClient apiClient = new ApiClient(aeroApiUrl + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z");
+        ApiClient apiClient = new ApiClient(aeroApiUrl + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z");
 
         // more than one page
-        ApiClient apiClient = new ApiClient(aeroApiUrl + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z&max_pages=3");
+        //ApiClient apiClient = new ApiClient(aeroApiUrl + "airports/" + filter.getAirportDepartureCode() + "/flights/scheduled_departures?type=Airline&start=" + filter.getDepartureDateAPI() + "&end=" + filter.getDepartureDateAPI() + "T23%3A59%3A59Z&max_pages=3");
 
         ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
 
