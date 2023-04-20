@@ -53,7 +53,7 @@ public class FlightSearchFrame extends JFrame {
     private JScrollPane searchScroll;
     private JButton bookButton;
     ButtonClicked clicked = new ButtonClicked();
-    Boolean displayReturnFlights = true;   // true if roundtrip radio button is checked otherwise false
+    Boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
     ArrayList<JSONObject> searchData;
     ArrayList<JSONObject> bookedFlights; // send to ReviewFrame (size: 0,1(one way),2(round-trip))
 
@@ -82,7 +82,6 @@ public class FlightSearchFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Ana-insert method name here for displaying flight info in a new window for its review before user confirms reservation!!!!!
                 FlightModel flightModel = new FlightModel();
                 ScheduledDeparturesFilter searchFilter;
 
@@ -118,9 +117,32 @@ public class FlightSearchFrame extends JFrame {
             }
         });
 
-
         // bookButton will be assigned to the book button the user selects in flight search results
         // call method first to assign bookButton
+
+
+        roundTripRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!roundTripRadioButton.isCursorSet()) {
+                    tfReturnDate.setEditable(true);
+                    displayReturnFlights = true;
+                } else {
+                    tfReturnDate.setEditable(false);
+                }
+            }
+        });
+        oneWayRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (oneWayRadioButton.isCursorSet()) {
+                    tfReturnDate.setEditable(true);
+                    displayReturnFlights = false;
+                } else {
+                    tfReturnDate.setEditable(false);
+                }
+            }
+        });
     }
 
     /**
