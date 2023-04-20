@@ -5,13 +5,21 @@ import Helper.BookedFlightsReview;
 import Helper.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
+import Class.Flight;
+import Class.Airport;
+import Class.Airline;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The Flight Search GUI is used to create a desktop application
@@ -56,6 +64,7 @@ public class FlightSearchFrame extends JFrame {
     Boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
     ArrayList<JSONObject> searchData;
     ArrayList<JSONObject> bookedFlights; // send to ReviewFrame (size: 0,1(one way),2(round-trip))
+    ArrayList<Date> departDates; // includes return flight (size: 0,1(one way),2(round-trip))
 
     /**
      *
@@ -117,15 +126,14 @@ public class FlightSearchFrame extends JFrame {
             }
         });
 
-        // bookButton will be assigned to the book button the user selects in flight search results
-        // call method first to assign bookButton
 
+        // All TextFields and Buttons are disabled until one is selected:
         roundTripRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                displayReturnFlights = true;
                 if (!roundTripRadioButton.isCursorSet()) {
                     tfReturnDate.setEditable(true);
-                    displayReturnFlights = true;
                 } else {
                     tfReturnDate.setEditable(false);
                 }
@@ -134,9 +142,9 @@ public class FlightSearchFrame extends JFrame {
         oneWayRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                displayReturnFlights = false;
                 if (oneWayRadioButton.isCursorSet()) {
                     tfReturnDate.setEditable(true);
-                    displayReturnFlights = false;
                 } else {
                     tfReturnDate.setEditable(false);
                 }
@@ -202,6 +210,7 @@ public class FlightSearchFrame extends JFrame {
         String departureDate = tfDepartureDate.getText();
         String returnDate = tfReturnDate.getText();
 
+        // account for one-way trip and round trip
         /*
         if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
@@ -306,9 +315,69 @@ public class FlightSearchFrame extends JFrame {
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
                 if(!displayReturnFlights) {
-                    //BookedFlightsReview bookedFlightsReview = new BookedFlightsReview();
-                    //bookedFlightsReview.bookedFlightsToReview(bookedFlights);
-                    BookedFlightsReview bookedFlightsReview = new BookedFlightsReview(null, bookedFlights);
+                    // AIRLINE OPERATOR TOO
+                    JSONObject departureFlightObj = bookedFlights.get(0);
+
+                    String departFlightNumber = departureFlightObj.get("ident_iata").toString();
+                    //"2023-04-20T01:25:00Z"
+                    // 01234567890123456789
+                    String departureDate = departureFlightObj.get("scheduled_out").toString().substring(0,10);
+                    departureDate = departureDate.substring(5,7) + "/" + departureDate.substring(8,10) + "/" + departureDate.substring(0,4);
+                    String arrivalDate = departureFlightObj.get("estimated_in").toString().substring(0,10);
+                    arrivalDate = arrivalDate.substring(5,7) + "/" + arrivalDate.substring(8,10) + "/" + arrivalDate.substring(0,4);
+
+                    String departureTime = departureFlightObj.get("scheduled_out").toString().substring(11,19);
+                    String arrivalTime = departureFlightObj.get("estimated_in").toString().substring(11,19);
+
+                    String departureLocation = departureFlightObj.getJSONObject("origin").get("city").toString();
+                    String arrivalLocation = departureFlightObj.getJSONObject("destination").get("city").toString();;
+
+                    String departureAirportCode = departureFlightObj.getJSONObject("origin").get("code_iata").toString();
+                    String departureAirportName = departureFlightObj.getJSONObject("origin").get("name").toString();
+                    String arrivalAirportCode = departureFlightObj.getJSONObject("destination").get("code_iata").toString();
+                    String arrivalAirportName = departureFlightObj.getJSONObject("destination").get("name").toString();
+
+                    Airport departureAirport = new Airport(departureAirportCode, departureAirportName);
+                    Airport arrivalAirport = new Airport(arrivalAirportCode, arrivalAirportName);
+
+                    Flight departingFlight = new Flight(departFlightNumber, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
+                    departingFlight.setDepartureAirport(departureAirport);
+                    departingFlight.setArrivalAirport(arrivalAirport);
+
+                    if(bookedFlights.size() > 1) {
+                        // create return trip Flight
+                        JSONObject returnFlightObj = bookedFlights.get(1);
+
+                        String returnFlightNumber = returnFlightObj.get("ident_iata").toString();
+                        //"2023-04-20T01:25:00Z"
+                        // 01234567890123456789
+                        String returnDepartureDate = returnFlightObj.get("scheduled_out").toString().substring(0,10);
+                        returnDepartureDate = returnDepartureDate.substring(5,7) + "/" + returnDepartureDate.substring(8,10) + "/" + returnDepartureDate.substring(0,4);
+                        String returnArrivalDate = returnFlightObj.get("estimated_in").toString().substring(0,10);
+                        returnArrivalDate = returnArrivalDate.substring(5,7) + "/" + returnArrivalDate.substring(8,10) + "/" + returnArrivalDate.substring(0,4);
+
+                        String returnDepartureTime = returnFlightObj.get("scheduled_out").toString().substring(11,19);
+                        String returnArrivalTime = returnFlightObj.get("estimated_in").toString().substring(11,19);
+
+                        String returnDepartureLocation = returnFlightObj.getJSONObject("origin").get("city").toString();
+                        String returnArrivalLocation = returnFlightObj.getJSONObject("destination").get("city").toString();;
+
+                        String returnDepartureAirportCode = returnFlightObj.getJSONObject("origin").get("code_iata").toString();
+                        String returnDepartureAirportName = returnFlightObj.getJSONObject("origin").get("name").toString();
+                        String returnArrivalAirportCode = returnFlightObj.getJSONObject("destination").get("code_iata").toString();
+                        String returnArrivalAirportName = returnFlightObj.getJSONObject("destination").get("name").toString();
+
+                        Airport returnDepartureAirport = new Airport(returnDepartureAirportCode, returnDepartureAirportName);
+                        Airport returnArrivalAirport = new Airport(returnArrivalAirportCode, returnArrivalAirportName);
+
+                        Flight returnFlight = new Flight(returnFlightNumber, returnDepartureDate, returnArrivalDate, returnDepartureTime, returnArrivalTime, returnDepartureLocation, returnArrivalLocation);
+                        returnFlight.setDepartureAirport(returnDepartureAirport);
+                        returnFlight.setArrivalAirport(returnArrivalAirport);
+                    }
+
+                    // send Flight objects to BookedFlightReview
+                        // completely change it
+                        // change the name - dumb name
 
                     ReviewFrame review = new ReviewFrame();
                     dispose();

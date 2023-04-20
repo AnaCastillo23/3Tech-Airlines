@@ -23,16 +23,15 @@ import java.util.Date;
  */
 public class Flight {
     // helper classes
-    private static Airport airport;
+    private static Airport departureAirport;
+    private static Airport arrivalAirport;
     private static Airline airline;
 
     private String flightID;
-    private String departureDateAPI;
-    private Date departureDate;
-    private String arrivalDateAPI;
-    private Date arrivalDate;
-    private Time departureTime;
-    private Time arrivalTime;
+    private String departureDate;
+    private String arrivalDate;
+    private String departureTime;
+    private String arrivalTime;
     private String departureLocation;
     private String arrivalLocation;
 
@@ -43,14 +42,15 @@ public class Flight {
      */
     public Flight() {
         this.flightID = null;
-        this.departureDateAPI = null;
         this.departureDate = null;
-        this.arrivalDateAPI = null;
         this.arrivalDate = null;
         this.departureTime = null;
         this.arrivalTime = null;
         this.departureLocation = null;
         this.arrivalLocation = null;
+        departureAirport = new Airport();
+        arrivalAirport = new Airport();
+        airline = new Airline();
     }
 
     /**
@@ -66,23 +66,17 @@ public class Flight {
      * @param departureLocation departureLocation
      * @param arrivalLocation arrivalLocation
      */
-    public Flight(String flightID, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime, String departureLocation, String arrivalLocation) {
+    public Flight(String flightID, String departureDate, String arrivalDate, String departureTime, String arrivalTime, String departureLocation, String arrivalLocation) {
         this.flightID = flightID;
-
-        //setDepartureDate(departureDate);
-        this.departureDateAPI = getDepartureDateAPI();
-        // delete this after bug fix
         this.departureDate = departureDate;
-
-        //setArrivalDate(arrivalDate);
-        this.arrivalDateAPI = getArrivalDateAPI();
-        // delete this after bug fix
         this.arrivalDate = arrivalDate;
-
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.departureLocation = departureLocation;
         this.arrivalLocation = arrivalLocation;
+        departureAirport = new Airport();
+        arrivalAirport = new Airport();
+        airline = new Airline();
     }
 
     /**
@@ -98,35 +92,13 @@ public class Flight {
 
     /**
      *
-     * Method for obtaining the Departure Date from the API, according to selected flight by user.
-     *
-     * @return departureDateAPI
-     *
-     */
-    public String getDepartureDateAPI() {
-        return departureDateAPI;
-    }
-
-    /**
-     *
      * Method for obtaining the departure date from the flight itself. To be used later in project.
      *
      * @return departureDate
      *
      */
-    public Date getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
-    }
-
-    /**
-     *
-     * Method for obtaining the Arrival Date from the API.
-     *
-     * @return arrivalDateAPI
-     *
-     */
-    public String getArrivalDateAPI() {
-        return arrivalDateAPI;
     }
 
     /**
@@ -136,7 +108,7 @@ public class Flight {
      * @return arrivalDate
      *
      */
-    public Date getArrivalDate() {
+    public String getArrivalDate() {
         return arrivalDate;
     }
 
@@ -147,7 +119,7 @@ public class Flight {
      * @return departureTime
      *
      */
-    public Time getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
@@ -158,7 +130,7 @@ public class Flight {
      * @return arrivalTime
      *
      */
-    public Time getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
@@ -191,9 +163,21 @@ public class Flight {
      * @return airport
      *
      */
-    public static Airport getAirport() {
-        return airport;
+    public static Airport getDepartureAirport() {
+        return departureAirport;
     }
+
+    /**
+     *
+     * Method for returning the stored Airport's Name. To be used later in project.
+     *
+     * @return airport
+     *
+     */
+    public static Airport getArrivalAirport() {
+        return arrivalAirport;
+    }
+
 
     /**
      *
@@ -218,17 +202,6 @@ public class Flight {
 
     /**
      *
-     * Method for setting the Departure Date from API. To be used later in project.
-     *
-     * @param departureDateAPI departureDateAPI
-     *
-     */
-    public void setDepartureDateAPI(String departureDateAPI) {
-        this.departureDateAPI = departureDateAPI;
-    }
-
-    /**
-     *
      * Method for setting a flight's Departure Date and pass it onto the API. To be used later in project.
      *
      * @param departureDate departureDate
@@ -236,19 +209,7 @@ public class Flight {
      */
     // make this take (Date departure) -> setArrivalDateAPI(departure)
     public void setDepartureDate(String departureDate) {
-        this.departureDateAPI = departureDate;
-        this.departureDate = new Date();
-    }
-
-    /**
-     *
-     * Method for setting Arrival Date in the API. To be used later in project.
-     *
-     * @param arrivalDateAPI arrivalDateAPI
-     *
-     */
-    public void setArrivalDateAPI(String arrivalDateAPI) {
-        this.arrivalDateAPI = arrivalDateAPI;
+        this.departureDate = departureDate;
     }
 
     /**
@@ -258,7 +219,7 @@ public class Flight {
      * @param arrivalDate arrivalDate
      *
      */
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(String arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
@@ -269,7 +230,7 @@ public class Flight {
      * @param departureTime departureTime
      *
      */
-    public void setDepartureTime(Time departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
@@ -280,7 +241,7 @@ public class Flight {
      * @param arrivalTime arrivalTime
      *
      */
-    public void setArrivalTime(Time arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -309,13 +270,22 @@ public class Flight {
      *
      * Method for setting Airport. To be used later in project.
      *
-     * @param airportCode airportCode
-     * @param airportName airportName
-     * @param airportCity airportCity
+     * @param departureAirport
      *
      */
-    public static void setAirport(String airportCode, String airportName, String airportCity) {
-        airport = new Airport(airportCode, airportName, airportCity);
+    public void setDepartureAirport(Airport departureAirport) {
+        this.departureAirport = departureAirport;
+    }
+
+    /**
+     *
+     * Method for setting Airport. To be used later in project.
+     *
+     * @param arrivalAirport arrivalAirport
+     *
+     */
+    public void setArrivalAirport(Airport arrivalAirport) {
+        this.arrivalAirport = arrivalAirport;
     }
 
     /**

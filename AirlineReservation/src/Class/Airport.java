@@ -21,7 +21,7 @@ package Class;
 public class Airport {
     private String airportCode;
     private String airportName;
-    private String airportCity;
+
     //private String airportCountry;
 
     /**
@@ -32,7 +32,6 @@ public class Airport {
     public Airport() {
         this.airportCode = null;
         this.airportName = null;
-        this.airportCity = null;
         //this.airportCountry = null;
     }
 
@@ -43,13 +42,11 @@ public class Airport {
      *
      * @param airportCode airportCode
      * @param airportName airportName
-     * @param airportCity airportCity
      *
      */
-    public Airport(String airportCode, String airportName, String airportCity) {
+    public Airport(String airportCode, String airportName) {
         this.airportCode = airportCode;
         this.airportName = airportName;
-        this.airportCity = airportCity;
         //this.airportCountry = airportCountry;
     }
 
@@ -75,16 +72,6 @@ public class Airport {
         return airportName;
     }
 
-    /**
-     *
-     * Method for obtaining the Airport's City.
-     *
-     * @return airportCity
-     *
-     */
-    public String getAirportCity() {
-        return airportCity;
-    }
 
     //Ignore
     /*
@@ -114,16 +101,6 @@ public class Airport {
         this.airportName = airportName;
     }
 
-    /**
-     *
-     * Method for setting the Airport's City.
-     *
-     * @param airportCity airportCity
-     *
-     */
-    public void setAirportCity(String airportCity) {
-        this.airportCity = airportCity;
-    }
 
     //Ignore
     /*

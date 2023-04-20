@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +17,8 @@ public class BookedFlightsReview {
 
     }
 
-    public BookedFlightsReview(ArrayList<String[]> airlineOperator, ArrayList<JSONObject> bookedFlights) {
-        bundle = new BookedFlightBundle(airlineOperator, bookedFlights);
+    public BookedFlightsReview(ArrayList<Date> departDates, ArrayList<String[]> airlineOperator, ArrayList<JSONObject> bookedFlights) {
+        bundle = new BookedFlightBundle(departDates, airlineOperator, bookedFlights);
         bookedFlightsToReview(bundle);
     }
 
@@ -38,12 +39,14 @@ public class BookedFlightsReview {
     public static class BookedFlightBundle {
         private ArrayList<String[]> airlineOperator;  //airlineOperator.add(new String[]{"operator code", "operator name"});
         private ArrayList<JSONObject> bookedFlights = new ArrayList<>();
+        private ArrayList<Date> departDates = new ArrayList<>();
 
 
         public BookedFlightBundle() {
         }
 
-        public BookedFlightBundle(ArrayList<String[]> airlineOperator, ArrayList<JSONObject> bookedFlights) {
+        public BookedFlightBundle(ArrayList<Date> departDates, ArrayList<String[]> airlineOperator, ArrayList<JSONObject> bookedFlights) {
+            this.departDates = departDates;
             this.airlineOperator = airlineOperator;
             //this.airlineOperator.add(new String[]{"operator code", "operator name"});
             this.bookedFlights = bookedFlights;
@@ -57,12 +60,20 @@ public class BookedFlightsReview {
             return bookedFlights;
         }
 
+        public ArrayList<Date> getDepartDates() {
+            return departDates;
+        }
+
         public void setAirlineOperator(ArrayList<String[]> airlineOperator) {
             this.airlineOperator = airlineOperator;
         }
 
         public void setBookedFlights(ArrayList<JSONObject> bookedFlights) {
             this.bookedFlights = bookedFlights;
+        }
+
+        public void setDepartDates(ArrayList<Date> departDates) {
+            this.departDates = departDates;
         }
     }
 }
