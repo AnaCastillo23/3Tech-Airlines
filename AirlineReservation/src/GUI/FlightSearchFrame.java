@@ -1,6 +1,7 @@
 package GUI;
 
 import API.FlightModel;
+import Helper.BookedFlightsReview;
 import Helper.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
@@ -245,7 +246,6 @@ public class FlightSearchFrame extends JFrame {
             System.out.println(btn.getName());
             System.out.println(e.toString());
             if (e.toString().contains("cmd=Book")) {
-                System.out.println(true);
                 // Using searchResult.get(i) data to Class folder to send flight info to ReviewFrame
                 // reset searchData array
                 // if booking round-trip, then clear search list and display destination -> home flights
@@ -282,8 +282,11 @@ public class FlightSearchFrame extends JFrame {
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
                 if(!displayReturnFlights) {
-                    dispose();
+                    BookedFlightsReview bookedFlightsReview = new BookedFlightsReview();
+                    bookedFlightsReview.bookedFlightsToReview(bookedFlights);
+
                     ReviewFrame review = new ReviewFrame();
+                    dispose();
                     review.setVisible(true);
                 }
             } else {

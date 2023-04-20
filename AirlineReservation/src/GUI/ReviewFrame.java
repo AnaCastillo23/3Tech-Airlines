@@ -1,6 +1,11 @@
 package GUI;
 
+import Helper.BookedFlightsReview;
+import org.json.JSONObject;
+
 import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  * The Review GUI is used to display a desktop application
  * window which displays user's selection of flight that they wish to book in order for the user to review if
@@ -26,6 +31,9 @@ public class ReviewFrame extends JFrame {
     private JPanel reviewPanel;
     private JTextArea welcomeToNextPaneTextArea;
 
+    BookedFlightsReview bookedFlightsReview;
+    ArrayList<JSONObject> bookedFlights = new ArrayList<>();
+
     /**
      *
      * Method is for creating and displaying a desktop window to a specific size when user has selected a flight from the list and has clicked on NEXT button in FlightSearchFrame.
@@ -36,7 +44,17 @@ public class ReviewFrame extends JFrame {
         setTitle("Flight Information");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        bookedFlightsReview = new BookedFlightsReview();
+        bookedFlights = bookedFlightsReview.getBookedFlightsReview("temp");
+
+        System.out.println("Departing Flight: " + bookedFlights.get(0)); // test
+        if(bookedFlights.size() > 0) {
+            System.out.println("Returning Flight: " + bookedFlights.get(1)); // test
+        }
     }
+
+
 
     /**
      * Action listener used to code the CONFIRM button of current frame if user decides to confirm
