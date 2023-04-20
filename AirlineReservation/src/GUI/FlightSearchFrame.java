@@ -120,7 +120,6 @@ public class FlightSearchFrame extends JFrame {
         // bookButton will be assigned to the book button the user selects in flight search results
         // call method first to assign bookButton
 
-
         roundTripRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
