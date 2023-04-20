@@ -163,7 +163,7 @@ public class Flight {
      * @return airport
      *
      */
-    public static Airport getDepartureAirport() {
+    public Airport getDepartureAirport() {
         return departureAirport;
     }
 
@@ -174,7 +174,7 @@ public class Flight {
      * @return airport
      *
      */
-    public static Airport getArrivalAirport() {
+    public Airport getArrivalAirport() {
         return arrivalAirport;
     }
 
@@ -185,7 +185,7 @@ public class Flight {
      * @return airline
      *
      */
-    public static Airline getAirline() {
+    public Airline getAirline() {
         return airline;
     }
 
@@ -292,11 +292,12 @@ public class Flight {
      *
      * Method for setting Airline according to data gathered from API. To be used later in project.
      *
-     * @param airlineName airlineName
+     * @param airline airline
      *
      */
-    public static void setAirline(String airlineName) {
+    public void setAirline(Airline airline) {
 
-        airline = new Airline(airlineName, null);
+        this.airline = airline;
     }
+
 }

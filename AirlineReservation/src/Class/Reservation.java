@@ -1,8 +1,6 @@
 package Class;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * The Reservation class is used in conjunction with information recollected from
@@ -34,12 +32,16 @@ public class Reservation {
     //                            - round trip: two Flight classes
     private Flight departureFlight;
     private Flight returnFlight;
+    private Baggage baggage;
+    private Seat seats;
+    //private Passenger passenger;
+    private ArrayList<Passenger> party;
 
     private int reservationID;
     private String departureDate;
     private String returnDate;
     private boolean roundTrip;
-    private String departFlightNumber;
+    private String departureFlightNumber;
     private String returnFlightNumber;
     private int departurePartySize;
     private int returnPartySize;
@@ -57,7 +59,7 @@ public class Reservation {
         this.departureDate = null;
         this.returnDate = null;
         this.roundTrip = false;
-        this.departFlightNumber = null;
+        this.departureFlightNumber = null;
         this.returnFlightNumber = null;
         this.departurePartySize = 0;
         this.returnPartySize = 0;
@@ -72,18 +74,18 @@ public class Reservation {
      *
      * @param reservationID reservationID
      * @param departureDate departureDate
-     * @param departFlightNumber departFlightNumber
+     * @param departureFlightNumber departFlightNumber
      * @param departurePartySize departurePartySize
      * @param departureParty departureParty
      *
      */
     // one way trip
-    public Reservation(int reservationID, String departureDate, String departFlightNumber, int departurePartySize, ArrayList<Passenger> departureParty) {
+    public Reservation(int reservationID, String departureDate, String departureFlightNumber, int departurePartySize, ArrayList<Passenger> departureParty) {
         this.reservationID = reservationID;
         this.departureDate = departureDate;
         this.returnDate = null;
         this.roundTrip = false;
-        this.departFlightNumber = departFlightNumber;
+        this.departureFlightNumber = departureFlightNumber;
         this.returnFlightNumber = null;
         this.departurePartySize = departurePartySize;
         this.returnPartySize = 0;
@@ -99,7 +101,7 @@ public class Reservation {
      * @param reservationID reservationID
      * @param departureDate departureDate
      * @param returnDate returnDate
-     * @param departFlightNumber departFlightNumber
+     * @param departureFlightNumber departFlightNumber
      * @param returnFlightNumber returnFlightNumber
      * @param departurePartySize departurePartySize
      * @param returnPartySize returnPartySize
@@ -108,12 +110,12 @@ public class Reservation {
      *
      */
     // round trip
-    public Reservation(int reservationID, String departureDate, String returnDate, String departFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
+    public Reservation(int reservationID, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
         this.reservationID = reservationID;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
         this.roundTrip = true;
-        this.departFlightNumber = departFlightNumber;
+        this.departureFlightNumber = departureFlightNumber;
         this.returnFlightNumber = returnFlightNumber;
         this.departurePartySize = departurePartySize;
         this.returnPartySize = returnPartySize;
@@ -161,7 +163,7 @@ public class Reservation {
      * @return True if flight type is round trip
      *
      */
-    public boolean getFlightType() {
+    public boolean isRoundTrip() {
         return this.roundTrip;
     }
 
@@ -172,8 +174,8 @@ public class Reservation {
      * @return departureFlightNumber
      *
      */
-    public String getDepartFlightNumber() {
-        return this.departFlightNumber;
+    public String getDepartureFlightNumber() {
+        return this.departureFlightNumber;
     }
 
     /**
@@ -281,11 +283,11 @@ public class Reservation {
      *
      * Method for setting the Departing Flight Number.
      *
-     * @param departFlightNumber departFlightNumber
+     * @param departureFlightNumber departFlightNumber
      *
      */
-    public void setDepartFlightNumber (String departFlightNumber) {
-        this.departFlightNumber = departFlightNumber;
+    public void setDepartureFlightNumber(String departureFlightNumber) {
+        this.departureFlightNumber = departureFlightNumber;
     }
 
     /**
@@ -359,49 +361,11 @@ public class Reservation {
         this.returnFlight = returnFlight;
     }
 
-// MAYBE DELETE ALL BELOW
-    /**
-     *
-     * Method for creating a new instance of Flight (for departing flight).
-     *
-     * @param flightID flightID
-     * @param departureDate departureDate
-     * @param arrivalDate arrivalDate
-     * @param departureTime departureTime
-     * @param arrivalTime arrivalTime
-     * @param departureLocation departureLocation
-     * @param arrivalLocation arrivalLocation
-     *//*
-    public void setDepartureFlight(String flightID, Date departureDate, Date arrivalDate, String departureTime, String arrivalTime, String departureLocation, String arrivalLocation) {
-        departureFlight = new Flight(flightID, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
-    }
-*/
-    /**
-     *
-     * Method for creating a new instance of Flight (for returning flight in case it is a round trip).
-     *
-     * @param flightID flightID
-     * @param departureDate departureDate
-     * @param arrivalDate arrivalDate
-     * @param departureTime departureTime
-     * @param arrivalTime arrivalTime
-     * @param departureLocation departureLocation
-     * @param arrivalLocation arrivalLocation
-     *
-     *//*
-    // roundTrip
-    public void setReturnFlight(String flightID, Date departureDate, Date arrivalDate, String departureTime, String arrivalTime, String departureLocation, String arrivalLocation) {
-        returnFlight = new Flight(flightID, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
-    }*/
-
-    //IGNORE FOllOWING
-    // NOT SURE IF THIS IS NEEDED
-    /*
     public Flight getDepartureFlight() {
-        return getDepartureFlight();
+        return departureFlight;
     }
 
     public Flight getReturnFlight() {
-        return getReturnFlight();
-    }*/
+        return returnFlight;
+    }
 }

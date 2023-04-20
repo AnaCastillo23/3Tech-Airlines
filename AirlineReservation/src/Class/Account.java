@@ -51,6 +51,7 @@ import java.util.Map;
  */
 public class Account {
     private static ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+    private Reservation reservation;
     private String username;
     private String password;
     private String firstName;
@@ -254,7 +255,19 @@ public class Account {
      * Method that adds one or more flight reservations to user's account.
      * @param reservation contains all flight information for flight user has booked.
      */
-    public static void addReservation(Reservation reservation) {
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    /**
+     * Method that adds one or more flight reservations to user's account.
+     * @param reservation contains all flight information for flight user has booked.
+     */
+    public void addReservationToAccount(Reservation reservation) {
         reservationList.add(reservation);
     }
 

@@ -1,7 +1,7 @@
 package GUI;
 
 import API.FlightModel;
-import Helper.BookedFlightsReview;
+import Helper.FlightsToReview;
 import Helper.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
@@ -14,9 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -315,6 +312,7 @@ public class FlightSearchFrame extends JFrame {
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
                 if(!displayReturnFlights) {
+                    ArrayList<Flight> bookedFlightList = new ArrayList<>();
                     // AIRLINE OPERATOR TOO
                     JSONObject departureFlightObj = bookedFlights.get(0);
 
@@ -337,12 +335,18 @@ public class FlightSearchFrame extends JFrame {
                     String arrivalAirportCode = departureFlightObj.getJSONObject("destination").get("code_iata").toString();
                     String arrivalAirportName = departureFlightObj.getJSONObject("destination").get("name").toString();
 
+                    String airlineID = departureFlightObj.get("operator").toString();
+
                     Airport departureAirport = new Airport(departureAirportCode, departureAirportName);
                     Airport arrivalAirport = new Airport(arrivalAirportCode, arrivalAirportName);
+                    Airline airline = new Airline(airlineID, null);
 
                     Flight departingFlight = new Flight(departFlightNumber, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
                     departingFlight.setDepartureAirport(departureAirport);
                     departingFlight.setArrivalAirport(arrivalAirport);
+                    departingFlight.setAirline(airline);
+
+                    bookedFlightList.add(departingFlight);
 
                     if(bookedFlights.size() > 1) {
                         // create return trip Flight
@@ -367,17 +371,22 @@ public class FlightSearchFrame extends JFrame {
                         String returnArrivalAirportCode = returnFlightObj.getJSONObject("destination").get("code_iata").toString();
                         String returnArrivalAirportName = returnFlightObj.getJSONObject("destination").get("name").toString();
 
+                        String returnAirlineID = returnFlightObj.get("operator").toString();
+
                         Airport returnDepartureAirport = new Airport(returnDepartureAirportCode, returnDepartureAirportName);
                         Airport returnArrivalAirport = new Airport(returnArrivalAirportCode, returnArrivalAirportName);
+                        Airline returnAirline = new Airline(returnAirlineID, null);
 
                         Flight returnFlight = new Flight(returnFlightNumber, returnDepartureDate, returnArrivalDate, returnDepartureTime, returnArrivalTime, returnDepartureLocation, returnArrivalLocation);
                         returnFlight.setDepartureAirport(returnDepartureAirport);
                         returnFlight.setArrivalAirport(returnArrivalAirport);
+                        returnFlight.setAirline(returnAirline);
+
+                        bookedFlightList.add(returnFlight);
                     }
 
-                    // send Flight objects to BookedFlightReview
-                        // completely change it
-                        // change the name - dumb name
+                    System.out.println(bookedFlightList.size());
+                    FlightsToReview flightsToReview = new FlightsToReview(bookedFlightList);
 
                     ReviewFrame review = new ReviewFrame();
                     dispose();
@@ -397,6 +406,7 @@ public class FlightSearchFrame extends JFrame {
      *
      */
     public static void main(String[] args) {
+        // clear FlightToReview hashmap???
         FlightSearchFrame flightFrame = new FlightSearchFrame();
     }
 }

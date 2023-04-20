@@ -1,15 +1,17 @@
 package GUI;
 
-import Helper.BookedFlightsReview;
-import Class.Reservation;
-import Class.Passenger;
+import Helper.FlightsToReview;
+import Class.Flight;
 import Class.Account;
+import Class.Passenger;
+import Class.Reservation;
+import Class.Airport;
+import Class.Airline;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * The Review GUI is used to display a desktop application
@@ -37,10 +39,21 @@ public class ReviewFrame extends JFrame {
     private JTextArea welcomeToNextPaneTextArea;
     private JButton confirmButton;
 
-    //BookedFlightsReview bookedFlightsReview;
-    //BookedFlightsReview.BookedFlightBundle bookedFlights = new BookedFlightsReview.BookedFlightBundle();
+    FlightsToReview flightsToReview;
 
     private boolean roundTrip;
+    Flight departureFlight;
+    String departureDate;
+    String departureFlightNumber;
+    int departurePartySize;
+    ArrayList<Passenger> departureParty;
+
+    Flight returnFlight;
+    String returnDate;
+    String returnFlightNumber;
+    int returnPartySize;
+    ArrayList<Passenger> returnParty;
+
 
     /**
      *
@@ -53,22 +66,35 @@ public class ReviewFrame extends JFrame {
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //bookedFlightsReview = new BookedFlightsReview();
-        //bookedFlights = bookedFlightsReview.getBookedFlightsReview("temp");
-/*
-        if(bookedFlights.getBookedFlights().size() > 1) {
+        flightsToReview = new FlightsToReview();
+        ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay("temp");
+
+        // make method generateReservationID() <---- create unique reservation number
+        //int reservationID = generateReservationID();
+        int reservationID = 222;// temp
+
+        departureFlight = displayFlights.get(0);
+        departureDate = departureFlight.getDepartureDate();
+        departureFlightNumber = departureFlight.getFlightID();
+        departurePartySize = 1; // temp
+        departureParty = null;
+
+        if(displayFlights.size() > 1) {
+            // round trip
             roundTrip = true;
+
+            returnFlight = displayFlights.get(1);
+            returnDate = returnFlight.getDepartureDate();
+            returnFlightNumber = returnFlight.getFlightID();
+            returnPartySize = 1; // temp
+            returnParty = null; // temp
+
         } else {
+            // one-way trip
             roundTrip = false;
         }
 
-        // test
-        System.out.println("Departing Flight: " + bookedFlights.getBookedFlights().get(0)); // test
-        if(roundTrip) {
-            System.out.println("Returning Flight: " + bookedFlights.getBookedFlights().get(1)); // test
-        }*/
-
-        // Use BookedFlightReview methods to display booked flight/s
+        // Use variables above and Flight methods to display booked flight/s
             /*
             - FlightID
             - Depart and Arrival airport ICAO codes
@@ -88,45 +114,103 @@ public class ReviewFrame extends JFrame {
          */
         //Ana-Still not done
         //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
-        /*confirmButton.addActionListener(new ActionListener() {
+        confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Account account = new Account();
 
                 // depart reservation
-                // Send BookedFlightReview data to Reservation.java
-                // generateReservationID() <---- ???????? create unique reservation number
-                Date departureDate = bookedFlights.getDepartDates().get(0);
-                String departFlightNumber = bookedFlights.getBookedFlights().get(0).getJSONObject("ident_iata").toString();
-                int departurePartySize = 1; // temp
-                ArrayList<Passenger> departureParty = null; // temp
-
-                // departing flight
-
-
+                Reservation reservation;
                 if(roundTrip) {
                     // return reservation
-                    Date returnDate = bookedFlights.getDepartDates().get(1);
-                    String returnFlightNumber = bookedFlights.getBookedFlights().get(1).getJSONObject("ident_iata").toString();
-                    int returnPartySize = 1; // temp
-                    ArrayList<Passenger> returnParty = null; // temp
-
-                    // returning flight
-
-                    Reservation roundTripReservation = new Reservation(1111, departureDate, returnDate, departFlightNumber, returnFlightNumber, departurePartySize, returnPartySize, departureParty, returnParty);
-
-                    //roundTripReservation.setDepartureFlight();
-                    //roundTripReservation.setReturnFlight();
+                    reservation = new Reservation(reservationID, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
+                            departurePartySize, returnPartySize, departureParty, returnParty);
+                    reservation.setDepartureFlight(departureFlight);
+                    reservation.setReturnFlight(returnFlight);
                 } else {
                     // one way trip
-                    Reservation oneWayTripReservation = new Reservation(1111, departureDate, departFlightNumber, departurePartySize, departureParty);
+                    reservation = new Reservation(reservationID, departureDate, departureFlightNumber, departurePartySize, departureParty);
+                    reservation.setDepartureFlight(departureFlight);
+                }
+                // Add Reservation to Account
+                account.setReservation(reservation);
+                account.addReservationToAccount(account.getReservation());
 
-                    //oneWayTripReservation.setDepartureFlight(departFlightNumber, departureDate, , , , , );
-                    account.addReservation(oneWayTripReservation);
+
+                // TEST
+                Reservation reservation1 = account.getReservationList().get(0);
+                //Reservation reservation1 = account.getReservation();
+                Flight departFlight1 = reservation1.getDepartureFlight();
+                Airport departureAirport1 = departFlight1.getDepartureAirport();
+                Airport arrivalAirport1 = departFlight1.getArrivalAirport();
+                Airline airline1 = departFlight1.getAirline();
+
+                System.out.println("Reservation Info:");
+                System.out.println("\tReservation ID: " + reservation1.getReservationID());
+                System.out.println("\tRound-Trip? : " + reservation1.isRoundTrip());
+                System.out.println("\tDeparture Flight Number: " + reservation1.getDepartureFlightNumber());
+                System.out.println("\tReturn Flight Number: " + reservation1.getReturnFlightNumber());
+                System.out.println("\tDeparture Date: " + reservation1.getDepartureDate());
+                System.out.println("\tReturn Date: " + reservation1.getReturnDate());
+                System.out.println("\tDeparture Party: " + reservation1.getDepartureParty());
+                System.out.println("\tDeparture Party Size: " + reservation1.getDeparturePartySize());
+                System.out.println("\tReturn Party: " + reservation1.getReturnParty());
+                System.out.println("\tReturn Party Size: " + reservation1.getReturnPartySize());
+
+                System.out.println("Departure Test:");
+                System.out.println("\tDeparture Flight Info:");
+                System.out.println("\t\tDeparture Flight ID: " + departFlight1.getFlightID());
+                System.out.println("\t\tDeparture Date: " + departFlight1.getDepartureDate());
+                System.out.println("\t\tDeparture Time: " + departFlight1.getDepartureTime());
+                System.out.println("\t\tDeparture City: " + departFlight1.getDepartureLocation());
+                System.out.println("\t\tArrival Date: " + departFlight1.getArrivalDate());
+                System.out.println("\t\tArrival Time: " + departFlight1.getArrivalTime());
+                System.out.println("\t\tArrival City: " + departFlight1.getArrivalLocation());
+
+                System.out.println("\tDeparture Airport Info:");
+                System.out.println("\t\tAirport Code: " + departureAirport1.getAirportCode());
+                System.out.println("\t\tAirport Name: " + departureAirport1.getAirportName());
+
+                System.out.println("\tArrival Airport Info:");
+                System.out.println("\t\tAirport Code: " + arrivalAirport1.getAirportCode());
+                System.out.println("\t\tAirport Name: " + arrivalAirport1.getAirportName());
+
+                System.out.println("\tAirline Info:");
+                System.out.println("\t\tAirline Code: " + airline1.getAirlineID());
+                System.out.println("\t\tAirline Name: " + airline1.getAirlineName());
+
+                if(roundTrip) {
+                    Flight departFlight2 = reservation1.getReturnFlight();
+                    Airport departureAirport2 = departFlight2.getDepartureAirport();
+                    Airport arrivalAirport2 = departFlight2.getArrivalAirport();
+                    Airline airline2 = departFlight2.getAirline();
+
+                    System.out.println("Return Test:");
+
+                    System.out.println("\tReturn Flight Info:");
+                    System.out.println("\t\tReturn Flight ID: " + departFlight2.getFlightID());
+                    System.out.println("\t\tDeparture Date: " + departFlight2.getDepartureDate());
+                    System.out.println("\t\tDeparture Time: " + departFlight2.getDepartureTime());
+                    System.out.println("\t\tDeparture City: " + departFlight2.getDepartureLocation());
+                    System.out.println("\t\tArrival Date: " + departFlight2.getArrivalDate());
+                    System.out.println("\t\tArrival Time: " + departFlight2.getArrivalTime());
+                    System.out.println("\t\tArrival City: " + departFlight2.getArrivalLocation());
+
+                    System.out.println("\tDeparture Airport Info:");
+                    System.out.println("\t\tAirport Code: " + departureAirport2.getAirportCode());
+                    System.out.println("\t\tAirport Name: " + departureAirport2.getAirportName());
+
+                    System.out.println("\tArrival Airport Info:");
+                    System.out.println("\t\tAirport Code: " + arrivalAirport2.getAirportCode());
+                    System.out.println("\t\tAirport Name: " + arrivalAirport2.getAirportName());
+
+                    System.out.println("\tAirline Info:");
+                    System.out.println("\t\tAirline Code: " + airline2.getAirlineID());
+                    System.out.println("\t\tAirline Name: " + airline2.getAirlineName());
                 }
             }
         });
-*/
+
 
         /**
          * Action listener used to code the CANCEL button of current frame if user decides to cancel
