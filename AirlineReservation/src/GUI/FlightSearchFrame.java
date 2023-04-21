@@ -118,8 +118,7 @@ public class FlightSearchFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //dispose();
-                //Ana-go back to dashboard??????????
+                //dispose() or reset() or dashboard gui????;
             }
         });
 

@@ -134,14 +134,11 @@ public class ReviewFrame extends JFrame {
                     reservation = new Reservation(reservationID, departureDate, departureFlightNumber, departurePartySize, departureParty);
                     reservation.setDepartureFlight(departureFlight);
                 }
-                // Add Reservation to Account
-                //updatedAccount.setReservation(reservation);
-                //updatedAccount.addReservationToAccount(reservation); <-- uncomm
-
-                // Tester:
-                //testReservation(updatedAccount);; <-- uncomm
                 System.out.println();
 
+
+                // Maybe do this after payment!!!!!!!!!!!!!
+                // Add Reservation to Account
                 // update Reservation in logged in account
                 AccountAccessor accountAccessor = new AccountAccessor();
                 String loginUsername = accountAccessor.getLoginUsername();
@@ -150,7 +147,7 @@ public class ReviewFrame extends JFrame {
                 updatedAccount.registerOrUpdate(updatedAccount);        // update hashmap
 
                 // Go To Payment
-                
+
             }
         });
 
