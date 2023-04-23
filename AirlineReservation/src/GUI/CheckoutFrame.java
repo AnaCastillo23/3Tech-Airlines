@@ -77,7 +77,10 @@ public class CheckoutFrame extends JFrame {
 
     public void testReservation(Account account) {
         // TEST
-        Reservation reservation1 = account.getReservationList().get(0);
+        // get last reservation in list
+        int i = account.getReservationList().size() - 1;
+
+        Reservation reservation1 = account.getReservationList().get(i);
         //Reservation reservation1 = account.getReservation();
         Flight departFlight1 = reservation1.getDepartureFlight();
         Airport departureAirport1 = departFlight1.getDepartureAirport();
@@ -127,7 +130,8 @@ public class CheckoutFrame extends JFrame {
         System.out.println("\t\tAirline Code: " + airline1.getAirlineID());
         System.out.println("\t\tAirline Name: " + airline1.getAirlineName());
 
-        if (account.getReservationList().size() > 1) {
+        if (account.getReservationList().get(i).isRoundTrip()) {
+
             Flight departFlight2 = reservation1.getReturnFlight();
             Airport departureAirport2 = departFlight2.getDepartureAirport();
             Airport arrivalAirport2 = departFlight2.getArrivalAirport();

@@ -173,46 +173,51 @@ public class FlightSearchFrame extends JFrame {
                 // every book button will be automatically be assigned a unique name: JButton bookButtonTemp.setName("bookButton" + str(i))
             // bookButtonList.add(bookButtonTemp) for every iteration
         for (int i = 0; i < searchResult.size(); i++) {
-            // pane maker
-            flightInfo = new JPanel();
-            flightInfo.setLayout(new GridLayout(3, 3));
+            try {
+                // pane maker
+                flightInfo = new JPanel();
+                flightInfo.setLayout(new GridLayout(3, 3));
 
-            flightInfo.add(new JLabel("Depart from " + searchResult.get(i).getJSONObject("origin").get("code_iata").toString()));
-            flightInfo.add(new JLabel("Arrive to " + searchResult.get(i).getJSONObject("destination").get("code_iata").toString()));
-            flightInfo.add(new JLabel(""));
+                flightInfo.add(new JLabel("Depart from " + searchResult.get(i).getJSONObject("origin").get("code_iata").toString()));
+                flightInfo.add(new JLabel("Arrive to " + searchResult.get(i).getJSONObject("destination").get("code_iata").toString()));
+                flightInfo.add(new JLabel(""));
 
-            flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("origin").get("city").toString()));
-            flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("destination").get("city").toString()));
-            flightInfo.add(new JLabel(""));
+                flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("origin").get("city").toString()));
+                flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("destination").get("city").toString()));
+                flightInfo.add(new JLabel(""));
 
-            String departureDateTime = searchResult.get(i).get("scheduled_out").toString();
-            String arrivalDateTime = searchResult.get(i).get("estimated_in").toString();
+                String departureDateTime = searchResult.get(i).get("scheduled_out").toString();
+                String arrivalDateTime = searchResult.get(i).get("estimated_in").toString();
 
-            flightInfo.add(new JLabel(departureDateTime.substring(5,7) + "/" + departureDateTime.substring(8,10) + "/" +
-                    departureDateTime.substring(0,4) + " " + departureDateTime.substring(14,19)));
-            flightInfo.add(new JLabel(arrivalDateTime.substring(5,7) + "/" + arrivalDateTime.substring(8,10) + "/" +
-                    arrivalDateTime.substring(0,4) + " " + arrivalDateTime.substring(14,19)));
-            //flightInfo.add(new JLabel(""));
+                flightInfo.add(new JLabel(departureDateTime.substring(5, 7) + "/" + departureDateTime.substring(8, 10) + "/" +
+                        departureDateTime.substring(0, 4) + " " + departureDateTime.substring(14, 19)));
+                flightInfo.add(new JLabel(arrivalDateTime.substring(5, 7) + "/" + arrivalDateTime.substring(8, 10) + "/" +
+                        arrivalDateTime.substring(0, 4) + " " + arrivalDateTime.substring(14, 19)));
+                //flightInfo.add(new JLabel(""));
             /*
             JLabel label = new JLabel();
             searchList.add(label);
             label.setText("Flight Number: " + searchResult.get(i).get("ident"));
             */
-            // This works....need to fix pane
-            bookButton = new JButton();
-            // Apply an identifier to the Button:
-            bookButton.setName(new StringBuilder("bookButton").append(i).toString());
-            bookButton.setText("Book");
-            //button.setBackground(Color.LIGHT_GRAY);
-            bookButton.addActionListener(clicked); // <= private class ButtonClicked implements ActionListener
-            //gbc.gridx = j;
-            //gbc.gridy = i;
-            flightInfo.add(bookButton);
+                // This works....need to fix pane
+                bookButton = new JButton();
+                // Apply an identifier to the Button:
+                bookButton.setName(new StringBuilder("bookButton").append(i).toString());
+                bookButton.setText("Book");
+                //button.setBackground(Color.LIGHT_GRAY);
+                bookButton.addActionListener(clicked); // <= private class ButtonClicked implements ActionListener
+                //gbc.gridx = j;
+                //gbc.gridy = i;
+                flightInfo.add(bookButton);
 
-            //searchScroll.setViewportView(searchList);// <--- try it if it doesn't work
-            flightInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                //searchScroll.setViewportView(searchList);// <--- try it if it doesn't work
+                flightInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-            searchList.add(flightInfo);
+                searchList.add(flightInfo);
+            } catch(Exception e) {
+                System.out.println("Error");
+
+            }
         }
 
     }

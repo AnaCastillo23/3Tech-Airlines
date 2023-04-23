@@ -23,9 +23,9 @@ import java.util.Date;
  */
 public class Flight {
     // helper classes
-    private static Airport departureAirport;
-    private static Airport arrivalAirport;
-    private static Airline airline;
+    private Airport departureAirport;
+    private Airport arrivalAirport;
+    private Airline airline;
 
     private String flightID;
     private String departureDate;
