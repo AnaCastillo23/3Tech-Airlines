@@ -8,6 +8,7 @@ import Class.Passenger;
 import Class.Reservation;
 import Class.Airport;
 import Class.Airline;
+import Helper.ReservationToCheckout;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -39,6 +40,10 @@ public class ReviewFrame extends JFrame {
     private JPanel reviewPanel;
     private JTextArea welcomeToNextPaneTextArea;
     private JButton confirmButton;
+    private JButton chooseSeatsButton;
+    private JButton baggageButton;
+    private JButton cancelButton;
+    private JButton button1;
 
     FlightsToReview flightsToReview;
 
@@ -68,7 +73,7 @@ public class ReviewFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         flightsToReview = new FlightsToReview();
-        ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay("temp");
+        ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
 
         // make method generateReservationID() <---- create unique reservation number
         //int reservationID = generateReservationID();
@@ -134,17 +139,26 @@ public class ReviewFrame extends JFrame {
                     reservation = new Reservation(reservationID, departureDate, departureFlightNumber, departurePartySize, departureParty);
                     reservation.setDepartureFlight(departureFlight);
                 }
-                System.out.println();
 
+                CheckoutFrame checkoutFrame = new CheckoutFrame();
+
+                ReservationToCheckout checkout = new ReservationToCheckout(reservation);
+                flightsToReview.getFlightsToDisplay().clear();
+
+                setVisible(false);
+                checkoutFrame.setVisible(true);
 
                 // Maybe do this after payment!!!!!!!!!!!!!
                 // Add Reservation to Account
-                // update Reservation in logged in account
-                AccountAccessor accountAccessor = new AccountAccessor();
+                // update Reservation in logged-in account
+                /*AccountAccessor accountAccessor = new AccountAccessor();
                 String loginUsername = accountAccessor.getLoginUsername();
                 updatedAccount = tempAccount.getLoginAccount().get(loginUsername);  // updatedAccount will have login account info
                 updatedAccount.addReservationToAccount(reservation);    // update login account with new flight reservation
                 updatedAccount.registerOrUpdate(updatedAccount);        // update hashmap
+
+                //test
+                testReservation(updatedAccount);*/
 
                 // Go To Payment
 
@@ -174,7 +188,17 @@ public class ReviewFrame extends JFrame {
          */
         //Ana-Still not done
         //add listener for canceling booking which returns user to dashboard
+        cancelButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
     }
 
 

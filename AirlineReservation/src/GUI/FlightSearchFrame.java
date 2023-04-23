@@ -74,7 +74,7 @@ public class FlightSearchFrame extends JFrame {
         setTitle("Flight Information");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+        //setVisible(true);
 
         bookedFlights = new ArrayList<>();
 
@@ -178,11 +178,11 @@ public class FlightSearchFrame extends JFrame {
             flightInfo.setLayout(new GridLayout(3, 3));
 
             flightInfo.add(new JLabel("Depart from " + searchResult.get(i).getJSONObject("origin").get("code_iata").toString()));
-            flightInfo.add(new JLabel("Arrive to SEA" + searchResult.get(i).getJSONObject("destination").get("code_iata").toString()));
+            flightInfo.add(new JLabel("Arrive to " + searchResult.get(i).getJSONObject("destination").get("code_iata").toString()));
             flightInfo.add(new JLabel(""));
 
             flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("origin").get("city").toString()));
-            flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("origin").get("city").toString()));
+            flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("destination").get("city").toString()));
             flightInfo.add(new JLabel(""));
 
             String departureDateTime = searchResult.get(i).get("scheduled_out").toString();

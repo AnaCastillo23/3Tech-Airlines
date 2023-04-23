@@ -23,11 +23,8 @@ public class FlightsToReview {
         bookedFlightsList.put("temp", bookedFlights);
     }
 
-    public ArrayList<Flight> getFlightsToDisplay(String username) {
+    public ArrayList<Flight> getFlightsToDisplay() {
         return bookedFlightsList.get("temp");
     }
-
-    // merges API data GET scheduled-departures and GET operator into one object
-    // not sure to add country...depends on size of ICAO list
 
 }

@@ -43,6 +43,7 @@ public class LoginFrame extends JFrame {
         setTitle("3Tech-Airlines");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         logInButton.addActionListener(new ActionListener() {
             /**
              *
@@ -109,11 +110,13 @@ public class LoginFrame extends JFrame {
                 if(password.equals(account.getPassword())) {
                     JOptionPane.showMessageDialog(this, "Login successful", "account", JOptionPane.PLAIN_MESSAGE);
 
-                    FlightSearchFrame flightSearchFrame = new FlightSearchFrame();
+
+                    //FlightSearchFrame flightSearchFrame = new FlightSearchFrame();
+                    DashboardFrame dashboardPanel = new DashboardFrame();
                     AccountAccessor accountAccessor = new AccountAccessor(username);  // account access throughout gui
 
                     setVisible(false);
-                    flightSearchFrame.setVisible(true);
+                    dashboardPanel.setVisible(true);
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Wrong Password", "Invalid Login", JOptionPane.ERROR_MESSAGE);
