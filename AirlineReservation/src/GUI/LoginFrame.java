@@ -1,7 +1,7 @@
 package GUI;
 
 import Class.Account;
-import Helper.AccountAccessor;
+import DataStructures.AccountAccessor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

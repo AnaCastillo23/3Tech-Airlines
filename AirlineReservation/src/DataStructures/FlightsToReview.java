@@ -1,4 +1,4 @@
-package Helper;
+package DataStructures;
 
 import Class.Flight;
 

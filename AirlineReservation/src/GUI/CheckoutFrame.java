@@ -1,7 +1,7 @@
 package GUI;
 
-import Helper.AccountAccessor;
-import Helper.ReservationToCheckout;
+import DataStructures.AccountAccessor;
+import DataStructures.ReservationToCheckout;
 
 import Class.Account;
 import Class.Reservation;
@@ -96,6 +96,9 @@ public class CheckoutFrame extends JFrame {
         System.out.println(account.getPhoneNumber());
         System.out.println();
 
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("-------------------------------Receipt----------------------------------");
+        System.out.println();
         System.out.println("Reservation Info:");
         System.out.println("\tReservation ID: " + reservation1.getReservationID());
         System.out.println("\tRound-Trip? : " + reservation1.isRoundTrip());
@@ -160,6 +163,9 @@ public class CheckoutFrame extends JFrame {
             System.out.println("\t\tAirline Code: " + airline2.getAirlineID());
             System.out.println("\t\tAirline Name: " + airline2.getAirlineName());
         }
+        System.out.println();
+        System.out.println("-----------------------------------------------------------------------");
+        System.out.println();
     }
 
 }

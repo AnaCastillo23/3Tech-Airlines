@@ -1,6 +1,6 @@
 package API;
 
-import Helper.ScheduledDeparturesFilter;
+import Class.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;

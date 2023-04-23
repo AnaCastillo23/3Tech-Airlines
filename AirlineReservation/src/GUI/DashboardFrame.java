@@ -5,8 +5,7 @@ import Class.Reservation;
 import Class.Flight;
 import Class.Airport;
 import Class.Airline;
-import Helper.AccountAccessor;
-import Helper.ReservationToCheckout;
+import DataStructures.AccountAccessor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -50,12 +49,10 @@ public class DashboardFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Account account = new Account();
 
-                // Add Reservation to Account
-                // update Reservation in logged-in account
+                // TEST
                 AccountAccessor accountAccessor = new AccountAccessor();
                 String loginUsername = accountAccessor.getLoginUsername();
                 account = account.getLoginAccount().get(loginUsername);  // updatedAccount will have login account info
-
                 testReservation(account);
             }
         });
@@ -80,9 +77,10 @@ public class DashboardFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                AccountAccessor accountAccessor = new AccountAccessor();
                 LoginFrame loginFrame = new LoginFrame();
-                // method to clear temp data structures...especially AccountAccessor here
 
+                accountAccessor.logoutAccount();
                 setVisible(false);
                 loginFrame.setVisible(true);
             }

@@ -1,8 +1,8 @@
 package GUI;
 
 import API.FlightModel;
-import Helper.FlightsToReview;
-import Helper.ScheduledDeparturesFilter;
+import DataStructures.FlightsToReview;
+import Class.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
 import Class.Flight;
@@ -163,15 +163,8 @@ public class FlightSearchFrame extends JFrame {
 
         searchList = new JPanel();
         searchList.setLayout(new GridLayout(searchResult.size(), 1, 0, 10));
-        searchScroll.setViewportView(searchList);// <--- try it if it doesn't work
+        searchScroll.setViewportView(searchList);
 
-        // bookButton is assigned here:
-        // loop
-            // assigns every FlightDisplay object and its assigned book button with int i and stores into arrayList<FlightDisplay> and arrayList<Button>
-                // FlightDisplay will contain for both depart and arrival: airportCode, cityName, date, time, airline operator
-                    // arrayList<FlightDisplay> should be global and then reset if roundtrip is selected
-                // every book button will be automatically be assigned a unique name: JButton bookButtonTemp.setName("bookButton" + str(i))
-            // bookButtonList.add(bookButtonTemp) for every iteration
         for (int i = 0; i < searchResult.size(); i++) {
             try {
                 // pane maker
@@ -193,26 +186,15 @@ public class FlightSearchFrame extends JFrame {
                         departureDateTime.substring(0, 4) + " " + departureDateTime.substring(14, 19)));
                 flightInfo.add(new JLabel(arrivalDateTime.substring(5, 7) + "/" + arrivalDateTime.substring(8, 10) + "/" +
                         arrivalDateTime.substring(0, 4) + " " + arrivalDateTime.substring(14, 19)));
-                //flightInfo.add(new JLabel(""));
-            /*
-            JLabel label = new JLabel();
-            searchList.add(label);
-            label.setText("Flight Number: " + searchResult.get(i).get("ident"));
-            */
-                // This works....need to fix pane
+
                 bookButton = new JButton();
                 // Apply an identifier to the Button:
                 bookButton.setName(new StringBuilder("bookButton").append(i).toString());
                 bookButton.setText("Book");
-                //button.setBackground(Color.LIGHT_GRAY);
                 bookButton.addActionListener(clicked); // <= private class ButtonClicked implements ActionListener
-                //gbc.gridx = j;
-                //gbc.gridy = i;
                 flightInfo.add(bookButton);
 
-                //searchScroll.setViewportView(searchList);// <--- try it if it doesn't work
                 flightInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
                 searchList.add(flightInfo);
             } catch(Exception e) {
                 System.out.println("Error");
@@ -247,6 +229,8 @@ public class FlightSearchFrame extends JFrame {
             return true;
         }
         return false;*/
+
+        // delete after fix
         return true; // temp
     }
 
@@ -300,9 +284,6 @@ public class FlightSearchFrame extends JFrame {
          *
          */
         public void actionPerformed(ActionEvent e) {
-            JButton btn = (JButton) e.getSource();
-            System.out.println(btn.getName());
-            System.out.println(e.toString());
             if (e.toString().contains("cmd=Book")) {
                 // Using searchResult.get(i) data to Class folder to send flight info to ReviewFrame
                 // reset searchData array
@@ -315,15 +296,11 @@ public class FlightSearchFrame extends JFrame {
                     displayReturnFlights = false;
                 }
 
-                //bookButton.setName(new StringBuilder("bookButton").append(i).toString());
-                    // bookButton1
-                    // bookButton2
-                    // etc ...
                 int bookButtonIndex = Integer.parseInt(bookButton.getName().substring(bookButton.getName().length() - 1));
                 System.out.println(searchData.get(bookButtonIndex)); // test
                 bookedFlights.add(searchData.get(bookButtonIndex));
                 searchData = new ArrayList<>();
-                System.out.println(bookedFlights); // test
+
                 if(displayReturnFlights) {
                     try {
                         // API Call for return flight
@@ -341,6 +318,8 @@ public class FlightSearchFrame extends JFrame {
                 // go to ReviewFrame
                 // if(!roundTrip) -> dispose()
                 if(!displayReturnFlights) {
+
+                    //   TURN THIS INTO A METHOD
                     ArrayList<Flight> bookedFlightList = new ArrayList<>();
                     // AIRLINE OPERATOR TOO
                     JSONObject departureFlightObj = bookedFlights.get(0);
@@ -435,7 +414,6 @@ public class FlightSearchFrame extends JFrame {
      *
      */
     public static void main(String[] args) {
-        // clear FlightToReview hashmap???
         FlightSearchFrame flightFrame = new FlightSearchFrame();
     }
 }
