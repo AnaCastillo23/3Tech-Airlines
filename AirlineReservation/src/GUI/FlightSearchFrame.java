@@ -57,6 +57,7 @@ public class FlightSearchFrame extends JFrame {
     private JPanel searchList;
     private JScrollPane searchScroll;
     private JButton bookButton;
+    private JPanel flightInfo;
     ButtonClicked clicked = new ButtonClicked();
     Boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
     ArrayList<JSONObject> searchData;
@@ -160,8 +161,9 @@ public class FlightSearchFrame extends JFrame {
         System.out.println(searchResult.size());
         System.out.println();
 
-        searchList = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
+        searchList = new JPanel();
+        searchList.setLayout(new GridLayout(searchResult.size(), 1, 0, 10));
+        searchScroll.setViewportView(searchList);// <--- try it if it doesn't work
 
         // bookButton is assigned here:
         // loop
@@ -172,12 +174,30 @@ public class FlightSearchFrame extends JFrame {
             // bookButtonList.add(bookButtonTemp) for every iteration
         for (int i = 0; i < searchResult.size(); i++) {
             // pane maker
+            flightInfo = new JPanel();
+            flightInfo.setLayout(new GridLayout(3, 3));
+
+            flightInfo.add(new JLabel("Depart from " + searchResult.get(i).getJSONObject("origin").get("code_iata").toString()));
+            flightInfo.add(new JLabel("Arrive to SEA" + searchResult.get(i).getJSONObject("destination").get("code_iata").toString()));
+            flightInfo.add(new JLabel(""));
+
+            flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("origin").get("city").toString()));
+            flightInfo.add(new JLabel(searchResult.get(i).getJSONObject("origin").get("city").toString()));
+            flightInfo.add(new JLabel(""));
+
+            String departureDateTime = searchResult.get(i).get("scheduled_out").toString();
+            String arrivalDateTime = searchResult.get(i).get("estimated_in").toString();
+
+            flightInfo.add(new JLabel(departureDateTime.substring(5,7) + "/" + departureDateTime.substring(8,10) + "/" +
+                    departureDateTime.substring(0,4) + " " + departureDateTime.substring(14,19)));
+            flightInfo.add(new JLabel(arrivalDateTime.substring(5,7) + "/" + arrivalDateTime.substring(8,10) + "/" +
+                    arrivalDateTime.substring(0,4) + " " + arrivalDateTime.substring(14,19)));
+            //flightInfo.add(new JLabel(""));
+            /*
             JLabel label = new JLabel();
             searchList.add(label);
             label.setText("Flight Number: " + searchResult.get(i).get("ident"));
-            searchScroll.setViewportView(searchList);
-
-
+            */
             // This works....need to fix pane
             bookButton = new JButton();
             // Apply an identifier to the Button:
@@ -187,7 +207,12 @@ public class FlightSearchFrame extends JFrame {
             bookButton.addActionListener(clicked); // <= private class ButtonClicked implements ActionListener
             //gbc.gridx = j;
             //gbc.gridy = i;
-            searchList.add(bookButton);
+            flightInfo.add(bookButton);
+
+            //searchScroll.setViewportView(searchList);// <--- try it if it doesn't work
+            flightInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            searchList.add(flightInfo);
         }
 
     }
