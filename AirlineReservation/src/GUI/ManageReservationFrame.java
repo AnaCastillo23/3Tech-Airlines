@@ -103,13 +103,22 @@ public class ManageReservationFrame extends JFrame {
      */
     private class ButtonClicked implements ActionListener {
         /**
-         * Action listener that identifies which "Book" button is clicked
+         * Action listener that identifies whether View or Cancel are clicked
          */
         public void actionPerformed(ActionEvent e) {
             if (e.toString().contains("cmd=View")) {
+                // pull up itinerary                        //0123456789012
+            } else if(e.toString().contains("cmd=Cancel")) {//cancelButton1
+                Account loginAccount = new Account();
+                AccountAccessor accountAccessor = new AccountAccessor();
+                String username = accountAccessor.getLoginUsername();
+                loginAccount = loginAccount.getLoginAccount().get(username);
 
-            } else if(e.toString().contains("cmd=Cancel")) {
+                int buttonIndex = Integer.parseInt(((JButton) e.getSource()).getName().substring(12));
+                System.out.println("Cancel" + buttonIndex);
 
+                loginAccount.getReservationList().remove(loginAccount.getReservationList().get(buttonIndex));
+                generateReservations();
             } else {
                 // ERROR
             }

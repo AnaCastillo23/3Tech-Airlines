@@ -74,7 +74,7 @@ public class FlightSearchFrame extends JFrame {
         setTitle("Flight Information");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setVisible(true);
+        setVisible(true);
 
         bookedFlights = new ArrayList<>();
 
