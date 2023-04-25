@@ -69,7 +69,9 @@ public class DashboardFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AccountFrame accountFrame = new AccountFrame();
+                setVisible(false);
+                accountFrame.setVisible(true);
             }
         });
 
