@@ -54,6 +54,10 @@ public class DashboardFrame extends JFrame {
                 String loginUsername = accountAccessor.getLoginUsername();
                 account = account.getLoginAccount().get(loginUsername);  // updatedAccount will have login account info
                 testReservation(account);
+
+                ManageReservationFrame manageReservationFrame = new ManageReservationFrame();
+                setVisible(false);
+                manageReservationFrame.setVisible(true);
             }
         });
 

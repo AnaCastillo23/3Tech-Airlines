@@ -1,4 +1,4 @@
-package Class;
+package API;
 
 /**
  * Creates object that serves as parameters that filters API call dataset.  Essential in

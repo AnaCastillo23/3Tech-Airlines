@@ -1,7 +1,5 @@
 package API;
 
-import Class.ScheduledDeparturesFilter;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;

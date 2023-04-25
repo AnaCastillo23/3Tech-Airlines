@@ -2,7 +2,7 @@ package GUI;
 
 import API.FlightModel;
 import DataStructures.FlightsToReview;
-import Class.ScheduledDeparturesFilter;
+import API.ScheduledDeparturesFilter;
 import org.json.JSONObject;
 
 import Class.Flight;
@@ -119,7 +119,10 @@ public class FlightSearchFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //dispose() or reset() or dashboard gui????;
+                DashboardFrame dashboard = new DashboardFrame();
+
+                setVisible(false);
+                dashboard.setVisible(true);
             }
         });
 
