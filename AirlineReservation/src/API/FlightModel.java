@@ -41,26 +41,33 @@ public class FlightModel {
     public ArrayList<JSONObject> getScheduledDepartuesFiltered(ScheduledDeparturesFilter filter) throws MalformedURLException {
         ArrayList<JSONObject> scheduledDeparturesFiltered = new ArrayList<>();
 
-        controller = new FlightController();
-        ArrayList<JSONObject> scheduledDepartures = controller.getScheduledDepartures(filter);
+        try {
+            controller = new FlightController();
+            ArrayList<JSONObject> scheduledDepartures = controller.getScheduledDepartures(filter);
 
-        for (int i = 0; i < scheduledDepartures.size(); i++) {
-            JSONObject jsonObj1 = (JSONObject) scheduledDepartures.get(i);
-            System.out.println("jsonObj(" + i + ") : " + jsonObj1.get("destination"));
-            Object obj = jsonObj1.get("destination");
+            for (int i = 0; i < scheduledDepartures.size(); i++) {
+                JSONObject jsonObj1 = scheduledDepartures.get(i);
+                System.out.println("jsonObj(" + i + ") : " + jsonObj1.get("destination"));
+                Object obj = jsonObj1.get("destination");
 
-            JSONObject jsonObj2 = new JSONObject(String.valueOf(obj));
-            System.out.println("code(" + i + ") : " + jsonObj2.get("code"));
-            String code = (String) jsonObj2.get("code");
+                if(obj != null) {
+                    JSONObject jsonObj2 = new JSONObject(String.valueOf(obj));  // this is where error is happening
 
-            System.out.println(filter.getAirportArrivalCode());
-            System.out.println(code);
-            if (code.equals(String.valueOf(filter.getAirportArrivalCode()))) {
-                System.out.println(true);
-                scheduledDeparturesFiltered.add(jsonObj1);
-            } else {
-                System.out.println(false);
+                    System.out.println("code(" + i + ") : " + jsonObj2.get("code"));
+                    String code = (String) jsonObj2.get("code");
+
+                    System.out.println(filter.getAirportArrivalCode());
+                    System.out.println(code);
+                    if (code.equals(String.valueOf(filter.getAirportArrivalCode()))) {
+                        System.out.println(true);
+                        scheduledDeparturesFiltered.add(jsonObj1);
+                    } else {
+                        System.out.println(false);
+                    }
+                }
             }
+        } catch (Exception e) {
+            System.out.println("API Error");
         }
 
         return scheduledDeparturesFiltered;
