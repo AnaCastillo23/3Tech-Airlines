@@ -8,6 +8,7 @@ import Class.Reservation;
 import Class.Airport;
 import Class.Airline;
 import DataStructures.ReservationToCheckout;
+import Managers.PriceGenerator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -70,6 +71,7 @@ public class ReviewFrame extends JFrame {
         setTitle("Flight Information");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
 
         departureParty = new ArrayList<Passenger>();
         returnParty = new ArrayList<Passenger>();
@@ -113,38 +115,46 @@ public class ReviewFrame extends JFrame {
              */
 
 
+        Airport departureAirport = departureFlight.getDepartureAirport();
+        double flightPrice = flightsToReview.getTotalPrice();
+        System.out.println("Flight price " + flightPrice);
+        System.out.println("Flight price " + String.format("%.2f", flightPrice));
+
+        // Get Flight tax, added fees, and calculate total -> update to Reservation
+        PriceGenerator calcTax = new PriceGenerator();
+        double tax = calcTax.getTax(flightPrice);
+        //fees = calcTax.getFees(); <--- Seating and Baggage
+        //totalPrice = flightPrice + fees + tax ;
+        double totalPrice = flightPrice + tax;
 
 
-
-        /**
-         * Action listener used to code the CONFIRM button of current frame if user decides to confirm
-         * flight reservation.
-         */
+                /**
+                 * Action listener used to code the CONFIRM button of current frame if user decides to confirm
+                 * flight reservation.
+                 */
         //Ana-Still not done
         //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Account tempAccount = new Account();
-                Account updatedAccount = new Account();
 
                 // depart reservation
                 Reservation reservation;
                 if(roundTrip) {
                     // return reservation
-                    reservation = new Reservation(reservationID, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
+                    reservation = new Reservation(reservationID, flightPrice, tax, totalPrice, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
                             departurePartySize, returnPartySize, departureParty, returnParty);
                     reservation.setDepartureFlight(departureFlight);
                     reservation.setReturnFlight(returnFlight);
                 } else {
                     // one way trip
-                    reservation = new Reservation(reservationID, departureDate, departureFlightNumber, departurePartySize, departureParty);
+                    reservation = new Reservation(reservationID, flightPrice, tax, totalPrice, departureDate, departureFlightNumber, departurePartySize, departureParty);
                     reservation.setDepartureFlight(departureFlight);
                 }
                 // Go to checkout
 
-                CheckoutFrame checkoutFrame = new CheckoutFrame();
                 ReservationToCheckout checkout = new ReservationToCheckout(reservation);    // reservation to checkout
+                CheckoutFrame checkoutFrame = new CheckoutFrame();
 
                 flightsToReview.getFlightsToDisplay().clear();     // clear temp data structure
                 setVisible(false);
@@ -174,5 +184,7 @@ public class ReviewFrame extends JFrame {
             }
         });
     }
+
+    // Seat and Baggage should update fees
 
 }

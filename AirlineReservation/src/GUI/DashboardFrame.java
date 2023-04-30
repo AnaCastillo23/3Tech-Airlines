@@ -114,8 +114,14 @@ public class DashboardFrame extends JFrame {
                 System.out.println(account.getPhoneNumber());
                 System.out.println();
 
+                System.out.println("------------------------------------------------------------------------");
+                System.out.println("-------------------------------Itinerary----------------------------------");
+                System.out.println();
                 System.out.println("Reservation Info:");
                 System.out.println("\tReservation ID: " + reservation1.getReservationID());
+                System.out.println("\tReservation Base Price: " + "$" + String.format("%.2f", reservation1.getFlightPrice()));
+                System.out.println("\tReservation Tax Price: " + "$" + String.format("%.2f", reservation1.getFlightTax()));
+                System.out.println("\tReservation Total Price: " + "$" + String.format("%.2f", reservation1.getFlightTotal()));
                 System.out.println("\tRound-Trip? : " + reservation1.isRoundTrip());
                 System.out.println("\tDeparture Flight Number: " + reservation1.getDepartureFlightNumber());
                 System.out.println("\tReturn Flight Number: " + reservation1.getReturnFlightNumber());

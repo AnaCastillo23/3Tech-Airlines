@@ -8,6 +8,7 @@ import Class.Reservation;
 import Class.Flight;
 import Class.Airline;
 import Class.Airport;
+import Managers.PriceGenerator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,12 +22,38 @@ public class CheckoutFrame extends JFrame {
     private JButton completeBookingButton;
     private JTextPane warningTextField;
     private JPanel displayTotal;
+    double flightPrice;
+    double tax;
+    double totalPrice;
+    Account updatedAccount;
+    ReservationToCheckout reservationToCheckout;
+    Reservation reservation;
+
 
     public CheckoutFrame() {
         setContentPane(checkoutFrame);
         setTitle("Secure Checkout");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        updatedAccount = new Account();
+        reservationToCheckout = new ReservationToCheckout();
+        reservation = reservationToCheckout.getReservationToPayment();
+
+
+
+        // Display Tax, Fees, and Total
+        System.out.println();
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("---------------------------------Receipt----------------------------------");
+        System.out.println();
+        System.out.println(reservation.getDeparturePartySize() + " Traveler(s) : $" + String.format("%.2f", reservation.getFlightPrice()));
+        System.out.println("Taxes : $" + String.format("%.2f", reservation.getFlightTax()));
+        System.out.println("-------------------------------------------------");
+        System.out.println("Trip Total : $" + String.format("%.2f", reservation.getFlightTotal()));
+        System.out.println();
+        System.out.println("--------------------------------------------------------------------------");
+
 
         completeBookingButton.addActionListener(new ActionListener() {
             /**
@@ -36,12 +63,6 @@ public class CheckoutFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Account updatedAccount = new Account();
-                ReservationToCheckout reservationToCheckout = new ReservationToCheckout();
-                Reservation reservation = new Reservation();
-
-                reservation = reservationToCheckout.getReservationToPayment();
-
                 // Add Reservation to Account
                 // update Reservation in logged-in account
                 AccountAccessor accountAccessor = new AccountAccessor();
@@ -97,10 +118,13 @@ public class CheckoutFrame extends JFrame {
         System.out.println();
 
         System.out.println("------------------------------------------------------------------------");
-        System.out.println("-------------------------------Receipt----------------------------------");
+        System.out.println("-------------------------------Itinerary----------------------------------");
         System.out.println();
         System.out.println("Reservation Info:");
         System.out.println("\tReservation ID: " + reservation1.getReservationID());
+        System.out.println("\tReservation Base Price: " + "$" + String.format("%.2f", reservation1.getFlightPrice()));
+        System.out.println("\tReservation Tax Price: " + "$" + String.format("%.2f", reservation1.getFlightTax()));
+        System.out.println("\tReservation Total Price: " + "$" + String.format("%.2f", reservation1.getFlightTotal()));
         System.out.println("\tRound-Trip? : " + reservation1.isRoundTrip());
         System.out.println("\tDeparture Flight Number: " + reservation1.getDepartureFlightNumber());
         System.out.println("\tReturn Flight Number: " + reservation1.getReturnFlightNumber());

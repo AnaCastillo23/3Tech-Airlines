@@ -38,6 +38,9 @@ public class Reservation {
     private ArrayList<Passenger> party;
 
     private int reservationID;
+    private Double flightPrice;
+    private Double flightTax;
+    private Double flightTotal;
     private String departureDate;
     private String returnDate;
     private boolean roundTrip;
@@ -56,6 +59,9 @@ public class Reservation {
      */
     public Reservation() {
         this.reservationID = 0;
+        this.flightPrice = 0.0;
+        this.flightTax = 0.0;
+        this.flightTotal = 0.0;
         this.departureDate = null;
         this.returnDate = null;
         this.roundTrip = false;
@@ -80,8 +86,11 @@ public class Reservation {
      *
      */
     // one way trip
-    public Reservation(int reservationID, String departureDate, String departureFlightNumber, int departurePartySize, ArrayList<Passenger> departureParty) {
+    public Reservation(int reservationID, Double flightPrice, Double flightTax, Double flightTotal, String departureDate, String departureFlightNumber, int departurePartySize, ArrayList<Passenger> departureParty) {
         this.reservationID = reservationID;
+        this.flightPrice = flightPrice;
+        this.flightTax = flightTax;
+        this.flightTotal = flightTotal;
         this.departureDate = departureDate;
         this.returnDate = null;
         this.roundTrip = false;
@@ -110,8 +119,11 @@ public class Reservation {
      *
      */
     // round trip
-    public Reservation(int reservationID, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
+    public Reservation(int reservationID, Double flightPrice,  Double flightTax, Double flightTotal, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
         this.reservationID = reservationID;
+        this.flightPrice = flightPrice;
+        this.flightTax = flightTax;
+        this.flightTotal = flightTotal;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
         this.roundTrip = true;
@@ -132,6 +144,18 @@ public class Reservation {
      */
     public int getReservationID() {
         return this.reservationID;
+    }
+
+    public Double getFlightPrice() {
+        return this.flightPrice;
+    }
+
+    public Double getFlightTax() {
+        return this.flightTax;
+    }
+
+    public Double getFlightTotal() {
+        return this.flightTotal;
     }
 
     /**
@@ -244,6 +268,18 @@ public class Reservation {
     //Setters
     public void setReservationID (int reservationID) {
         this.reservationID = reservationID;
+    }
+
+    public void setFlightPrice(double flightPrice) {
+        this.flightPrice = flightPrice;
+    }
+
+    public void setFlightTax(double flightTax) {
+        this.flightTax = flightTax;
+    }
+
+    public void setFlightTotal(double flightTotal) {
+        this.flightTotal = flightTotal;
     }
 
     /**
