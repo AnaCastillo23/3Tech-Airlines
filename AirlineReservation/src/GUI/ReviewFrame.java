@@ -79,6 +79,9 @@ public class ReviewFrame extends JFrame {
         flightsToReview = new FlightsToReview();
         ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
 
+        // generate seating (2D Array) for plane then call SeatsFrame when user clicks Seats
+
+
         // make method generateReservationID() <---- create unique reservation number
         //int reservationID = generateReservationID();
         int reservationID = 222;// temp
@@ -156,7 +159,7 @@ public class ReviewFrame extends JFrame {
                 ReservationToCheckout checkout = new ReservationToCheckout(reservation);    // reservation to checkout
                 CheckoutFrame checkoutFrame = new CheckoutFrame();
 
-                flightsToReview.getFlightsToDisplay().clear();     // clear temp data structure
+                flightsToReview.clearFlightToReview();     // clear temp data structure
                 setVisible(false);
                 checkoutFrame.setVisible(true);
             }
@@ -183,8 +186,20 @@ public class ReviewFrame extends JFrame {
                 dashboard.setVisible(true);
             }
         });
-    }
 
-    // Seat and Baggage should update fees
+        chooseSeatsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SeatFrame seatFrame = new SeatFrame();
+
+                seatFrame.openSeatingMap(40);
+            }
+        });
+    }
 
 }
