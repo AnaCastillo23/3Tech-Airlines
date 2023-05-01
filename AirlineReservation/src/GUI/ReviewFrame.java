@@ -2,11 +2,9 @@ package GUI;
 
 import DataStructures.FlightsToReview;
 import Class.Flight;
-import Class.Account;
 import Class.Passenger;
 import Class.Reservation;
 import Class.Airport;
-import Class.Airline;
 import DataStructures.ReservationToCheckout;
 import Managers.PriceGenerator;
 
@@ -38,12 +36,13 @@ import java.util.ArrayList;
 public class ReviewFrame extends JFrame {
 
     private JPanel reviewPanel;
-    private JTextArea welcomeToNextPaneTextArea;
     private JButton confirmButton;
     private JButton chooseSeatsButton;
     private JButton baggageButton;
     private JButton cancelButton;
-    private JButton button1;
+    private JButton addPassengerButton;
+    private JLabel Depart;
+    private JLabel Arrival;
 
     FlightsToReview flightsToReview;
 
