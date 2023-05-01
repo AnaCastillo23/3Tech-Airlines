@@ -51,7 +51,9 @@ public class AccountFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //save new info into account
+                if (emailInputChecker()) {
+                    //save new info into account
+                }
 
             }
         });
@@ -133,16 +135,37 @@ public class AccountFrame extends JFrame {
         });
     }
 
-    public void inputChecker() {
+    public boolean emailInputChecker() {
         String newEmail = tfEmail.getText();
         String confirmEmail = tfConfirmEmail.getText();
-        char[] currentPassword = tfCurrentPassword.getPassword();
-        char[] newPassword = tfNewPassword.getPassword();
-        char[] confirmPassword = tfConfirmPassword.getPassword();
 
-
+        if (newEmail.isEmpty() || confirmEmail.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
     }
 
+    public boolean passwordInputChecker() {
+        char[] currentPassword = tfCurrentPassword.getPassword();
+        char[] newPassword = tfNewPassword.getPassword();
+        char[] confirmNewPassword = tfConfirmPassword.getPassword();
+
+        if (currentPassword.toString().isEmpty() || newPassword.toString().isEmpty() || confirmNewPassword.toString().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     *
+     * Main Program
+     *
+     * @param args Unused.
+     */
     public static void main(String[] args) {
         AccountFrame accountFrame = new AccountFrame();
     }
