@@ -133,9 +133,10 @@ public class FlightSearchFrame extends JFrame {
         roundTripRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayReturnFlights = true;
+                //displayReturnFlights = true;
                 if (!roundTripRadioButton.isCursorSet()) {
                     tfReturnDate.setEditable(true);
+                    displayReturnFlights = true;
                 } else {
                     tfReturnDate.setEditable(false);
                 }
@@ -144,9 +145,10 @@ public class FlightSearchFrame extends JFrame {
         oneWayRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayReturnFlights = false;
+                //displayReturnFlights = false;
                 if (oneWayRadioButton.isCursorSet()) {
                     tfReturnDate.setEditable(true);
+                    displayReturnFlights = false;
                 } else {
                     tfReturnDate.setEditable(false);
                 }
@@ -227,31 +229,36 @@ public class FlightSearchFrame extends JFrame {
         String departureDate = tfDepartureDate.getText();
         String returnDate = tfReturnDate.getText();
 
-        /*
-        if(displayReturnFlights) {
-            if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        } else {
-            System.out.println(displayReturnFlights);
-            if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
-                return false;
+
+
+        /*if(displayReturnFlights) {
+            if (oneWayRadioButton.isCursorSet()) {
+                if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                } else {
+                    System.out.println(displayReturnFlights);
+                }
+            } else if (!roundTripRadioButton.isCursorSet()) {
+                if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                } else {
+                    System.out.println(displayReturnFlights);
+                }
             }
         }
 
         if(displayReturnFlights) {
-            if (valDate(departureDate) && valDateReturn(returnDate)) {
+            if(valDate(departureDate) && valDateReturn(returnDate)) {
                 return true;
             } else {
                 valDate(departureDate);
                 return true;
             }
-        }
-        return false;
+        }*/
+        //return false;
 
-         */
         return true;
     }
 
