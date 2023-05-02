@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  * for a flight reservation system. This specific GUI called "AccountFrame" helps user edit any information from their account.
  * <p>
  * @since 05/01/2023
- * @author Ana Emily Castillo Perez (added user validation) and Carlos Figueroa (built structure of frame).
+ * @author Ana Emily Castillo Perez (added user validation and documentation comments) and Carlos Figueroa (built structure of frame).
  * <p>
  * <b>Explanation of important functions:</b> GUI implements user input into text fields that lets user input new account information. Such inputs include
  * change in email, password, personal information, payment information.
@@ -29,33 +29,32 @@ import java.awt.event.ActionListener;
 
 public class AccountFrame extends JFrame {
     private JPanel accountFrame;
-    private JButton goBackButton;
     private JTextField tfEmail;
     private JTextField tfConfirmEmail;
     private JButton saveEmailButton;
-    private JButton emailCancelButton;
+    private JButton cancelEmailButton;
     private JPasswordField tfCurrentPassword;
     private JPasswordField tfNewPassword;
-    private JButton savePasswordButton;
-    private JButton passwordCancelButton;
     private JPasswordField tfConfirmPassword;
+    private JButton savePasswordButton;
+    private JButton cancelPasswordButton;
     private JTextField tfFirstName;
     private JTextField tfLastName;
-    private JButton savePersonalInfButton;
-    private JButton personalInfoCancelButton;
     private JTextField tfAddress;
     private JTextField tfPhone;
+    private JButton savePersonalInfButton;
+    private JButton cancelPersonalInfoButton;
+    private JComboBox dropDownYear;
+    private JComboBox dropDownMonth;
     private JTextField tfCardNumber;
     private JTextField tfCountry;
     private JTextField tfBillingAddress;
-    private JButton paymentSaveButton;
-    private JButton paymentCancelButton;
-    private JComboBox dropDownYear;
-    private JComboBox dropDownMonth;
-    //check where this is
-    private JTextField textField10; //where is this on frame?
-    private JComboBox comboBox1; //where is this on frame?
-    private JTextField textField11; //where is this on frame?
+    private JTextField tfCity;
+    private JComboBox dropDownState;
+    private JTextField tfZipCode;
+    private JButton savePaymentButton;
+    private JButton cancelPaymentButton;
+    private JButton goBackButton;
 
 
     public AccountFrame() {
@@ -117,7 +116,7 @@ public class AccountFrame extends JFrame {
                 personalInfoChecker();
             }
         });
-        paymentSaveButton.addActionListener(new ActionListener() {
+        savePaymentButton.addActionListener(new ActionListener() {
             /**
              *
              * Action listener used to code the SAVE button in the current frame for storing
@@ -134,7 +133,7 @@ public class AccountFrame extends JFrame {
             }
         });
         //Cancel buttons listeners
-        emailCancelButton.addActionListener(new ActionListener() {
+        cancelEmailButton.addActionListener(new ActionListener() {
             /**
              *
              * Action listener used to code the CANCEL button in the current and discarding any information entered.
@@ -145,7 +144,7 @@ public class AccountFrame extends JFrame {
 
             }
         });
-        passwordCancelButton.addActionListener(new ActionListener() {
+        cancelPasswordButton.addActionListener(new ActionListener() {
             /**
              *
              * Action listener used to code the CANCEL button in the current and discarding any information entered.
@@ -157,7 +156,7 @@ public class AccountFrame extends JFrame {
 
             }
         });
-        personalInfoCancelButton.addActionListener(new ActionListener() {
+        cancelPersonalInfoButton.addActionListener(new ActionListener() {
             /**
              *
              * Action listener used to code the CANCEL button in the current and discarding any information entered.
@@ -197,7 +196,7 @@ public class AccountFrame extends JFrame {
         String confirmEmail = tfConfirmEmail.getText();
 
         if (newEmail.isEmpty() || confirmEmail.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter an email.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
@@ -212,15 +211,14 @@ public class AccountFrame extends JFrame {
         char[] newPassword = tfNewPassword.getPassword();
         char[] confirmNewPassword = tfConfirmPassword.getPassword();
 
-        //Error checking password still doesn't work
         String stringCurrentPassword = new String(currentPassword);
         String stringNewPassword = new String(newPassword);
         String stringConfirmNewPassword = new String(confirmNewPassword);
 
         if ((stringCurrentPassword.length() == 0) || (stringNewPassword.length() == 0) || (stringConfirmNewPassword.length() == 0)) {
-            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a password.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "all good", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -230,24 +228,23 @@ public class AccountFrame extends JFrame {
      *
      */
     public void personalInfoChecker() {
-        String firstName = tfFirstName.getText();
-        String lastName = tfLastName.getText();
-        String address = tfAddress.getText();
+        //String firstName = tfFirstName.getText();
+        //String lastName = tfLastName.getText();
+        //String address = tfAddress.getText();
         String phoneNumber = tfPhone.getText();
 
-        if (firstName.isEmpty() || lastName.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "all good", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
-            /*Error checking phone number doesn't work yet
-            if (phoneNumber.matches("^[0-9]*$" && phoneNumber.length()==10 )) {
-                //return false;
-            } else {
-                return true;
-            }*/
+        if (phoneNumber.length() == 10) {
+            JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        } else if (phoneNumber.length() < 10) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid phone number.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /**
+     *
+     * Method for validating payment information that user inputs.
+     *
+     */
     public void paymentInfoChecker() {
         String cardNumber = tfCardNumber.getText();
         String country = tfCountry.getText();

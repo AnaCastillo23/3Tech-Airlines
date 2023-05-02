@@ -88,7 +88,7 @@
                           <text value="Save"/>
                         </properties>
                       </component>
-                      <component id="ed52f" class="javax.swing.JButton" binding="emailCancelButton">
+                      <component id="ed52f" class="javax.swing.JButton" binding="cancelEmailButton">
                         <constraints>
                           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -143,7 +143,7 @@
                           <text value="Save"/>
                         </properties>
                       </component>
-                      <component id="f0d7c" class="javax.swing.JButton" binding="passwordCancelButton">
+                      <component id="f0d7c" class="javax.swing.JButton" binding="cancelPasswordButton">
                         <constraints>
                           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -246,7 +246,7 @@
                           <text value="Save"/>
                         </properties>
                       </component>
-                      <component id="4fa1d" class="javax.swing.JButton" binding="personalInfoCancelButton">
+                      <component id="4fa1d" class="javax.swing.JButton" binding="cancelPersonalInfoButton">
                         <constraints>
                           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -385,7 +385,7 @@
                           <text value="City"/>
                         </properties>
                       </component>
-                      <component id="4e1d9" class="javax.swing.JTextField" binding="textField10" default-binding="true">
+                      <component id="4e1d9" class="javax.swing.JTextField" binding="tfCity">
                         <constraints>
                           <grid row="5" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -401,7 +401,7 @@
                           <text value="State"/>
                         </properties>
                       </component>
-                      <component id="c4fae" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                      <component id="c4fae" class="javax.swing.JComboBox" binding="dropDownState">
                         <constraints>
                           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -415,7 +415,7 @@
                           <text value="Zip Code"/>
                         </properties>
                       </component>
-                      <component id="1c98f" class="javax.swing.JTextField" binding="textField11" default-binding="true">
+                      <component id="1c98f" class="javax.swing.JTextField" binding="tfZipCode">
                         <constraints>
                           <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -423,7 +423,7 @@
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="7f8d4" class="javax.swing.JButton" binding="paymentSaveButton">
+                      <component id="7f8d4" class="javax.swing.JButton" binding="savePaymentButton">
                         <constraints>
                           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -431,7 +431,7 @@
                           <text value="Save"/>
                         </properties>
                       </component>
-                      <component id="f6d88" class="javax.swing.JButton" binding="paymentCancelButton">
+                      <component id="f6d88" class="javax.swing.JButton" binding="cancelPaymentButton">
                         <constraints>
                           <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
