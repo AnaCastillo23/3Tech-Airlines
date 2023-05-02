@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class AccountFrame extends JFrame {
     private JPanel accountFrame;
@@ -53,7 +54,7 @@ public class AccountFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (emailInputChecker() && passwordInputChecker() && personalInfoChecker() ) {
+                if (emailInputChecker()) {
                     //save new info into account
                 }
 
@@ -68,6 +69,9 @@ public class AccountFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (passwordInputChecker()) {
+                    //save new info into account
+                }
 
             }
         });
@@ -80,9 +84,13 @@ public class AccountFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (personalInfoChecker()) {
+                    //save new info into account
+                }
 
             }
         });
+
         //Cancel buttons listeners
         emailCancelButton.addActionListener(new ActionListener() {
             /**
@@ -154,7 +162,12 @@ public class AccountFrame extends JFrame {
         char[] newPassword = tfNewPassword.getPassword();
         char[] confirmNewPassword = tfConfirmPassword.getPassword();
 
-        if (currentPassword.toString().isEmpty() || newPassword.toString().isEmpty() || confirmNewPassword.toString().isEmpty()) {
+        //Error checking password still doesn't work
+        String stringCurrentPassword = new String(currentPassword);
+        String stringNewPassword = new String(newPassword);
+        String stringConfirmNewPassword = new String(confirmNewPassword);
+
+        if ((stringCurrentPassword.length() == 0) || (stringNewPassword.length() == 0) || (stringConfirmNewPassword.length() == 0)) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
@@ -168,25 +181,28 @@ public class AccountFrame extends JFrame {
         String address = tfAddress.getText();
         String phoneNumber = tfPhone.getText();
 
+
+
         if (firstName.isEmpty() || lastName.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
-            if (valPhoneNumber()) {
-                return false;
-            } else {
+            //if (phoneNumber.matches("^[0-9]*$" && phoneNumber.length()==10 )) {
+                //return false;
+            //} else {
                 return true;
-            }
+            //}
         }
     }
 
     //validate phone number
-    public boolean valPhoneNumber () {
+    /*public boolean valPhoneNumber (ActionEvent e) {
+
         if() {
         } else {
             return true;
         }
-    }
+    }*/
 
     /**
      *
