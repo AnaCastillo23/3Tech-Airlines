@@ -1,5 +1,8 @@
 package GUI;
 
+import DataStructures.AccountAccessor;
+import Class.Account;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +59,9 @@ public class AccountFrame extends JFrame {
     private JButton cancelPaymentButton;
     private JButton goBackButton;
 
+    private AccountAccessor accountAccessor;
+    private Account loginAccount;
+
 
     public AccountFrame() {
         setContentPane(accountFrame);
@@ -63,6 +69,14 @@ public class AccountFrame extends JFrame {
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
+        // access logged in account
+        loginAccount = new Account();
+        accountAccessor = new AccountAccessor();
+
+        String username = accountAccessor.getLoginUsername();
+        loginAccount = loginAccount.getLoginAccount().get(username);
+
 
         //Action listeners
         saveEmailButton.addActionListener(new ActionListener() {
@@ -75,10 +89,12 @@ public class AccountFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*if (emailInputChecker()) {
-                    save new info into account
-                }*/
-                emailInputChecker();
+                if (emailInputChecker()) {
+                    //save new info into account
+                    loginAccount.setEmailAddress("stuff from textfield"); // email setter
+                    loginAccount.registerOrUpdate(loginAccount); // update hashmap
+                }
+                //emailInputChecker();
 
             }
         });
@@ -191,14 +207,16 @@ public class AccountFrame extends JFrame {
      * Method for validating email that user inputs.
      *
      */
-    public void emailInputChecker() {
+    public boolean emailInputChecker() {
         String newEmail = tfEmail.getText();
         String confirmEmail = tfConfirmEmail.getText();
 
         if (newEmail.isEmpty() || confirmEmail.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an email to save.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            return false;
         } else {
             JOptionPane.showMessageDialog(this, "error check passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            return true;
         }
     }
     /**
@@ -255,7 +273,7 @@ public class AccountFrame extends JFrame {
         String city = tfCity.getText();
         String zipCode = tfZipCode.getText();
 
-        if (zipCode.length() == 5 || cardNumber.length() == 16) {
+        if (zipCode.length() == 5 && cardNumber.length() == 16) {
             if (country.isEmpty() || billingAddress.isEmpty() || city.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
             } else {
