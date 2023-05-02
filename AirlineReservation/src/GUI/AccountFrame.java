@@ -21,17 +21,19 @@ public class AccountFrame extends JFrame {
     private JButton savePersonalInfButton;
     private JButton personalInfoCancelButton;
     private JTextField tfAddress;
-    private JPasswordField tfPhone; //has incorrect text field. Fix this
-    private JComboBox dropDownYear;
+    private JTextField tfPhone;
     private JTextField tfCardNumber;
     private JTextField tfCountry;
     private JTextField tfBillingAddress;
-    private JTextField textField10;
-    private JComboBox comboBox1; //where is this on frame?
-    private JTextField textField11;
-    private JButton saveButton3;
-    private JButton cancelButton3;
+    private JButton paymentSaveButton;
+    private JButton paymentCancelButton;
+    private JComboBox dropDownYear;
     private JComboBox dropDownMonth;
+    //check where this is
+    private JTextField textField10; //where is this on frame?
+    private JComboBox comboBox1; //where is this on frame?
+    private JTextField textField11; //where is this on frame?
+
 
 
     public AccountFrame() {
@@ -51,7 +53,7 @@ public class AccountFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (emailInputChecker()) {
+                if (emailInputChecker() && passwordInputChecker() && personalInfoChecker() ) {
                     //save new info into account
                 }
 
@@ -155,6 +157,32 @@ public class AccountFrame extends JFrame {
         if (currentPassword.toString().isEmpty() || newPassword.toString().isEmpty() || confirmNewPassword.toString().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
             return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean personalInfoChecker() {
+        String firstName = tfFirstName.getText();
+        String lastName = tfLastName.getText();
+        String address = tfAddress.getText();
+        String phoneNumber = tfPhone.getText();
+
+        if (firstName.isEmpty() || lastName.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            if (valPhoneNumber()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    //validate phone number
+    public boolean valPhoneNumber () {
+        if() {
         } else {
             return true;
         }
