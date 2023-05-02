@@ -289,7 +289,9 @@
                             <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <toolTipText value="10 digit number. ex) 1234567891"/>
+                        </properties>
                       </component>
                     </children>
                   </grid>

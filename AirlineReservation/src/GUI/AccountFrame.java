@@ -196,9 +196,9 @@ public class AccountFrame extends JFrame {
         String confirmEmail = tfConfirmEmail.getText();
 
         if (newEmail.isEmpty() || confirmEmail.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter an email.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter an email to save.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
     /**
@@ -216,9 +216,9 @@ public class AccountFrame extends JFrame {
         String stringConfirmNewPassword = new String(confirmNewPassword);
 
         if ((stringCurrentPassword.length() == 0) || (stringNewPassword.length() == 0) || (stringConfirmNewPassword.length() == 0)) {
-            JOptionPane.showMessageDialog(this, "Please enter a password.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a password to save.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -228,15 +228,20 @@ public class AccountFrame extends JFrame {
      *
      */
     public void personalInfoChecker() {
-        //String firstName = tfFirstName.getText();
-        //String lastName = tfLastName.getText();
-        //String address = tfAddress.getText();
+        String firstName = tfFirstName.getText();
+        String lastName = tfLastName.getText();
+        String address = tfAddress.getText();
         String phoneNumber = tfPhone.getText();
 
+
         if (phoneNumber.length() == 10) {
-            JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
-        } else if (phoneNumber.length() < 10) {
+            JOptionPane.showMessageDialog(this, "error check has passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        } else if (phoneNumber.length() >= 1 && phoneNumber.length() < 10) {
             JOptionPane.showMessageDialog(this, "Please enter a valid phone number.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        } else if (phoneNumber.length() == 0 && firstName.isEmpty() && lastName.isEmpty() && address.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No new information to change was entered.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -249,11 +254,13 @@ public class AccountFrame extends JFrame {
         String cardNumber = tfCardNumber.getText();
         String country = tfCountry.getText();
         String billingAddress = tfBillingAddress.getText();
-
-        if (cardNumber.isEmpty() || country.isEmpty() || billingAddress.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        String city = tfCity.getText();
+        String zipCode = tfZipCode.getText();
+        
+        if (cardNumber.isEmpty() || country.isEmpty() || billingAddress.isEmpty() || ) {
+            JOptionPane.showMessageDialog(this, "No new information to save was entered.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "all good.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
