@@ -198,7 +198,7 @@ public class AccountFrame extends JFrame {
         if (newEmail.isEmpty() || confirmEmail.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an email to save.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error check passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
     /**
@@ -218,7 +218,7 @@ public class AccountFrame extends JFrame {
         if ((stringCurrentPassword.length() == 0) || (stringNewPassword.length() == 0) || (stringConfirmNewPassword.length() == 0)) {
             JOptionPane.showMessageDialog(this, "Please enter a password to save.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error check passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -235,13 +235,11 @@ public class AccountFrame extends JFrame {
 
 
         if (phoneNumber.length() == 10) {
-            JOptionPane.showMessageDialog(this, "error check has passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error check passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else if (phoneNumber.length() >= 1 && phoneNumber.length() < 10) {
             JOptionPane.showMessageDialog(this, "Please enter a valid phone number.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         } else if (phoneNumber.length() == 0 && firstName.isEmpty() && lastName.isEmpty() && address.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No new information to change was entered.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No new information to save was entered.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -256,15 +254,21 @@ public class AccountFrame extends JFrame {
         String billingAddress = tfBillingAddress.getText();
         String city = tfCity.getText();
         String zipCode = tfZipCode.getText();
-        
-        if (cardNumber.isEmpty() || country.isEmpty() || billingAddress.isEmpty() || ) {
+
+        if (zipCode.length() == 5 || cardNumber.length() == 16) {
+            if (country.isEmpty() || billingAddress.isEmpty() || city.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "error check has passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (zipCode.length() >= 1 && zipCode.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid zip code.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        } else if (zipCode.length() == 0 && cardNumber.length() == 0 && country.isEmpty() && billingAddress.isEmpty() && city.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No new information to save was entered.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "error checking passed.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
+        } else if (cardNumber.length() >= 1 && cardNumber.length() < 16) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid card number.", "Invalid Account Information", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
 
     /**
      *
