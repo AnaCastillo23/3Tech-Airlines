@@ -58,6 +58,8 @@ public class ReviewFrame extends JFrame {
     int returnPartySize;
     ArrayList<Passenger> departureParty;
     ArrayList<Passenger> returnParty;
+    SeatFrame departureSeatFrame;
+    SeatFrame returnSeatFrame;
 
 
     /**
@@ -106,6 +108,13 @@ public class ReviewFrame extends JFrame {
             roundTrip = false;
         }
 
+
+        // Create two instances of SeatFrame if roundtrip - false is one way
+        departureSeatFrame = new SeatFrame(false);
+        // numRows should be random
+        departureSeatFrame.generateSeatingMap(1, 40);
+
+
         // Use variables above and Flight methods to display booked flight/s
             /*
             - FlightID
@@ -115,6 +124,7 @@ public class ReviewFrame extends JFrame {
             - Airline name
             -
              */
+        //Ana-Still not done
 
 
         Airport departureAirport = departureFlight.getDepartureAirport();
@@ -130,11 +140,28 @@ public class ReviewFrame extends JFrame {
         double totalPrice = flightPrice + tax;
 
 
-                /**
-                 * Action listener used to code the CONFIRM button of current frame if user decides to confirm
-                 * flight reservation.
-                 */
-        //Ana-Still not done
+
+        /**
+         * Action listener used to code the CONFIRM button of current frame if user decides to confirm
+         * flight reservation.
+         */
+        chooseSeatsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // dialog box asking which flight if roundtrip
+
+                departureSeatFrame.setVisible(true);
+
+                // seats are added to flight in SeatFrame()
+
+            }
+        });
+
         //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
         confirmButton.addActionListener(new ActionListener() {
             @Override
@@ -186,19 +213,6 @@ public class ReviewFrame extends JFrame {
             }
         });
 
-        chooseSeatsButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SeatFrame seatFrame = new SeatFrame();
-
-                seatFrame.openSeatingMap(40);
-            }
-        });
     }
 
 }

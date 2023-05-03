@@ -32,8 +32,7 @@ public class Reservation {
     //                            - round trip: two Flight classes
     private Flight departureFlight;
     private Flight returnFlight;
-    private Baggage baggage;
-    private Seat seats;
+
     //private Passenger passenger;
     private ArrayList<Passenger> party;
 

@@ -26,7 +26,8 @@ public class Flight {
     private Airport departureAirport;
     private Airport arrivalAirport;
     private Airline airline;
-
+    private Baggage baggage;
+    private Seat seats;
     private String flightID;
     private String departureDate;
     private String arrivalDate;
