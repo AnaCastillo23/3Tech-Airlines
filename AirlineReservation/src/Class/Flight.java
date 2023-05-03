@@ -1,8 +1,5 @@
 package Class;
 
-import java.sql.Time;
-import java.util.Date;
-
 /**
  * The Flight class is used in conjunction with information recollected from
  * the API used in this project. All data concerning a flights will land in this class.
@@ -27,7 +24,7 @@ public class Flight {
     private Airport arrivalAirport;
     private Airline airline;
     private Baggage baggage;
-    private Seat seats;
+    private Seats seats;
     private String flightID;
     private String departureDate;
     private String arrivalDate;
@@ -190,6 +187,10 @@ public class Flight {
         return airline;
     }
 
+    public Seats getSeats() {
+        return seats;
+    }
+
     /**
      *
      * Method for setting the Flight ID. To be used later in project.
@@ -299,6 +300,10 @@ public class Flight {
     public void setAirline(Airline airline) {
 
         this.airline = airline;
+    }
+
+    public void setSeats(Seats seats) {
+        this.seats = seats;
     }
 
 }

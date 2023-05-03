@@ -142,6 +142,10 @@ public class DashboardFrame extends JFrame {
                 System.out.println("\t\tArrival Time: " + departFlight1.getArrivalTime());
                 System.out.println("\t\tArrival City: " + departFlight1.getArrivalLocation());
 
+                System.out.println("\tDeparture Flight Seats:");
+                System.out.println("\t\tSeat Number(s): " + departFlight1.getSeats().getReservedSeatNumbers());
+                System.out.println("\t\tSeat Class: " + departFlight1.getSeats().getFlightTypes());
+
                 System.out.println("\tDeparture Airport Info:");
                 System.out.println("\t\tAirport Code: " + departureAirport1.getAirportCode());
                 System.out.println("\t\tAirport Name: " + departureAirport1.getAirportName());

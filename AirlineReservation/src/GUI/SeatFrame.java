@@ -4,17 +4,13 @@ import DataStructures.AccountAccessor;
 import DataStructures.SeatChange;
 
 import Class.Account;
-import Class.Flight;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SeatFrame extends JFrame {
     private JPanel seatsPanel;
@@ -72,9 +68,15 @@ public class SeatFrame extends JFrame {
 
                         // add reservedSeats list to flight instance under login account
                         SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
+                        ReviewFrame reviewFrame = new ReviewFrame(true);
+
+                        // static method updates original instance using SeatChange()
+                        reviewFrame.updateSeatChanges(false);
 
                         setVisible(false);
                     }
+                } else {
+                    // roundtrip features will be added later
                 }
             }
         });
@@ -94,7 +96,7 @@ public class SeatFrame extends JFrame {
         getAssignedSeats(this.partySize);
     }
 
-    public void getAssignedSeats(int partySize) {
+    public ArrayList<String> getAssignedSeats(int partySize) {
         // these seats are free of charge...only pay when changing seats
         int rndRow = 0;
         int rndCol = 0;
@@ -109,7 +111,8 @@ public class SeatFrame extends JFrame {
             }
         } while (counter < partySize);
 
-
+        // return ArrayList of assigned seats!!!!!!!!!!!!!!!!!!!!
+        return reservedSeats;
     }
 
     public Double generateSeatPrice(String seatingType) {
@@ -255,7 +258,6 @@ public class SeatFrame extends JFrame {
         mainSeatingPanel.add(walkwayPanel);
         mainSeatingPanel.add(rightSeatingPanel);
 
-        getAssignedSeats(partySize);
 
         initialSeatingArray = seatingArray;
     }
