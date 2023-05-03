@@ -176,6 +176,7 @@ public class FlightSearchFrame extends JFrame {
 
         for (int i = 0; i < searchResult.size(); i++) {
             try {
+                displayReturnFlights = false;//temp
                 priceList.add(priceGenerator.getFlightPrice(displayReturnFlights));
 
                 // pane maker
@@ -208,7 +209,7 @@ public class FlightSearchFrame extends JFrame {
                 flightInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 searchList.add(flightInfo);
             } catch(Exception e) {
-                System.out.println("Error");
+                System.out.println(e.toString());
 
             }
         }

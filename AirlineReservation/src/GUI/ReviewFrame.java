@@ -6,12 +6,14 @@ import Class.Passenger;
 import Class.Reservation;
 import Class.Airport;
 import DataStructures.ReservationToCheckout;
+import DataStructures.SeatChange;
 import Managers.PriceGenerator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The Review GUI is used to display a desktop application
@@ -58,8 +60,12 @@ public class ReviewFrame extends JFrame {
     int returnPartySize;
     ArrayList<Passenger> departureParty;
     ArrayList<Passenger> returnParty;
+    ArrayList<String> departureSeats;
+    ArrayList<String> returnSeats;
     SeatFrame departureSeatFrame;
     SeatFrame returnSeatFrame;
+    double seatChangeFees;
+    double baggageFees;
 
 
     /**
@@ -74,14 +80,24 @@ public class ReviewFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
+        seatChangeFees = 0;
+        baggageFees = 0;
+        Random rnd = new Random();
+
         departureParty = new ArrayList<Passenger>();
         returnParty = new ArrayList<Passenger>();
+        departureSeats = new ArrayList<String>();
+        returnSeats = new ArrayList<String>();
 
         flightsToReview = new FlightsToReview();
         ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
 
-        // generate seating (2D Array) for plane then call SeatsFrame when user clicks Seats
-
+        if(displayFlights.size() > 1) {
+            // round trip
+            roundTrip = true;
+        } else {
+            roundTrip = false;
+        }
 
         // make method generateReservationID() <---- create unique reservation number
         //int reservationID = generateReservationID();
@@ -93,29 +109,32 @@ public class ReviewFrame extends JFrame {
         departurePartySize = 1; // temp
         departureParty = null;
 
-        if(displayFlights.size() > 1) {
-            // round trip
-            roundTrip = true;
+        // Create two instances of SeatFrame if roundtrip - false is one way
+        departureSeatFrame = new SeatFrame(false);
+        departureSeats = new ArrayList<>();
+        departureSeatFrame.generateSeatingMap(departurePartySize, 30 + rnd.nextInt(45));
 
+        if(roundTrip) {
+            // round trip
             returnFlight = displayFlights.get(1);
             returnDate = returnFlight.getDepartureDate();
             returnFlightNumber = returnFlight.getFlightID();
             returnPartySize = 1; // temp
             returnParty = null; // temp
 
-        } else {
-            // one-way trip
-            roundTrip = false;
+            returnSeatFrame = new SeatFrame(true);
+            returnSeats = new ArrayList<>();
+            returnSeatFrame.generateSeatingMap(returnPartySize, 30 + rnd.nextInt(45));
         }
 
 
-        // Create two instances of SeatFrame if roundtrip - false is one way
-        departureSeatFrame = new SeatFrame(false);
-        // numRows should be random
-        departureSeatFrame.generateSeatingMap(1, 40);
+
+
+
 
 
         // Use variables above and Flight methods to display booked flight/s
+        // SHOULD MAKE THIS A METHOD SO IT CAN BE REFRESHED AFTER SEAT, PARTY, CHANGES
             /*
             - FlightID
             - Depart and Arrival airport IATO codes
@@ -124,6 +143,7 @@ public class ReviewFrame extends JFrame {
             - Airline name
             -
              */
+        // Display base price, tax, fees, total
         //Ana-Still not done
 
 
@@ -153,12 +173,34 @@ public class ReviewFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                // dialog box asking which flight if roundtrip
+                //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
 
-                departureSeatFrame.setVisible(true);
+                // seats are added to flight
+                SeatChange seatChange = new SeatChange();
 
-                // seats are added to flight in SeatFrame()
+                // change roundTrip
+                /*
+                if(!roundTrip) {
+                    departureSeatFrame.setVisible(true);
 
+                    // seats are added to flight
+                    seatChange = new SeatChange();
+                    departureSeats = seatChange.getReservedSeats(false);
+                    // should change fee aswell
+                    seatChangeFees += seatChange.getTotal(false);
+                    seatChange.deleteSeatsToChange(false);
+                } else {
+                    returnSeatFrame.setVisible(true);
+
+                    // seats are added to flight
+                    seatChange = new SeatChange();
+                    returnSeats = seatChange.getReservedSeats(true);
+                    // should change fee aswell
+                    seatChangeFees += seatChange.getTotal(true);
+                    seatChange.deleteSeatsToChange(true);
+                }
+
+                 */
             }
         });
 

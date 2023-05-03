@@ -1,6 +1,7 @@
 package GUI;
 
 import DataStructures.AccountAccessor;
+import DataStructures.SeatChange;
 
 import Class.Account;
 import Class.Flight;
@@ -26,8 +27,9 @@ public class SeatFrame extends JFrame {
     private JPanel mainSeatingPanel;
     private JButton seatButton;
     private JButton[][] seatButtonList;
-    boolean[][] initialSeatingArray = null;   // seatingArray = initialSeatingArray if cancel
-    boolean[][] seatingArray = null;
+    boolean[][] initialSeatingArray;   // seatingArray = initialSeatingArray if cancel
+    boolean[][] seatingArray;
+    double[][] seatPrices;
     ArrayList<String> reservedSeats;
 
     AccountAccessor accountAccessor;
@@ -36,6 +38,8 @@ public class SeatFrame extends JFrame {
     int numRows;
     int partySize;
     boolean roundTrip;
+    double total;
+
 
     public SeatFrame(boolean roundTrip) {
         setContentPane(seatsPanel);
@@ -67,8 +71,8 @@ public class SeatFrame extends JFrame {
                         initialSeatingArray = seatingArray;
 
                         // add reservedSeats list to flight instance under login account
+                        SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
 
-                        
                         setVisible(false);
                     }
                 }
@@ -78,6 +82,7 @@ public class SeatFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 seatingArray = initialSeatingArray;
+                total = 0;
                 setVisible(false);
             }
         });
@@ -140,6 +145,7 @@ public class SeatFrame extends JFrame {
         mainSeatingPanel = new JPanel(new GridLayout(1, 3));
         seatingScrollPane.setViewportView(mainSeatingPanel);
 
+        seatPrices = new double[numRows][6];
         seatButtonList = new JButton[numRows][6];
         seatingArray = new boolean[numRows][6];
         // seatingArray = [[1A,1B,1C,  1D,1E,1F],   [2A,2B,2C,  2D,2E,2F],   [3A,3B,3C,  3D,3E,3F],....,[NA,NB,NC,  ND,NE,NF]]
@@ -226,6 +232,7 @@ public class SeatFrame extends JFrame {
                         seatButtonList[i][j] = seatButton;
                     }
                 }
+                seatPrices[i][j] = rowPrice;
             }
         }
 
@@ -309,6 +316,7 @@ public class SeatFrame extends JFrame {
                 reservedSeats.add(seatNumber);
                 seatingArray[row][j] = false;
                 clickedSeatButton.setBorder(BorderFactory.createLineBorder(Color.yellow,3));
+                total += seatPrices[row][j];
             } else {
                 if(reservedSeats.contains(seatNumber)) {
                     // deselect seat
@@ -316,6 +324,7 @@ public class SeatFrame extends JFrame {
                     seatingArray[row][j] = true;
                     System.out.println("hello??");
                     clickedSeatButton.setBorder(new JButton().getBorder());
+                    total -= seatPrices[row][j];
                 } else {
                     if (reservedSeats.size() >= partySize) {
                         JOptionPane.showMessageDialog(this, "Number of selected seats exceeds party size. Deselect seat to reserve seat", "Seat Selection Limit Reached", JOptionPane.ERROR_MESSAGE);
