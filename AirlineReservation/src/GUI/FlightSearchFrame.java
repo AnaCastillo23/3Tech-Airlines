@@ -176,6 +176,7 @@ public class FlightSearchFrame extends JFrame {
 
         for (int i = 0; i < searchResult.size(); i++) {
             try {
+                //  ATTENTION: MIGHT CAUSE PROBLEMS FOR RETURN FLIGHT
                 displayReturnFlights = false;//temp
                 priceList.add(priceGenerator.getFlightPrice(displayReturnFlights));
 
@@ -201,7 +202,7 @@ public class FlightSearchFrame extends JFrame {
 
                 bookButton = new JButton();
                 // Apply an identifier to the Button:
-                bookButton.setName(new StringBuilder("bookButton").append(i).toString());
+                bookButton.setName("bookButton" + i);
                 bookButton.setText("Book");
                 bookButton.addActionListener(clicked); // <= private class ButtonClicked implements ActionListener
                 flightInfo.add(bookButton);

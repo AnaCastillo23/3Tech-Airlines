@@ -6,6 +6,7 @@ import Class.Flight;
 import Class.Passenger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class AddPassengerFrame extends JFrame {
     private JPanel addPassengerPanel;
     private JButton clearButton;
     private JCheckBox checkBoxAccountOwner;
+    private JScrollPane passengerScroll;
+    private JPanel passengerListPanel;
 
     AccountAccessor accountAccessor;
     Account loginAccount;
@@ -35,6 +38,7 @@ public class AddPassengerFrame extends JFrame {
     ArrayList<Passenger> passengerList;
 
     String gender;
+    int newPassengerCounter;
 
 
     public AddPassengerFrame() {
@@ -57,6 +61,7 @@ public class AddPassengerFrame extends JFrame {
         Passenger defaultPassenger = new Passenger(loginAccount.getFirstName(), loginAccount.getLastName(), null, null, null);
         addPassenger(defaultPassenger);
 
+        newPassengerCounter = 0; // initial passenger is charged after booking in FlightSearchFrame, so = 0
 
         addPassengerButton.addActionListener(new ActionListener() {
             /**
@@ -129,8 +134,8 @@ public class AddPassengerFrame extends JFrame {
                 originalPassengerList = passengerList;
 
                 // if return-flight == false
-                ReviewFrame.updateParty(passengerList,false);
-
+                ReviewFrame.updateParty(passengerList,newPassengerCounter,false);
+                newPassengerCounter = 0;
                 setVisible(false);
             }
         });
@@ -145,6 +150,7 @@ public class AddPassengerFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(passengerList.size() > 1) {
                     passengerList = originalPassengerList; //undo changes
+                    newPassengerCounter = 0;
                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Please add at least one party member for flight.", "Party Size is Empty", JOptionPane.ERROR_MESSAGE);
@@ -166,12 +172,41 @@ public class AddPassengerFrame extends JFrame {
 
     public void addPassenger(Passenger passenger) {
         passengerList.add(passenger);
+        newPassengerCounter++;
         clearForm();
         updatePartyDisplay();
     }
 
     public void updatePartyDisplay() {
         // panel and scroll stuff
+        passengerListPanel = new JPanel(new GridLayout(passengerList.size(),1));
+        passengerScroll.setViewportView(passengerListPanel);
+
+        for(int i = 0; i < passengerList.size(); i++) {
+            JPanel passengerPanel = new JPanel(new GridLayout(2,3));
+
+            // row 1
+            passengerPanel.add(new JLabel(passengerList.get(i).getFirstName() + " " + passengerList.get(i).getLastName()));
+            passengerPanel.add(new JLabel(""));
+            passengerPanel.add(new JLabel(""));
+
+            // row 2
+            passengerPanel.add(new JLabel(""));
+
+            JButton editButton = new JButton();
+            editButton.setName("editButton" + i);
+            editButton.setText("Edit");
+            //editButton.addActionListener(clicked);
+            passengerPanel.add(editButton);
+
+            JButton removeButton = new JButton();
+            removeButton.setName("removeButton" + i);
+            removeButton.setText("Remove");
+            //removeButton.addActionListener(clicked);
+            passengerPanel.add(removeButton);
+
+            passengerListPanel.add(passengerPanel);
+        }
     }
 
     public ArrayList<Passenger> getPassengerList() {

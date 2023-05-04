@@ -64,6 +64,7 @@ public class ReviewFrame extends JFrame {
     static ArrayList<String> returnSeats;
     static SeatFrame departureSeatFrame;
     static SeatFrame returnSeatFrame;
+    static double initialBasePrice;
     static double basePrice;
     static double seatChangeFees;
     static double baggageFees;
@@ -158,6 +159,7 @@ public class ReviewFrame extends JFrame {
 
         Airport departureAirport = departureFlight.getDepartureAirport();
         basePrice = flightsToReview.getTotalPrice();
+        initialBasePrice = basePrice;
         System.out.println("Flight price " + basePrice);
         System.out.println("Flight price " + String.format("%.2f", basePrice));
 
@@ -214,7 +216,6 @@ public class ReviewFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double initialBasePrice = flightsToReview.getTotalPrice();
-
                 departurePartyFrame.setVisible(true);
             }
         });
@@ -331,12 +332,20 @@ public class ReviewFrame extends JFrame {
         }
     }
 
-    public static void updateParty(ArrayList<Passenger> passengerList, boolean returnFlight) {
+    public static void updateParty(ArrayList<Passenger> passengerList, int newPassengerCount, boolean returnFlight) {
         if(!returnFlight) {
             departureParty = passengerList;
             departurePartySize = passengerList.size();
-            // assign seats to updated passengers:
+
+            // assign seats to updated passengers - no seat change charge:
             departureSeatFrame.updatePartySize(departurePartySize);
+
+            // add original base price per new passenger to total
+            // add new passenger ticket costs to updated base price and then get it taxed
+            basePrice += initialBasePrice * newPassengerCount;
+            updateTotal(basePrice, false);
+
+
         } else {
             // add later
         }

@@ -37,6 +37,7 @@ public class SeatFrame extends JFrame {
     int partySize;
     boolean roundTrip;
     double total;
+    int econIndex;
 
 
     public SeatFrame(boolean roundTrip) {
@@ -155,7 +156,7 @@ public class SeatFrame extends JFrame {
         int rndCol = 0;
         int counter = 0;
         do {
-            rndRow = new Random().nextInt(numRows);
+            rndRow = econIndex + (new Random().nextInt(numRows - econIndex));
             rndCol = new Random().nextInt(6);
             if(seatingArray[rndRow][rndCol]) {
                 System.out.println("clicked Button");
@@ -203,11 +204,6 @@ public class SeatFrame extends JFrame {
             // "economy-class" < $250
             seatPrice = 50.0 + (250.0) * rand.nextDouble();
         }
-/*
-        System.out.println(seatingType.equals("first-class"));
-        System.out.println(seatingType.equals("business-class"));
-        System.out.println(seatingType.equals("first-row-economy-class"));
-        System.out.println(seatPrice);*/
         return seatPrice;
     }
     public void generateSeatingMap(int partySize, int numRows) {
@@ -236,7 +232,7 @@ public class SeatFrame extends JFrame {
         for(int i = 0; i< numRows; i++) {
             if(i == 0) {
                 cabinClass = "first-class";
-                rowPrice = generateSeatPrice("first-class");
+                rowPrice = generateSeatPrice(cabinClass);
             } else if(i == 3) {
                 cabinClass = "business-class";
                 rowPrice = generateSeatPrice(cabinClass);
@@ -244,6 +240,7 @@ public class SeatFrame extends JFrame {
                 cabinClass = "economy-class";
                 rowPrice = generateSeatPrice(cabinClass);
                 firstEcon = true;
+                econIndex = i + ((int) Math.round(numRows * 0.2)); // assigned seats should only be (econ-class + (numRows * 0.2))
             } else if(((double) i / (numRows - 3)) >= 0.1818 && firstEcon) {
                 rowPrice = rowPrice - (rowPrice * 0.05);
             }
