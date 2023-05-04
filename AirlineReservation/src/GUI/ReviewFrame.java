@@ -335,25 +335,31 @@ public class ReviewFrame extends JFrame {
         if(!returnFlight) {
             departureParty = passengerList;
             departurePartySize = passengerList.size();
+            // assign seats to updated passengers:
+            departureSeatFrame.updatePartySize(departurePartySize);
         } else {
             // add later
         }
+
     }
 
     public static void updateSeatChanges(boolean returnTrip) {
         SeatChange seatChange;
         Seats seatChanges;
 
+        double tempFee = 0;
         if(!returnTrip){
             // one way trip
             // seats are added to flight
             seatChange = new SeatChange();
             departureSeats = seatChange.getReservedSeats(false);
             // should change fee aswell
-            seatChangeFees += seatChange.getTotal(false);
+            tempFee = seatChange.getTotal(false);
+            seatChangeFees += tempFee;
             seatChange.deleteSeatsToChange(false);
 
         } else {
+            // TEMPFEE????
             // return trip feature will be added later
             returnSeatFrame.setVisible(true);
 
@@ -365,7 +371,7 @@ public class ReviewFrame extends JFrame {
             seatChange.deleteSeatsToChange(true);
 
         }
-        basePrice += seatChangeFees;
+        basePrice += tempFee;
         updateTotal(basePrice, false);
 
         // call refresh-display method here

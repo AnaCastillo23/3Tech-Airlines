@@ -71,6 +71,7 @@ public class SeatFrame extends JFrame {
                             System.out.println("Confirm - before");
                             System.out.println("initial Reserved seats : " + initialReservedSeats);
                             System.out.println("Reserved seats : " + reservedSeats);
+                            System.out.println("Total : " + total);
                             System.out.println();
 
                             initialSeatingArray = copyArray(seatingArray);
@@ -81,14 +82,15 @@ public class SeatFrame extends JFrame {
                             System.out.println("Confirm - after");
                             System.out.println("initial Reserved seats : " + initialReservedSeats);
                             System.out.println("Reserved seats : " + reservedSeats);
+                            System.out.println("Total : " + total);
 
                             // add reservedSeats list to flight instance under login account
                             SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
-
+                            total = 0;
 
                             // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
                             //ReviewFrame.departureSeats = reservedSeats;
-                            // static method updates original instance using SeatChange()
+                            // static method updates original instance using SeatChange() -> deletes hashmap aswell
                             ReviewFrame.updateSeatChanges(false);
 
                             setVisible(false);
@@ -97,6 +99,7 @@ public class SeatFrame extends JFrame {
                             System.out.println("Confirm - no changes - before");
                             System.out.println("initial Reserved seats : " + initialReservedSeats);
                             System.out.println("Reserved seats : " + reservedSeats);
+                            System.out.println("Total : " + total);
                             System.out.println();
 
                             seatingArray = copyArray(initialSeatingArray);
@@ -108,6 +111,7 @@ public class SeatFrame extends JFrame {
                             System.out.println("Confirm - no changes - after");
                             System.out.println("initial Reserved seats : " + initialReservedSeats);
                             System.out.println("Reserved seats : " + reservedSeats);
+                            System.out.println("Total : " + total);
                         }
                     }
                 } else {
@@ -118,9 +122,11 @@ public class SeatFrame extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println();
                 System.out.println("Cancel - before");
                 System.out.println("initial Reserved seats : " + initialReservedSeats);
                 System.out.println("Reserved seats : " + reservedSeats);
+                System.out.println("Total : " + total);
 
                 seatingArray = copyArray(initialSeatingArray);
                 // seatingArray = initialSeatingArray.clone();
@@ -131,6 +137,7 @@ public class SeatFrame extends JFrame {
                 System.out.println("Cancel - after");
                 System.out.println("initial Reserved seats : " + initialReservedSeats);
                 System.out.println("Reserved seats : " + reservedSeats);
+                System.out.println("Total : " + total);
             }
         });
     }
@@ -160,6 +167,7 @@ public class SeatFrame extends JFrame {
         System.out.println("assign seats - before");
         System.out.println("initial Reserved seats : " + initialReservedSeats);
         System.out.println("Reserved seats : " + reservedSeats);
+        System.out.println("Total : " + total);
         System.out.println();
 
         total = 0;  // assigned seats are free - mitigates seat change charge in clicked.actionPerformed
@@ -171,6 +179,7 @@ public class SeatFrame extends JFrame {
         System.out.println("assign seats - after");
         System.out.println("initial Reserved seats : " + initialReservedSeats);
         System.out.println("Reserved seats : " + reservedSeats);
+        System.out.println("Total : " + total);
 
         //SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
 
@@ -375,11 +384,13 @@ public class SeatFrame extends JFrame {
                     break;
             }
 
+            System.out.println();
             System.out.println("seat selected : " + seatNumber);
             if (seatingArray[row][j] && reservedSeats.size() < partySize) {
                 System.out.println("select seat - before : ");
                 System.out.println("initial Reserved seats : " + initialReservedSeats);
                 System.out.println("Reserved seats : " + reservedSeats);
+                System.out.println("Total : " + total);
                 System.out.println();
                 // available seat
                 reservedSeats.add(seatNumber);
@@ -390,12 +401,14 @@ public class SeatFrame extends JFrame {
                 System.out.println("select seat - after : " );
                 System.out.println("initial Reserved seats : " + initialReservedSeats);
                 System.out.println("Reserved seats : " + reservedSeats);
+                System.out.println("Total : " + total);
 
             } else {
                 if(reservedSeats.contains(seatNumber)) {
                     System.out.println("deselect seat - before : " );
                     System.out.println("initial Reserved seats : " + initialReservedSeats);
                     System.out.println("Reserved seats : " + reservedSeats);
+                    System.out.println("Total : " + total);
                     System.out.println();
                     // deselect seat
                     reservedSeats.remove(seatNumber);
@@ -406,6 +419,8 @@ public class SeatFrame extends JFrame {
                     System.out.println("deselect seat - after : ");
                     System.out.println("initial Reserved seats : " + initialReservedSeats);
                     System.out.println("Reserved seats : " + reservedSeats);
+                    System.out.println("Total : " + total);
+                    System.out.println();
                     if(!initialReservedSeats.contains(seatNumber)) {
                         total -= seatPrices[row][j];
                     }
