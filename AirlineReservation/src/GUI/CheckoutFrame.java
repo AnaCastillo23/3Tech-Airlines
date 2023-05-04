@@ -74,7 +74,7 @@ public class CheckoutFrame extends JFrame {
                 reservationToCheckout.deleteCheckout();
 
                 //test
-                testReservation(updatedAccount);
+                //testReservation(updatedAccount);
 
                 DashboardFrame dashboardFrame = new DashboardFrame();
                 setVisible(false);
@@ -90,7 +90,11 @@ public class CheckoutFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                reservationToCheckout.deleteCheckout();
 
+                DashboardFrame dashboardFrame = new DashboardFrame();
+                setVisible(false);
+                dashboardFrame.setVisible(true);
             }
         });
     }
@@ -130,9 +134,13 @@ public class CheckoutFrame extends JFrame {
         System.out.println("\tReturn Flight Number: " + reservation1.getReturnFlightNumber());
         System.out.println("\tDeparture Date: " + reservation1.getDepartureDate());
         System.out.println("\tReturn Date: " + reservation1.getReturnDate());
-        System.out.println("\tDeparture Party: " + reservation1.getDepartureParty());
+        for(int k = 0; k < reservation1.getDeparturePartySize(); k++) {
+            System.out.println("\tDeparture Party: " + reservation1.getDepartureParty().get(k).getFirstName());
+        }
         System.out.println("\tDeparture Party Size: " + reservation1.getDeparturePartySize());
-        System.out.println("\tReturn Party: " + reservation1.getReturnParty());
+        for(int k = 0; k < reservation1.getReturnPartySize(); k++) {
+            System.out.println("\tReturn Party: " + reservation1.getReturnParty().get(k).getFirstName());
+        }
         System.out.println("\tReturn Party Size: " + reservation1.getReturnPartySize());
 
         System.out.println("Departure Test:");

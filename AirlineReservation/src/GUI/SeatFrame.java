@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class SeatFrame extends JFrame {
@@ -26,6 +27,7 @@ public class SeatFrame extends JFrame {
     boolean[][] initialSeatingArray;   // seatingArray = initialSeatingArray if cancel
     boolean[][] seatingArray;
     double[][] seatPrices;
+    ArrayList<String> initialReservedSeats;
     ArrayList<String> reservedSeats;
 
     AccountAccessor accountAccessor;
@@ -63,19 +65,50 @@ public class SeatFrame extends JFrame {
                     if (reservedSeats.size() < partySize) {
                         JOptionPane.showMessageDialog(null, "Please select seats for all party members.", "Confirmation Error", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        // confirm
-                        initialSeatingArray = seatingArray;
 
-                        // add reservedSeats list to flight instance under login account
-                        SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
+                        if(!Arrays.deepEquals(initialSeatingArray, seatingArray)) {
+                            // confirm
+                            System.out.println("Confirm - before");
+                            System.out.println("initial Reserved seats : " + initialReservedSeats);
+                            System.out.println("Reserved seats : " + reservedSeats);
+                            System.out.println();
+
+                            initialSeatingArray = copyArray(seatingArray);
+                            //initialSeatingArray = seatingArray.clone();
+                            //initialReservedSeats = reservedSeats;
+                            initialReservedSeats = copyArrayList(reservedSeats);
+
+                            System.out.println("Confirm - after");
+                            System.out.println("initial Reserved seats : " + initialReservedSeats);
+                            System.out.println("Reserved seats : " + reservedSeats);
+
+                            // add reservedSeats list to flight instance under login account
+                            SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
 
 
-                        // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
-                        //ReviewFrame.departureSeats = reservedSeats;
-                        // static method updates original instance using SeatChange()
-                        ReviewFrame.updateSeatChanges(false);
+                            // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
+                            //ReviewFrame.departureSeats = reservedSeats;
+                            // static method updates original instance using SeatChange()
+                            ReviewFrame.updateSeatChanges(false);
 
-                        setVisible(false);
+                            setVisible(false);
+                        } else {
+                            // if same as default seating then cancel:
+                            System.out.println("Confirm - no changes - before");
+                            System.out.println("initial Reserved seats : " + initialReservedSeats);
+                            System.out.println("Reserved seats : " + reservedSeats);
+                            System.out.println();
+
+                            seatingArray = copyArray(initialSeatingArray);
+                            //seatingArray = initialSeatingArray.clone();
+                            //reservedSeats = initialReservedSeats;
+                            reservedSeats = copyArrayList(initialReservedSeats);
+                            total = 0;
+                            setVisible(false);
+                            System.out.println("Confirm - no changes - after");
+                            System.out.println("initial Reserved seats : " + initialReservedSeats);
+                            System.out.println("Reserved seats : " + reservedSeats);
+                        }
                     }
                 } else {
                     // roundtrip features will be added later
@@ -85,9 +118,19 @@ public class SeatFrame extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seatingArray = initialSeatingArray;
+                System.out.println("Cancel - before");
+                System.out.println("initial Reserved seats : " + initialReservedSeats);
+                System.out.println("Reserved seats : " + reservedSeats);
+
+                seatingArray = copyArray(initialSeatingArray);
+                // seatingArray = initialSeatingArray.clone();
+                //reservedSeats = initialReservedSeats;
+                reservedSeats = copyArrayList(initialReservedSeats);
                 total = 0;
                 setVisible(false);
+                System.out.println("Cancel - after");
+                System.out.println("initial Reserved seats : " + initialReservedSeats);
+                System.out.println("Reserved seats : " + reservedSeats);
             }
         });
     }
@@ -95,6 +138,7 @@ public class SeatFrame extends JFrame {
 
     public void updatePartySize(int partySize) {
         this.partySize = partySize;
+        // should not assign old party size
         getAssignedSeats(this.partySize);
     }
 
@@ -112,8 +156,24 @@ public class SeatFrame extends JFrame {
                 counter += 1;
             }
         } while (counter < partySize);
+        System.out.println();
+        System.out.println("assign seats - before");
+        System.out.println("initial Reserved seats : " + initialReservedSeats);
+        System.out.println("Reserved seats : " + reservedSeats);
+        System.out.println();
 
-        // return ArrayList of assigned seats!!!!!!!!!!!!!!!!!!!!
+        total = 0;  // assigned seats are free - mitigates seat change charge in clicked.actionPerformed
+        initialSeatingArray = copyArray(seatingArray);
+        //initialSeatingArray = seatingArray.clone();
+        //initialReservedSeats = reservedSeats;
+        initialReservedSeats = copyArrayList(reservedSeats);
+
+        System.out.println("assign seats - after");
+        System.out.println("initial Reserved seats : " + initialReservedSeats);
+        System.out.println("Reserved seats : " + reservedSeats);
+
+        //SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
+
         return reservedSeats;
     }
 
@@ -152,6 +212,7 @@ public class SeatFrame extends JFrame {
 
         seatPrices = new double[numRows][6];
         seatButtonList = new JButton[numRows][6];
+        initialSeatingArray = new boolean[numRows][6];
         seatingArray = new boolean[numRows][6];
         // seatingArray = [[1A,1B,1C,  1D,1E,1F],   [2A,2B,2C,  2D,2E,2F],   [3A,3B,3C,  3D,3E,3F],....,[NA,NB,NC,  ND,NE,NF]]
         //                0: 0  1  2    3  4  5    1: 0  1  2    3  4  5    2: 0  1  2    3  4  5      N: 0  1  2    3  4  5
@@ -261,7 +322,8 @@ public class SeatFrame extends JFrame {
         mainSeatingPanel.add(rightSeatingPanel);
 
 
-        initialSeatingArray = seatingArray;
+        initialSeatingArray = copyArray(seatingArray);
+        //initialSeatingArray = seatingArray.clone();
     }
 
 
@@ -312,23 +374,42 @@ public class SeatFrame extends JFrame {
                     j = 5;
                     break;
             }
-            System.out.println(j);
-            System.out.println();
 
+            System.out.println("seat selected : " + seatNumber);
             if (seatingArray[row][j] && reservedSeats.size() < partySize) {
+                System.out.println("select seat - before : ");
+                System.out.println("initial Reserved seats : " + initialReservedSeats);
+                System.out.println("Reserved seats : " + reservedSeats);
+                System.out.println();
                 // available seat
                 reservedSeats.add(seatNumber);
                 seatingArray[row][j] = false;
                 clickedSeatButton.setBorder(BorderFactory.createLineBorder(Color.yellow,3));
                 total += seatPrices[row][j];
+
+                System.out.println("select seat - after : " );
+                System.out.println("initial Reserved seats : " + initialReservedSeats);
+                System.out.println("Reserved seats : " + reservedSeats);
+
             } else {
                 if(reservedSeats.contains(seatNumber)) {
+                    System.out.println("deselect seat - before : " );
+                    System.out.println("initial Reserved seats : " + initialReservedSeats);
+                    System.out.println("Reserved seats : " + reservedSeats);
+                    System.out.println();
                     // deselect seat
                     reservedSeats.remove(seatNumber);
                     seatingArray[row][j] = true;
                     System.out.println("hello??");
                     clickedSeatButton.setBorder(new JButton().getBorder());
-                    total -= seatPrices[row][j];
+
+                    System.out.println("deselect seat - after : ");
+                    System.out.println("initial Reserved seats : " + initialReservedSeats);
+                    System.out.println("Reserved seats : " + reservedSeats);
+                    if(!initialReservedSeats.contains(seatNumber)) {
+                        total -= seatPrices[row][j];
+                    }
+
                 } else {
                     if (reservedSeats.size() >= partySize) {
                         JOptionPane.showMessageDialog(this, "Number of selected seats exceeds party size. Deselect seat to reserve seat", "Seat Selection Limit Reached", JOptionPane.ERROR_MESSAGE);
@@ -343,9 +424,30 @@ public class SeatFrame extends JFrame {
     }
 
 
+    public static boolean[][] copyArray(boolean[][] src) {
+        if (src == null) {
+            return null;
+        }
+        boolean[][] copy = new boolean[src.length][];
+        for (int i = 0; i < src.length; i++) {
+            copy[i] = new boolean[src[i].length];
+            System.arraycopy(src[i], 0, copy[i], 0, src[i].length);
+        }
+        return copy;
+    }
+
+    public static ArrayList<String> copyArrayList(ArrayList<String> oldList) {
+        ArrayList<String> clonedList = new ArrayList<String>(oldList.size());
+        for (String seatNum: oldList) {
+            clonedList.add(new String(seatNum));
+        }
+        return clonedList;
+    }
+
+
     public static void main(String[] args) {
-        SeatFrame seatFrame = new SeatFrame(false);
-        seatFrame.generateSeatingMap(1, 30);
-        seatFrame.setVisible(true);
+        //SeatFrame seatFrame = new SeatFrame(false);
+        //seatFrame.generateSeatingMap(1, 30);
+        //seatFrame.setVisible(true);
     }
 }

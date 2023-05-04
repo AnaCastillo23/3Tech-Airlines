@@ -128,7 +128,8 @@ public class AddPassengerFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 originalPassengerList = passengerList;
 
-                ReviewFrame.updateParty(passengerList);
+                // if return-flight == false
+                ReviewFrame.updateParty(passengerList,false);
 
                 setVisible(false);
             }
@@ -173,8 +174,19 @@ public class AddPassengerFrame extends JFrame {
         // panel and scroll stuff
     }
 
-    public void clearForm() {
+    public ArrayList<Passenger> getPassengerList() {
+        return passengerList;
+    }
 
+    public void clearForm() {
+        tfFirstName.setText("");
+        tfLastName.setText("");
+        cbPassport.setSelectedIndex(0);
+        maleRadioButton.setSelected(false);
+        femaleRadioButton.setSelected(false);
+        cbMonth.setSelectedIndex(0);
+        cbDay.setSelectedIndex(0);
+        cbYear.setSelectedIndex(0);
     }
 
     public static void main(String[] args) {

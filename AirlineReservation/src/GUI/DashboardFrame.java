@@ -129,7 +129,9 @@ public class DashboardFrame extends JFrame {
                 System.out.println("\tReturn Date: " + reservation1.getReturnDate());
                 System.out.println("\tDeparture Party: " + reservation1.getDepartureParty());
                 System.out.println("\tDeparture Party Size: " + reservation1.getDeparturePartySize());
-                System.out.println("\tReturn Party: " + reservation1.getReturnParty());
+                for(int k = 0; k < reservation1.getReturnParty().size(); k++) {
+                    System.out.println("\tReturn Party: " + reservation1.getReturnParty().get(k).getFirstName());
+                }
                 System.out.println("\tReturn Party Size: " + reservation1.getReturnPartySize());
 
                 System.out.println("Departure Test:");
