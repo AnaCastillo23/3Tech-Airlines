@@ -39,7 +39,7 @@ public class SeatFrame extends JFrame {
 
     public SeatFrame(boolean roundTrip) {
         setContentPane(seatsPanel);
-        setTitle("Seats");
+        setTitle("Seating Map");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,10 +68,12 @@ public class SeatFrame extends JFrame {
 
                         // add reservedSeats list to flight instance under login account
                         SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
-                        ReviewFrame reviewFrame = new ReviewFrame(true);
 
+
+                        // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
+                        //ReviewFrame.departureSeats = reservedSeats;
                         // static method updates original instance using SeatChange()
-                        reviewFrame.updateSeatChanges(false);
+                        ReviewFrame.updateSeatChanges(false);
 
                         setVisible(false);
                     }

@@ -57,8 +57,8 @@ public class ReviewFrame extends JFrame {
     String returnDate;
     String returnFlightNumber;
     int returnPartySize;
-    ArrayList<Passenger> departureParty;
-    ArrayList<Passenger> returnParty;
+    static ArrayList<Passenger> departureParty;
+    static ArrayList<Passenger> returnParty;
     static Flight departureFlight;
     static Flight returnFlight;
     static ArrayList<String> departureSeats;
@@ -163,38 +163,6 @@ public class ReviewFrame extends JFrame {
              * Action listener used to code the CONFIRM button of current frame if user decides to confirm
              * flight reservation.
              */
-            chooseSeatsButton.addActionListener(new ActionListener() {
-                /**
-                 * Invoked when an action occurs.
-                 *
-                 * @param e the event to be processed
-                 */
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // return flight feature will be added later
-                    departureSeatFrame.setVisible(true);
-
-                    //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
-                    /*
-                    if(roundTrip) {
-                        if (!myDialog.isVisible()) {
-                            myDialog.setVisible(true);
-                        }
-                        myDialog.addConfirmListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                String text = myDialog.getTextFieldText();
-                                textField.setText(text);
-                            }
-                        });
-                        JPanel panel = new JPanel();
-                        panel.add(textField);
-                        panel.add(showDialogBtn);
-
-                        add(panel);
-                    }*/
-                }
-            });
-
             //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
             confirmButton.addActionListener(new ActionListener() {
                 @Override
@@ -233,6 +201,48 @@ public class ReviewFrame extends JFrame {
 
                     setVisible(false);
                     checkoutFrame.setVisible(true);
+                }
+            });
+
+            addPassengerButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    double initialBasePrice = flightsToReview.getTotalPrice();
+
+                    AddPassengerFrame addPassenger = new AddPassengerFrame();
+                    addPassenger.setVisible(true);
+                }
+            });
+
+            chooseSeatsButton.addActionListener(new ActionListener() {
+                /**
+                 * Invoked when an action occurs.
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // return flight feature will be added later
+                    departureSeatFrame.setVisible(true);
+
+                    //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
+                    /*
+                    if(roundTrip) {
+                        if (!myDialog.isVisible()) {
+                            myDialog.setVisible(true);
+                        }
+                        myDialog.addConfirmListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                String text = myDialog.getTextFieldText();
+                                textField.setText(text);
+                            }
+                        });
+                        JPanel panel = new JPanel();
+                        panel.add(textField);
+                        panel.add(showDialogBtn);
+
+                        add(panel);
+                    }*/
                 }
             });
 
@@ -275,6 +285,8 @@ public class ReviewFrame extends JFrame {
                     System.out.println("tax: " + tax);
                     System.out.println("tax percentage: " + taxPercentage + "%");
                     System.out.println("total price: " + totalPrice);
+                    System.out.println("Party: " + departureParty.get(0).getFirstName());
+                    System.out.println("Party: " + departureParty.get(1).getFirstName());
                     System.out.println();
                 }
             });
@@ -285,6 +297,8 @@ public class ReviewFrame extends JFrame {
         // reset static variables
         departureFlight = null;
         returnFlight = null;
+        departureParty = null;
+        returnParty = null;
         departureSeats = null;
         returnSeats = null;
         departureSeatFrame = null;
@@ -311,6 +325,10 @@ public class ReviewFrame extends JFrame {
             tax = basePrice * taxPercentage;
             totalPrice = basePrice + tax;
         }
+    }
+
+    public static void updateParty(ArrayList<Passenger> passengerList) {
+        departureParty = passengerList;
     }
 
     public static void updateSeatChanges(boolean returnTrip) {
