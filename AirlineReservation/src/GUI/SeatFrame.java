@@ -379,43 +379,22 @@ public class SeatFrame extends JFrame {
                     break;
             }
 
-            System.out.println();
-            System.out.println("seat selected : " + seatNumber);
+
             if (seatingArray[row][j] && reservedSeats.size() < partySize) {
-                System.out.println("select seat - before : ");
-                System.out.println("initial Reserved seats : " + initialReservedSeats);
-                System.out.println("Reserved seats : " + reservedSeats);
-                System.out.println("Total : " + total);
-                System.out.println();
                 // available seat
                 reservedSeats.add(seatNumber);
                 seatingArray[row][j] = false;
                 clickedSeatButton.setBorder(BorderFactory.createLineBorder(Color.yellow,3));
                 total += seatPrices[row][j];
 
-                System.out.println("select seat - after : " );
-                System.out.println("initial Reserved seats : " + initialReservedSeats);
-                System.out.println("Reserved seats : " + reservedSeats);
-                System.out.println("Total : " + total);
-
             } else {
                 if(reservedSeats.contains(seatNumber)) {
-                    System.out.println("deselect seat - before : " );
-                    System.out.println("initial Reserved seats : " + initialReservedSeats);
-                    System.out.println("Reserved seats : " + reservedSeats);
-                    System.out.println("Total : " + total);
-                    System.out.println();
                     // deselect seat
                     reservedSeats.remove(seatNumber);
                     seatingArray[row][j] = true;
                     System.out.println("hello??");
                     clickedSeatButton.setBorder(new JButton().getBorder());
 
-                    System.out.println("deselect seat - after : ");
-                    System.out.println("initial Reserved seats : " + initialReservedSeats);
-                    System.out.println("Reserved seats : " + reservedSeats);
-                    System.out.println("Total : " + total);
-                    System.out.println();
                     if(!initialReservedSeats.contains(seatNumber)) {
                         total -= seatPrices[row][j];
                     }

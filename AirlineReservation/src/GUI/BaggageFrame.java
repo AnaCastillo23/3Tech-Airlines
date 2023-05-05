@@ -21,9 +21,11 @@ public class BaggageFrame extends JFrame {
     ButtonClicked clicked;
     AccountAccessor accountAccessor;
     Account loginAccount;
+    ArrayList<Baggage> initialBaggageList;
     ArrayList<Baggage> baggageList;
     int addBaggageCount;
     ArrayList<JLabel> numBagsInventory;
+
 
     public BaggageFrame() {
         setContentPane(baggagePanel);
@@ -45,6 +47,8 @@ public class BaggageFrame extends JFrame {
         Baggage defaultPassenger = new Baggage(fullname, 1);
         addFreeBaggage(defaultPassenger);
 
+        initialBaggageList = copyArrayList(baggageList);
+
         confirmButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -53,7 +57,11 @@ public class BaggageFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                initialBaggageList = copyArrayList(baggageList);
 
+                // send updated baggage data to review
+                
+                setVisible(false);
             }
         });
         cancelButton.addActionListener(new ActionListener() {
@@ -64,7 +72,8 @@ public class BaggageFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                baggageList = copyArrayList(initialBaggageList);
+                setVisible(false);
             }
         });
     }
@@ -155,7 +164,7 @@ public class BaggageFrame extends JFrame {
                 // 0123456789   0123456789012
                 int incrementIndex = Integer.parseInt(((JButton) e.getSource()).getName().substring(9));
                 JLabel numBagsLabel = numBagsInventory.get(incrementIndex);
-                int numBagsValue = Integer.parseInt(numBagsLabel.getText().substring(12));
+                int numBagsValue = Integer.parseInt(numBagsLabel.getText().substring(0,1));
 
                 if(numBagsValue == 1) {
                     numBagsValue = 2;
@@ -168,15 +177,23 @@ public class BaggageFrame extends JFrame {
                     numBagsLabel.setText("4");
                 } else {
                     // numBagsValue == 4
+                    numBagsValue = 4;
                     JOptionPane.showMessageDialog(this, "Baggage limit reached!", "Baggage Error!", JOptionPane.ERROR_MESSAGE);
                 }
+
+                Baggage incrementedBaggage = baggageList.get(incrementIndex);
+                incrementedBaggage.setNumBags(numBagsValue);
+                Baggage updateBaggage = baggageList.get(incrementIndex);
+                updateBaggage.setNumBags(numBagsValue);
+                baggageList.add(incrementIndex, updateBaggage);
 
             } else if(e.toString().contains("cmd=-")) {
                 // decrement*
                 // 0123456789
                 int decrementIndex = Integer.parseInt(((JButton) e.getSource()).getName().substring(9));
                 JLabel numBagsLabel = numBagsInventory.get(decrementIndex);
-                int numBagsValue = Integer.parseInt(numBagsLabel.getText().substring(12));
+                System.out.println(numBagsLabel.getName());
+                int numBagsValue = Integer.parseInt(numBagsLabel.getText().substring(0,1));
 
                 if(numBagsValue == 4) {
                     numBagsValue = 3;
@@ -189,8 +206,15 @@ public class BaggageFrame extends JFrame {
                     numBagsLabel.setText("1");
                 } else {
                     // numBagsValue == 1
+                    numBagsValue = 1;
                     JOptionPane.showMessageDialog(this, "First Check-in Baggage is free!", "Baggage Error!", JOptionPane.ERROR_MESSAGE);
                 }
+
+                Baggage decrementedBaggage = baggageList.get(decrementIndex);
+                decrementedBaggage.setNumBags(numBagsValue);
+                Baggage updateBaggage = baggageList.get(decrementIndex);
+                updateBaggage.setNumBags(numBagsValue);
+                baggageList.add(decrementIndex, updateBaggage);
 
             } else {
                 System.out.println("ButtonClicked.clicker ERROR");
@@ -211,10 +235,10 @@ public class BaggageFrame extends JFrame {
         return copy;
     }
 
-    public static ArrayList<String> copyArrayList(ArrayList<String> oldList) {
-        ArrayList<String> clonedList = new ArrayList<String>(oldList.size());
-        for (String seatNum: oldList) {
-            clonedList.add(new String(seatNum));
+    public static ArrayList<Baggage> copyArrayList(ArrayList<Baggage> oldList) {
+        ArrayList<Baggage> clonedList = new ArrayList<Baggage>(oldList.size());
+        for (Baggage seatNum: oldList) {
+            clonedList.add(seatNum);
         }
         return clonedList;
     }
