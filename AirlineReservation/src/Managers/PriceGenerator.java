@@ -27,6 +27,7 @@ public class PriceGenerator {
         return flightPrice;
     }
 
+
     public double getTax(Double flightPrice) {
         double taxPercentage = 0.0;
         double taxPrice = 0.0;

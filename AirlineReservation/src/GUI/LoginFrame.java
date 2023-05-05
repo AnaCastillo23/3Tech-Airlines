@@ -110,7 +110,6 @@ public class LoginFrame extends JFrame {
                 if(password.equals(account.getPassword())) {
                     JOptionPane.showMessageDialog(this, "Login successful", "account", JOptionPane.PLAIN_MESSAGE);
 
-
                     //FlightSearchFrame flightSearchFrame = new FlightSearchFrame();
                     DashboardFrame dashboardPanel = new DashboardFrame();
                     AccountAccessor accountAccessor = new AccountAccessor(username);  // account access throughout gui

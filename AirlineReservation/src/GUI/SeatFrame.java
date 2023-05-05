@@ -92,7 +92,7 @@ public class SeatFrame extends JFrame {
                             // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
                             //ReviewFrame.departureSeats = reservedSeats;
                             // static method updates original instance using SeatChange() -> deletes hashmap aswell
-                            ReviewFrame.updateSeatChanges(false);
+                            ReviewFrame.addSeatsToReview(false);
 
                             setVisible(false);
                         } else {
@@ -327,9 +327,7 @@ public class SeatFrame extends JFrame {
         mainSeatingPanel.add(walkwayPanel);
         mainSeatingPanel.add(rightSeatingPanel);
 
-
         initialSeatingArray = copyArray(seatingArray);
-        //initialSeatingArray = seatingArray.clone();
     }
 
 

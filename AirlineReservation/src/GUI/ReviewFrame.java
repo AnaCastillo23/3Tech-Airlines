@@ -6,6 +6,7 @@ import Class.Passenger;
 import Class.Reservation;
 import Class.Airport;
 import Class.Seats;
+import Class.Baggage;
 import DataStructures.ReservationToCheckout;
 import DataStructures.SeatChange;
 import Managers.PriceGenerator;
@@ -46,6 +47,7 @@ public class ReviewFrame extends JFrame {
     private JButton addPassengerButton;
     private JLabel Depart;
     private JLabel Arrival;
+    private JButton tempTestButtonButton;
 
     FlightsToReview flightsToReview;
 
@@ -71,8 +73,10 @@ public class ReviewFrame extends JFrame {
     static double tax;
     static double taxPercentage;
     static double totalPrice;
-    AddPassengerFrame departurePartyFrame;
-    AddPassengerFrame returnPartyFrame;
+    static BaggageFrame departureBaggageFrame;
+    static BaggageFrame returnBaggageFrame;
+    PassengerFrame departurePartyFrame;
+    PassengerFrame returnPartyFrame;
 
 
     /**
@@ -80,8 +84,7 @@ public class ReviewFrame extends JFrame {
      * Method is for creating and displaying a desktop window to a specific size when user has selected a flight from the list and has clicked on NEXT button in FlightSearchFrame.
      *
      */
-    public ReviewFrame(boolean emptyInstance) {
-
+    public ReviewFrame() {
         setContentPane(reviewPanel);
         setTitle("Flight Information");
         setSize(450, 300);
@@ -96,7 +99,9 @@ public class ReviewFrame extends JFrame {
 
         departureParty = new ArrayList<Passenger>();
         departureSeats = new ArrayList<String>();
-        departurePartyFrame = new AddPassengerFrame();
+
+        departurePartyFrame = new PassengerFrame();
+        departureBaggageFrame = new BaggageFrame(); // 1 free check in baggage per passenger
 
         flightsToReview = new FlightsToReview();
         ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
@@ -117,7 +122,7 @@ public class ReviewFrame extends JFrame {
         departureDate = departureFlight.getDepartureDate();
         departureFlightNumber = departureFlight.getFlightID();
         departurePartySize = 1; // temp
-        departureParty = departurePartyFrame.getPassengerList();;
+        departureParty = copyArrayList(departurePartyFrame.getPassengerList());;
 
         // Create two instances of SeatFrame if roundtrip - false is one way
         departureSeatFrame = new SeatFrame(false);
@@ -129,7 +134,7 @@ public class ReviewFrame extends JFrame {
             // round trip
             returnParty = new ArrayList<Passenger>();
             returnSeats = new ArrayList<String>();
-            returnPartyFrame = new AddPassengerFrame();
+            returnPartyFrame = new PassengerFrame();
 
             returnFlight = displayFlights.get(1);
             returnDate = returnFlight.getDepartureDate();
@@ -232,6 +237,7 @@ public class ReviewFrame extends JFrame {
                 departureSeatFrame.setVisible(true);
 
                 //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
+                // DO NOT DELETE
                 /*
                 if(roundTrip) {
                     if (!myDialog.isVisible()) {
@@ -278,7 +284,7 @@ public class ReviewFrame extends JFrame {
                 dashboard.setVisible(true);
             }
         });
-        baggageButton.addActionListener(new ActionListener() {
+        tempTestButtonButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println();
@@ -293,6 +299,20 @@ public class ReviewFrame extends JFrame {
                 System.out.println("total price: " + totalPrice);
                 System.out.println("Party: " + departureParty.size());
                 System.out.println();
+
+
+            }
+        });
+
+        baggageButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                departureBaggageFrame.setVisible(true);
             }
         });
     }
@@ -332,9 +352,29 @@ public class ReviewFrame extends JFrame {
         }
     }
 
-    public static void updateParty(ArrayList<Passenger> passengerList, int newPassengerCount, boolean returnFlight) {
+    // IF TOTAL IS NEGATIVE THEN ADDING IT TO TOTAL WOULD WORK
+    public static void addToParty(ArrayList<Passenger> passengerList, int newPassengerCount, boolean returnFlight) {
         if(!returnFlight) {
-            departureParty = passengerList;
+
+
+            System.out.println();
+            for(int i = 0; i < departureParty.size(); i++) {
+                System.out.print(departureParty.get(i).getFirstName() + ", ");
+            }
+            System.out.println();
+            for(int i = 0; i < passengerList.size(); i++) {
+                System.out.print(passengerList.get(i).getFirstName() + ", ");
+            }
+            System.out.println();
+
+            // assign each new passenger a free check-in baggage
+            for(int i = 0; i < passengerList.size(); i++) {
+                if(!departureParty.contains(passengerList.get(i))) {
+                    Baggage newPassenger = new Baggage(passengerList.get(i).getFirstName() + " " + passengerList.get(i).getLastName(), 1);
+                    departureBaggageFrame.addFreeBaggage(newPassenger);
+                }
+            }
+            departureParty = copyArrayList(passengerList);
             departurePartySize = passengerList.size();
 
             // assign seats to updated passengers - no seat change charge:
@@ -344,15 +384,14 @@ public class ReviewFrame extends JFrame {
             // add new passenger ticket costs to updated base price and then get it taxed
             basePrice += initialBasePrice * newPassengerCount;
             updateTotal(basePrice, false);
-
-
         } else {
             // add later
         }
 
     }
 
-    public static void updateSeatChanges(boolean returnTrip) {
+    // IF TOTAL IS NEGATIVE THEN ADDING IT TO TOTAL WOULD WORK
+    public static void addSeatsToReview(boolean returnTrip) {
         SeatChange seatChange;
         Seats seatChanges;
 
@@ -416,4 +455,12 @@ public class ReviewFrame extends JFrame {
     }
 
  */
+
+    public static ArrayList<Passenger> copyArrayList(ArrayList<Passenger> oldList) {
+        ArrayList<Passenger> clonedList = new ArrayList<Passenger>(oldList.size());
+        for (Passenger passenger : oldList) {
+            clonedList.add(passenger);
+        }
+        return clonedList;
+    }
 }

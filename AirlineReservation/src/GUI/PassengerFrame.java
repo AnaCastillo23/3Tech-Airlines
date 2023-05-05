@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AddPassengerFrame extends JFrame {
+public class PassengerFrame extends JFrame {
     private JTextField tfFirstName;
     private JTextField tfLastName;
     private JButton addPassengerButton;
@@ -41,7 +41,7 @@ public class AddPassengerFrame extends JFrame {
     int newPassengerCounter;
 
 
-    public AddPassengerFrame() {
+    public PassengerFrame() {
         setContentPane(addPassengerPanel);
         setTitle("Add Passenger");
         setSize(450,300);
@@ -134,7 +134,7 @@ public class AddPassengerFrame extends JFrame {
                 originalPassengerList = passengerList;
 
                 // if return-flight == false
-                ReviewFrame.updateParty(passengerList,newPassengerCounter,false);
+                ReviewFrame.addToParty(passengerList,newPassengerCounter,false);
                 newPassengerCounter = 0;
                 setVisible(false);
             }
@@ -225,7 +225,7 @@ public class AddPassengerFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        AddPassengerFrame addPassengerFrame = new AddPassengerFrame();
-        addPassengerFrame.setVisible(true);
+        PassengerFrame passengerFrame = new PassengerFrame();
+        passengerFrame.setVisible(true);
     }
 }
