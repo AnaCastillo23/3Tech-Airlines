@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * for a flight reservation system. This specific GUI called "AccountFrame" helps user edit any information from their account.
  * <p>
  * @since 05/01/2023
- * @author Ana Emily Castillo Perez (added user validation and documentation comments) and Carlos Figueroa (built structure of frame).
+ * @author Carlos Figueroa (built structure of frame) and Ana Emily Castillo Perez (added user validation and documentation comments).
  * <p>
  * <b>Explanation of important functions:</b> GUI implements user input into text fields that lets user input new account information. Such inputs include
  * change in email, password, personal information, payment information.
@@ -21,8 +21,10 @@ import java.awt.event.ActionListener;
  * <p>
  * <b>Important data structure in class/important methods in class:</b>
  * <ul>
- * <li><i>add method name:</i> used for      .</li>
- * Add as many as needed
+ * <li><i>emailInputChecker:</i>Error checks that user has entered an email in text field for system to update.</li>
+ * <li><i>passwordInputChecker():</i>Error checks that user has entered a password in text field for system to update.</li>
+ * <li><i>personalInfoChecker():</i>Takes in any information entered by user and updates it.</li>
+ * <li><i>paymentInfoChecker():</i>Error checks that user has entered a valid credit card number, zip code and directs user's attention to any empty fields.</li>
  * </ul>
  * <p>
  *

@@ -332,7 +332,21 @@
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <model/>
+                          <model>
+                            <item value="Select"/>
+                            <item value="01"/>
+                            <item value="02"/>
+                            <item value="03"/>
+                            <item value="04"/>
+                            <item value="05"/>
+                            <item value="06"/>
+                            <item value="07"/>
+                            <item value="08"/>
+                            <item value="09"/>
+                            <item value="10"/>
+                            <item value="11"/>
+                            <item value="12"/>
+                          </model>
                           <toolTipText value=""/>
                         </properties>
                       </component>
@@ -409,7 +423,61 @@
                         <constraints>
                           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <model>
+                            <item value="Select"/>
+                            <item value="AL"/>
+                            <item value="AK"/>
+                            <item value="AZ"/>
+                            <item value="AR"/>
+                            <item value="CA"/>
+                            <item value="CO"/>
+                            <item value="CT"/>
+                            <item value="DE"/>
+                            <item value="FL"/>
+                            <item value="GA"/>
+                            <item value="HI"/>
+                            <item value="ID"/>
+                            <item value="IL"/>
+                            <item value="IN"/>
+                            <item value="IA"/>
+                            <item value="KS"/>
+                            <item value="KY"/>
+                            <item value="LA"/>
+                            <item value="ME"/>
+                            <item value="MD"/>
+                            <item value="MA"/>
+                            <item value="MI"/>
+                            <item value="MN"/>
+                            <item value="MS"/>
+                            <item value="MO"/>
+                            <item value="MT"/>
+                            <item value="NE"/>
+                            <item value="NV"/>
+                            <item value="NH"/>
+                            <item value="NJ"/>
+                            <item value="NM"/>
+                            <item value="NY"/>
+                            <item value="NC"/>
+                            <item value="ND"/>
+                            <item value="OH"/>
+                            <item value="OK"/>
+                            <item value="OR"/>
+                            <item value="PA"/>
+                            <item value="RI"/>
+                            <item value="SC"/>
+                            <item value="SD"/>
+                            <item value="TN"/>
+                            <item value="TX"/>
+                            <item value="UT"/>
+                            <item value="VT"/>
+                            <item value="VA"/>
+                            <item value="WA"/>
+                            <item value="WV"/>
+                            <item value="WI"/>
+                            <item value="WY"/>
+                          </model>
+                        </properties>
                       </component>
                       <component id="48c3e" class="javax.swing.JLabel">
                         <constraints>
@@ -454,7 +522,24 @@
                         <constraints>
                           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <model>
+                            <item value="Select"/>
+                            <item value="2023"/>
+                            <item value="2024"/>
+                            <item value="2025"/>
+                            <item value="2026"/>
+                            <item value="2027"/>
+                            <item value="2028"/>
+                            <item value="2029"/>
+                            <item value="2030"/>
+                            <item value="2031"/>
+                            <item value="2032"/>
+                            <item value="2033"/>
+                            <item value="2034"/>
+                            <item value="2035"/>
+                          </model>
+                        </properties>
                       </component>
                     </children>
                   </grid>
