@@ -130,7 +130,7 @@ public class FlightTest {
     public void getArrivalTime() {
         flight1.setArrivalTime("3:25 pm");
         Assert.assertEquals("3:25 pm", flight1.getArrivalTime());
-        Assert.assertEquals("4:44 pm", flight1.getArrivalTime());
+        Assert.assertEquals("4:44 pm", flight2.getArrivalTime());
     }
 
     @Test
