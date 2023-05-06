@@ -28,6 +28,7 @@ public class AccountTest {
 
     private static Account account1;
     private static Account account2;
+    private static Reservation reservation;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -35,8 +36,17 @@ public class AccountTest {
         account2 = new Account("Nathan674", "UniquePassword2!","Nathan","Sanchez",
                 "999 Colorado st. Denver CO", "NathCO@Gmail.com", "(555)478-4444");
 
+
         account1.registerOrUpdate(account1);
         account1.registerOrUpdate(account2);
+
+
+        ArrayList<Passenger> departureParty = new ArrayList<Passenger>();
+        Passenger passenger1 = new Passenger("Nathan", "Sanchez", "United States", "male", "November 24, 2023");
+        departureParty.add(passenger1);
+
+        reservation = new Reservation(235753, 219.0, 111.1, 219.0 + 111.1,
+                "05/07/2023", "SW1454", 1, departureParty);
     }
 
     @Test
@@ -139,25 +149,23 @@ public class AccountTest {
 
     @Test
     public void setReservation() {
-        ArrayList<Passenger> departureParty = new ArrayList<Passenger>();
-        Passenger passenger1 = new Passenger("Nathan", "Sanchez", "United States", "male", "November 24, 2023");
-        departureParty.add(passenger1);
-
-        Reservation reservation = new Reservation(235753, 219.0, 111.1, 219.0 + 111.1,
-                "05/07/2023", "SW1454", 1, departureParty);
-
         account2.setReservation(reservation);
     }
 
     @Test
     public void getReservation() {
+        account2.setReservation(reservation);
+        Assert.assertEquals(reservation, account2.getReservation());
     }
 
     @Test
     public void addReservationToAccount() {
+        account2.addReservationToAccount(reservation);
     }
 
     @Test
     public void getReservationList() {
+        account2.addReservationToAccount(reservation);
+        Assert.assertEquals(reservation, account2.getReservationList().get(0));
     }
 }
