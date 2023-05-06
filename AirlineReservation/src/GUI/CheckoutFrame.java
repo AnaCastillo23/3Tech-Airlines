@@ -8,7 +8,6 @@ import Class.Reservation;
 import Class.Flight;
 import Class.Airline;
 import Class.Airport;
-import Managers.PriceGenerator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -155,7 +154,7 @@ public class CheckoutFrame extends JFrame {
 
         System.out.println("\tDeparture Flight Seats:");
         System.out.println("\t\tSeat Number(s): " + departFlight1.getSeats().getReservedSeatNumbers());
-        System.out.println("\t\tSeat Class: " + departFlight1.getSeats().getFlightTypes());
+        System.out.println("\t\tSeat Class: " + departFlight1.getSeats().getSeatClass());
 
         System.out.println("\tDeparture Airport Info:");
         System.out.println("\t\tAirport Code: " + departureAirport1.getAirportCode());
