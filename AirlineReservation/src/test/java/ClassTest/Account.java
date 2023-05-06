@@ -1,4 +1,4 @@
-package Class;
+package ClassTest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -230,11 +230,11 @@ public class Account {
 
 
     /**
-     * Method that confirms if account already exists
+     * Method that confirms if account is in hashmap
      * @return boolean
      */
-    public static boolean accountExists(String username) {
-        if(loginAccount.containsKey(username)) {
+    public static boolean isRegistered(Account account){
+        if(loginAccount.containsKey(account.getUsername()) && loginAccount.containsValue(account)){
             return true;
         } else {
             return false;
