@@ -45,7 +45,7 @@ public class FlightTest {
     }
     @Test
     public void setFlightID() {
-        flight1.setFlightID("WN2834");
+        flight1.setFlightID("AI126");
     }
     @Test
     public void setDepartureDate() {
@@ -59,22 +59,22 @@ public class FlightTest {
 
     @Test
     public void setDepartureTime() {
-        flight1.setDepartureTime("11:00 am");
+        flight1.setDepartureTime("10:00 am");
     }
 
     @Test
     public void setArrivalTime() {
-        flight1.setArrivalTime("4:44 pm");
+        flight1.setArrivalTime("3:25 pm");
     }
 
     @Test
     public void setDepartureLocation() {
-        flight1.setDepartureLocation("KIAD");
+        flight1.setDepartureLocation("LAX");
     }
 
     @Test
     public void setArrivalLocation() {
-        flight1.setArrivalLocation("LAX");
+        flight1.setArrivalLocation("KLGA");
     }
 
     @Test
@@ -100,37 +100,51 @@ public class FlightTest {
     //Testing getters
     @Test
     public void getFlightID() {
-        
+        flight1.setFlightID("AI126");
+        Assert.assertEquals("AI126", flight1.getFlightID());
+        Assert.assertEquals("WN2834", flight2.getFlightID());
     }
 
     @Test
     public void getDepartureDate() {
-
+        flight1.setDepartureDate("05/06/2023");
+        Assert.assertEquals("05/06/2023", flight1.getDepartureDate());
+        Assert.assertEquals("05/06/2023",flight2.getDepartureDate());
     }
 
     @Test
     public void getArrivalDate() {
-
+        flight1.setArrivalDate("05/08/2023");
+        Assert.assertEquals("05/08/2023", flight1.getArrivalDate());
+        Assert.assertEquals("05/08/2023", flight2.getArrivalDate());
     }
 
     @Test
     public void getDepartureTime() {
-
+        flight1.setDepartureTime("10:00 am");
+        Assert.assertEquals("10:00 am", flight1.getDepartureTime());
+        Assert.assertEquals("11:00 am", flight2.getDepartureTime());
     }
 
     @Test
     public void getArrivalTime() {
-
+        flight1.setArrivalTime("3:25 pm");
+        Assert.assertEquals("3:25 pm", flight1.getArrivalTime());
+        Assert.assertEquals("4:44 pm", flight1.getArrivalTime());
     }
 
     @Test
     public void getDepartureLocation() {
-
+        flight1.setDepartureLocation("LAX");
+        Assert.assertEquals("LAX", flight1.getDepartureLocation());
+        Assert.assertEquals("KIAD", flight2.getDepartureLocation());
     }
 
     @Test
     public void getArrivalLocation() {
-
+        flight1.setArrivalLocation("KLGA");
+        Assert.assertEquals("KLGA", flight1.getArrivalLocation());
+        Assert.assertEquals("LAX", flight2.getArrivalLocation());
     }
 
     @Test
