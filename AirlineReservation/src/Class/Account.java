@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * <b>Explanation of important functions:</b>  Constructors are used for account registration, getters are used to get information
  * from the user throughout the app, setters are used to change manage account info, getLoginAccount() and register(Account account)
- * saves all Account objects into a hashmap, isRegistered(Account account) and accountExists(String username) are used for
+ * saves all Account objects into a hashmap and accountExists(String username) are used for
  * account validation, and addReservation(Reservation reservation) and getReservationList() are used to add and get flight
  * resevation information associated with the account.
  * <p>
@@ -39,7 +39,6 @@ import java.util.Map;
  * <li><i>setPhoneNumber(String phoneNumber)</i></li>
  * <li><i>getLoginAccount()</i></li>
  * <li><i>register(Account account)</i></li>
- * <li><i>isRegistered(Account account)</i></li>
  * <li><i>accountExists(String username)</i></li>
  * <li><i>addReservation(Reservation reservation)</i></li>
  * <li><i>getReservationList()</i></li>

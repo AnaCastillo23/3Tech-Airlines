@@ -1,6 +1,8 @@
 package ClassTest;
 
 import Class.Account;
+import Class.Passenger;
+import Class.Reservation;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +11,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //import BeforeAll;
 //import DisplayName;
@@ -28,6 +34,9 @@ public class AccountTest {
         account1 = new Account();
         account2 = new Account("Nathan674", "UniquePassword2!","Nathan","Sanchez",
                 "999 Colorado st. Denver CO", "NathCO@Gmail.com", "(555)478-4444");
+
+        account1.registerOrUpdate(account1);
+        account1.registerOrUpdate(account2);
     }
 
     @Test
@@ -69,55 +78,75 @@ public class AccountTest {
     @Test
     public void registerOrUpdate() {
         account1.registerOrUpdate(account1);
-    }
-
-    @Test
-    public void isRegistered() {
-        //assertEquals(null, account1.isRegistered(account1.getLoginAccount().get("Dylan666")), "Check if account Dylan666 is registered");
-        //Assert.assertTrue("Check if account Bob123 is registered", account1.isRegistered(account1.getLoginAccount().get("Bob123")));
-        //Assert.assertFalse("Check if account CoolKid98 is registered",account1.isRegistered(account1.getLoginAccount().get("CoolKid98")));
-        //Assert.assertFalse("Check if account Nathan674 is registered",account1.isRegistered(account1.getLoginAccount().get("Nathan674")));
+        account1.registerOrUpdate(account2);
     }
 
 
     @Test
     public void getLoginAccount() {
-        //account1.getLoginAccount();
+        account1.setUsername("Bob123");
+        account1.registerOrUpdate(account1);
+        Assert.assertEquals(account1, account1.getLoginAccount().get("Bob123"));
+
+        Assert.assertEquals(account2, account1.getLoginAccount().get("Nathan674"));
     }
 
     @Test
     public void getUsername() {
-        //assertEquals(null, account2.getLoginAccount().get("Bob123").getUsername());
-        //Assert.assertEquals(account2.getUsername(), account1.getLoginAccount().get(account2.getUsername()).getUsername());
-        //Assert.assertEquals(account1.getUsername(), account1.getLoginAccount().get(account1.getUsername()).getUsername());
+        Assert.assertEquals("Bob123", account1.getUsername());
+        Assert.assertEquals("Nathan674", account2.getUsername());
     }
 
     @Test
     public void getPassword() {
+        Assert.assertEquals("UniquePassword1!", account1.getPassword());
+        Assert.assertEquals("UniquePassword2!", account2.getPassword());
     }
 
     @Test
     public void getFirstName() {
+        account1.setFirstName("Bob");
+        Assert.assertEquals("Bob", account1.getFirstName());
+        Assert.assertEquals("Nathan", account2.getFirstName());
     }
 
     @Test
     public void getLastName() {
+        Assert.assertEquals("Jones", account1.getLastName());
+        Assert.assertEquals("Sanchez", account2.getLastName());
     }
 
     @Test
     public void getAddress() {
+        account1.setAddress("1234 Palm ave. Burbank CA");
+        Assert.assertEquals("1234 Palm ave. Burbank CA", account1.getAddress());
+        Assert.assertEquals("999 Colorado st. Denver CO", account2.getAddress());
     }
 
     @Test
     public void getEmailAddress() {
+        account1.setEmailAddress("BobJones222@AOL.com");
+        Assert.assertEquals("BobJones222@AOL.com", account1.getEmailAddress());
+        Assert.assertEquals("NathCO@Gmail.com", account2.getEmailAddress());
     }
 
     @Test
     public void getPhoneNumber() {
+        account1.setPhoneNumber("(818)445-9854");
+        Assert.assertEquals("(818)445-9854", account1.getPhoneNumber());
+        Assert.assertEquals("(555)478-4444", account2.getPhoneNumber());
     }
 
     @Test
     public void setReservation() {
+        ArrayList<Passenger> departureParty = new ArrayList<Passenger>();
+        Passenger passenger1 = new Passenger("Nathan", "Sanchez", "United States", "male", "November 24, 2023");
+        departureParty.add(passenger1);
+
+        Reservation reservation = new Reservation(235753, 219.0, 111.1, 219.0 + 111.1,
+                "05/07/2023", "SW1454", 1, departureParty);
+
+        account2.setReservation(reservation);
     }
 
     @Test
