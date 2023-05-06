@@ -60,6 +60,8 @@ public class ReviewFrame extends JFrame {
     static int returnPartySize;
     static ArrayList<Passenger> departureParty;
     static ArrayList<Passenger> returnParty;
+    static ArrayList<Baggage> departureBaggageList;
+    static ArrayList<Baggage> returnBaggageList;
     static Flight departureFlight;
     static Flight returnFlight;
     static ArrayList<String> departureSeats;
@@ -336,7 +338,7 @@ public class ReviewFrame extends JFrame {
         totalPrice = 0;
     }
 
-    private static void updateTotal(double updatedBasePrice, boolean initialPricing) {
+    public static void updateTotal(double updatedBasePrice, boolean initialPricing) {
         //fees = calcTax.getFees(); <--- Seating and Baggage
         //totalPrice = flightPrice + fees + tax ;
 
@@ -348,7 +350,7 @@ public class ReviewFrame extends JFrame {
             totalPrice = basePrice + tax;
         } else {
             tax = basePrice * taxPercentage;
-            totalPrice = basePrice + tax;
+            totalPrice = basePrice + tax + baggageFees;
         }
     }
 
@@ -426,6 +428,18 @@ public class ReviewFrame extends JFrame {
 
     }
 
+    public static void addBaggageToReview(ArrayList<Baggage> baggageList, double baggageFee, boolean returnTrip) {
+        if(!returnTrip) {
+            // not taxable
+            baggageFees = baggageFee;
+            departureBaggageList = baggageList;
+        } else {
+            // add later
+        }
+        System.out.println("baggage fee(review): " + baggageFee);
+        System.out.println("baggage fee(review): " + baggageFee);
+        updateTotal(basePrice, false);
+    }
 
 
     //  FOR ROUND TRIP - FIX LATER

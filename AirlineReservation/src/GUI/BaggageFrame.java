@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BaggageFrame extends JFrame {
@@ -23,7 +22,8 @@ public class BaggageFrame extends JFrame {
     Account loginAccount;
     ArrayList<Baggage> initialBaggageList;
     ArrayList<Baggage> baggageList;
-    int addBaggageCount;
+    //ArrayList<Integer> initialAddBaggageCounter;
+    //ArrayList<Integer> addBaggageCounter;
     ArrayList<JLabel> numBagsInventory;
 
 
@@ -36,6 +36,8 @@ public class BaggageFrame extends JFrame {
         clicked = new ButtonClicked();
 
         baggageList = new ArrayList<Baggage>();
+        //addBaggageCounter = new ArrayList<>();
+        //initialAddBaggageCounter = new ArrayList<>();
 
         accountAccessor = new AccountAccessor();
         loginAccount = new Account();
@@ -47,7 +49,7 @@ public class BaggageFrame extends JFrame {
         Baggage defaultPassenger = new Baggage(fullname, 1);
         addFreeBaggage(defaultPassenger);
 
-        initialBaggageList = copyArrayList(baggageList);
+        initialBaggageList = BaggageFrame.copyArrayList1(baggageList);
 
         confirmButton.addActionListener(new ActionListener() {
             /**
@@ -57,10 +59,12 @@ public class BaggageFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                initialBaggageList = copyArrayList(baggageList);
+                initialBaggageList = BaggageFrame.copyArrayList1(baggageList);// send updated baggage data to review
+                //initialAddBaggageCounter = copyArrayList2(addBaggageCounter);
 
                 // send updated baggage data to review
-                
+                ReviewFrame.addBaggageToReview(baggageList, getBaggagePrice(baggageList), false);
+
                 setVisible(false);
             }
         });
@@ -72,7 +76,8 @@ public class BaggageFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                baggageList = copyArrayList(initialBaggageList);
+                baggageList = BaggageFrame.copyArrayList1(initialBaggageList);
+                //addBaggageCounter = copyArrayList2(initialAddBaggageCounter); // reset
                 setVisible(false);
             }
         });
@@ -80,31 +85,42 @@ public class BaggageFrame extends JFrame {
 
     public void addFreeBaggage(Baggage defaultPassenger) {
         baggageList.add(defaultPassenger);
+        //addBaggageCounter.add(1);
+        //initialAddBaggageCounter = copyArrayList2(addBaggageCounter);
+        initialBaggageList = BaggageFrame.copyArrayList1(baggageList);
+        ReviewFrame.addBaggageToReview(baggageList, 0, false);
         updateDisplay();
     }
 
     private void addToBaggage(Baggage passenger) {
         baggageList.add(passenger);
-        addBaggageCount++;
+        //addBaggageCount.add(1);   <-- not sure how this method will be used
         updateDisplay();
     }
 
-    private double getBaggagePrice(int numBags) {
+    private double getBaggagePrice(ArrayList<Baggage> baggageList) {
         double baggagePrice = 0;
 
-        switch(numBags) {
-            case 1:
-               baggagePrice = 0;
-               break;
-            case 2:
-                baggagePrice = 35;
-                break;
-            case 3:
-                baggagePrice = 50;
-                break;
-            case 4:
-                baggagePrice = 100;
-                break;
+        System.out.println();
+        System.out.println("---------------------");
+
+        for(int i = 0; i < baggageList.size(); i++) {
+            System.out.println(i + ") baggageList : " + baggageList.get(i).getNumBags());
+            switch (baggageList.get(i).getNumBags()) {
+                case 1:
+                    baggagePrice += 0;
+                    break;
+                case 2:
+                    baggagePrice += 35;
+                    break;
+                case 3:
+                    baggagePrice += 85;
+                    break;
+                case 4:
+                    baggagePrice += 185;
+                    break;
+            }
+            System.out.println(i + ") baggage fee(frame): " + baggagePrice);
         }
         return baggagePrice;
     }
@@ -169,12 +185,15 @@ public class BaggageFrame extends JFrame {
                 if(numBagsValue == 1) {
                     numBagsValue = 2;
                     numBagsLabel.setText("2");
+                    //addBaggageCounter.add(incrementIndex, addBaggageCounter.get(incrementIndex) + 1);
                 } else if(numBagsValue == 2) {
                     numBagsValue = 3;
                     numBagsLabel.setText("3");
+                    //addBaggageCounter.add(incrementIndex, addBaggageCounter.get(incrementIndex) + 1);
                 } else if(numBagsValue == 3) {
                     numBagsValue = 4;
                     numBagsLabel.setText("4");
+                    //addBaggageCounter.add(incrementIndex, addBaggageCounter.get(incrementIndex) + 1);
                 } else {
                     // numBagsValue == 4
                     numBagsValue = 4;
@@ -185,6 +204,7 @@ public class BaggageFrame extends JFrame {
                 incrementedBaggage.setNumBags(numBagsValue);
                 Baggage updateBaggage = baggageList.get(incrementIndex);
                 updateBaggage.setNumBags(numBagsValue);
+                baggageList.remove(incrementIndex);
                 baggageList.add(incrementIndex, updateBaggage);
 
             } else if(e.toString().contains("cmd=-")) {
@@ -198,12 +218,15 @@ public class BaggageFrame extends JFrame {
                 if(numBagsValue == 4) {
                     numBagsValue = 3;
                     numBagsLabel.setText("3");
+                    //addBaggageCounter.add(decrementIndex, addBaggageCounter.get(decrementIndex) - 1);
                 } else if(numBagsValue == 3) {
                     numBagsValue = 2;
                     numBagsLabel.setText("2");
+                    //addBaggageCounter.add(decrementIndex, addBaggageCounter.get(decrementIndex) - 1);
                 } else if(numBagsValue == 2) {
                     numBagsValue = 1;
                     numBagsLabel.setText("1");
+                    //addBaggageCounter.add(decrementIndex, addBaggageCounter.get(decrementIndex) - 1);
                 } else {
                     // numBagsValue == 1
                     numBagsValue = 1;
@@ -214,6 +237,7 @@ public class BaggageFrame extends JFrame {
                 decrementedBaggage.setNumBags(numBagsValue);
                 Baggage updateBaggage = baggageList.get(decrementIndex);
                 updateBaggage.setNumBags(numBagsValue);
+                baggageList.remove(decrementIndex);
                 baggageList.add(decrementIndex, updateBaggage);
 
             } else {
@@ -235,9 +259,16 @@ public class BaggageFrame extends JFrame {
         return copy;
     }
 
-    public static ArrayList<Baggage> copyArrayList(ArrayList<Baggage> oldList) {
+    public static ArrayList<Baggage> copyArrayList1(ArrayList<Baggage> oldList) {
         ArrayList<Baggage> clonedList = new ArrayList<Baggage>(oldList.size());
-        for (Baggage seatNum: oldList) {
+        for (Baggage baggage: oldList) {
+            clonedList.add(baggage);
+        }
+        return clonedList;
+    }
+    public static ArrayList<Integer> copyArrayList2(ArrayList<Integer> oldList) {
+        ArrayList<Integer> clonedList = new ArrayList<Integer>(oldList.size());
+        for (Integer seatNum : oldList) {
             clonedList.add(seatNum);
         }
         return clonedList;
