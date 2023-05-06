@@ -17,7 +17,9 @@ public class FlightTest {
     @BeforeClass
     public static void flightSetUp() throws Exception {
         flight1 = new Flight();
-        flight2 = new Flight("WN2834", "05/06/2023", "05/08/2023");
+        flight2 = new Flight("WN2834", "05/06/2023", "05/08/2023", "11:00 am", "4:44 pm","KIAD","LAX" );
+        Airport departureAirport = new Airport();
+        Airport arrivalAirport = new Aiport();
 
     }
     @Test
@@ -56,7 +58,7 @@ public class FlightTest {
 
     @Test
     public void setDepartureAirport() {
-        flight1.setDepartureAirport(); //import airport
+        flight1.SetDepartureAirport(departureAirport); //import airport
     }
 
     @Test
