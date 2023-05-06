@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * The Flight Search GUI is used to create a desktop application

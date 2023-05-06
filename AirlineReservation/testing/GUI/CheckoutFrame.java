@@ -8,7 +8,6 @@ import Class.Reservation;
 import Class.Flight;
 import Class.Airline;
 import Class.Airport;
-import Managers.PriceGenerator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

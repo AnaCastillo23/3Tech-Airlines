@@ -118,7 +118,7 @@ public class Reservation {
      *
      */
     // round trip
-    public Reservation(int reservationID, Double flightPrice,  Double flightTax, Double flightTotal, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
+    public Reservation(int reservationID, Double flightPrice, Double flightTax, Double flightTotal, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
         this.reservationID = reservationID;
         this.flightPrice = flightPrice;
         this.flightTax = flightTax;
