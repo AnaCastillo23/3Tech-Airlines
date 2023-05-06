@@ -45,8 +45,25 @@ public class ReviewFrame extends JFrame {
     private JButton baggageButton;
     private JButton cancelButton;
     private JButton addPassengerButton;
-    private JLabel Depart;
-    private JLabel Arrival;
+
+    private JLabel departFlightIDLabel;
+    private JLabel departureAirlineOPLabel;
+    private JLabel departureAirportIATA;
+    private JLabel arrivalAirportIATA1;
+    private JLabel departureAirportLocation;
+    private JLabel arrivalAirportLocation1;
+    private JLabel departureDateAndTime;
+    private JLabel arrivalDateAndTime1;
+
+    private JLabel returnFlightIDLabel;
+    private JLabel returnAirlineOPLabel;
+    private JLabel returnAirportIATA;
+    private JLabel arrivalAirportIATA2;
+    private JLabel returnAirportLocation;
+    private JLabel arrivalAirportLocation2;
+    private JLabel returnDateAndTime;
+    private JLabel arrivalDateAndTime2;
+
     private JButton tempTestButtonButton;
 
     FlightsToReview flightsToReview;
@@ -119,6 +136,7 @@ public class ReviewFrame extends JFrame {
         // make method generateReservationID() <---- create unique reservation number
         //int reservationID = generateReservationID();
         int reservationID = 222;// temp
+        generateReservationID();
 
         departureFlight = displayFlights.get(0);
         departureDate = departureFlight.getDepartureDate();
@@ -149,22 +167,9 @@ public class ReviewFrame extends JFrame {
             returnSeats = returnSeatFrame.getAssignedSeats(returnPartySize);
         }
 
+        displayReview();
+        //displayPrice();
 
-            // Use variables above and Flight methods to display booked flight/s
-            // SHOULD MAKE THIS A METHOD SO IT CAN BE REFRESHED AFTER SEAT, PARTY, CHANGES
-                /*
-                - FlightID
-                - Depart and Arrival airport IATO codes
-                - Depart and Arrival airport location/city
-                - Depart and Arrival Date and Time
-                - Airline name
-                -
-                 */
-            // Display base price, tax, fees, total
-            //Ana-Still not done
-
-
-        Airport departureAirport = departureFlight.getDepartureAirport();
         basePrice = flightsToReview.getTotalPrice();
         initialBasePrice = basePrice;
         System.out.println("Flight price " + basePrice);
@@ -469,6 +474,40 @@ public class ReviewFrame extends JFrame {
     }
 
  */
+    public int generateReservationID() {
+        int reservationID;
+
+        Random rand = new Random();
+        reservationID = 100000 + rand.nextInt(899999);
+
+        return reservationID;
+    }
+
+    public void displayReview() {
+        // Use variables above and Flight methods to display booked flight/s
+        // SHOULD MAKE THIS A METHOD SO IT CAN BE REFRESHED AFTER SEAT, PARTY, CHANGES
+                /*
+                - FlightID
+                - Depart and Arrival airport IATO codes
+                - Depart and Arrival airport location/city
+                - Depart and Arrival Date and Time
+                - Airline name
+                -
+                 */
+        // Display base price, tax, fees, total
+        departFlightIDLabel.setText("Flight ID : " + departureFlightNumber);
+        departureAirlineOPLabel.setText("Airline : " + departureFlight.getAirline().getAirlineID());
+        departureAirportIATA.setText(departureFlight.getDepartureAirport().getAirportName() + "(" + departureFlight.getDepartureAirport().getAirportCode() + ")");
+        arrivalAirportIATA1.setText( departureFlight.getArrivalAirport().getAirportName() + "(" + departureFlight.getArrivalAirport().getAirportCode() + ")");
+        departureAirportLocation.setText(departureFlight.getDepartureLocation());
+        arrivalAirportLocation1.setText(departureFlight.getArrivalLocation());
+        departureDateAndTime.setText(departureFlight.getDepartureDate() + " " + departureFlight.getDepartureTime());
+        arrivalDateAndTime1.setText(departureFlight.getArrivalDate() + " " + departureFlight.getArrivalTime());
+
+        if(roundTrip) {
+            // display returning flight details
+        }
+    }
 
     public static ArrayList<Passenger> copyArrayList(ArrayList<Passenger> oldList) {
         ArrayList<Passenger> clonedList = new ArrayList<Passenger>(oldList.size());

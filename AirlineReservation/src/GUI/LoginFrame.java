@@ -120,7 +120,8 @@ public class LoginFrame extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Wrong Password", "Invalid Login", JOptionPane.ERROR_MESSAGE);
                 }
-
+            } else {
+                JOptionPane.showMessageDialog(this, "Username does not exist!", "Invalid Login", JOptionPane.ERROR_MESSAGE);
             }
         } catch(Exception e) {}
     }

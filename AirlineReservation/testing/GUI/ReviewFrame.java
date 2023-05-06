@@ -46,8 +46,22 @@ public class ReviewFrame extends JFrame {
     private JButton cancelButton;
     private JButton addPassengerButton;
     private JLabel Depart;
-    private JLabel Arrival;
     private JButton tempTestButtonButton;
+    private JLabel returnFlightIDLabel;
+    private JLabel departureAirlineOPLabel;
+    private JLabel departureAirportIATA;
+    private JLabel arrivalAirportIATA1;
+    private JLabel departureAirportLocation;
+    private JLabel arrivalAirportLocation1;
+    private JLabel departureDateAndTime;
+    private JLabel arrivalDateAndTime1;
+    private JLabel returnAirlineOPLabel;
+    private JLabel returnAirportIATA;
+    private JLabel arrivalAirportIATA2;
+    private JLabel returnAirportLocation;
+    private JLabel arrivalAirportLocation2;
+    private JLabel returnDateAndTime;
+    private JLabel arrivalDateAndTime2;
 
     FlightsToReview flightsToReview;
 
