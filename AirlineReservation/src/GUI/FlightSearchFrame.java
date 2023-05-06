@@ -407,7 +407,7 @@ public class FlightSearchFrame extends JFrame {
                     System.out.println(bookedFlightList.size());
                     FlightsToReview flightsToReview = new FlightsToReview(bookedFlightList, totalPrice);
 
-                    ReviewFrame review = new ReviewFrame();
+                    ReviewFrame review = new ReviewFrame(false);
                     dispose();
                     review.setVisible(true);
                 }

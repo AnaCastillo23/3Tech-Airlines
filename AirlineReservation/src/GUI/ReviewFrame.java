@@ -4,7 +4,6 @@ import DataStructures.FlightsToReview;
 import Class.Flight;
 import Class.Passenger;
 import Class.Reservation;
-import Class.Airport;
 import Class.Seats;
 import Class.Baggage;
 import DataStructures.ReservationToCheckout;
@@ -14,6 +13,7 @@ import Managers.PriceGenerator;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -55,6 +55,7 @@ public class ReviewFrame extends JFrame {
     private JLabel departureDateAndTime;
     private JLabel arrivalDateAndTime1;
 
+    private JLabel returningFlightTitleLabel;
     private JLabel returnFlightIDLabel;
     private JLabel returnAirlineOPLabel;
     private JLabel returnAirportIATA;
@@ -64,7 +65,21 @@ public class ReviewFrame extends JFrame {
     private JLabel returnDateAndTime;
     private JLabel arrivalDateAndTime2;
 
-    private JButton tempTestButtonButton;
+    private JLabel numDepartTraveler;
+    private JLabel departBasePriceLabel;
+    private JLabel numReturnTraveler;
+    private JLabel returnBasePriceLabel;
+    private JLabel seatChangeLabel;
+    private JLabel seatChangeFeeLabel;
+    private JLabel baggageLabel;
+    private JLabel baggageFeeLabel;
+    private JLabel taxLabel;
+    private JLabel taxTotalLabel;
+    private JLabel totalLabel;
+    private JLabel calcTotalLabel;
+
+
+    private JButton updateListButton;
 
     FlightsToReview flightsToReview;
 
@@ -103,148 +118,148 @@ public class ReviewFrame extends JFrame {
      * Method is for creating and displaying a desktop window to a specific size when user has selected a flight from the list and has clicked on NEXT button in FlightSearchFrame.
      *
      */
-    public ReviewFrame() {
-        setContentPane(reviewPanel);
-        setTitle("Flight Information");
-        setSize(450, 300);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+    public ReviewFrame(boolean emptyInstance) {
+        if(!emptyInstance) {
+            setContentPane(reviewPanel);
+            setTitle("Flight Information");
+            setSize(450, 300);
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            setVisible(true);
 
-        resetStaticVariables(); // incase static variables from previous instance are not null
+            resetStaticVariables(); // incase static variables from previous instance are not null
 
-        seatChangeFees = 0;
-        baggageFees = 0;
-        Random rnd = new Random();
+            seatChangeFees = 0;
+            baggageFees = 0;
+            Random rnd = new Random();
 
-        departureParty = new ArrayList<Passenger>();
-        departureSeats = new ArrayList<String>();
+            departureParty = new ArrayList<Passenger>();
+            departureSeats = new ArrayList<String>();
 
-        departurePartyFrame = new PassengerFrame();
-        departureBaggageFrame = new BaggageFrame(); // 1 free check in baggage per passenger
+            departurePartyFrame = new PassengerFrame();
+            departureBaggageFrame = new BaggageFrame(); // 1 free check in baggage per passenger
 
-        flightsToReview = new FlightsToReview();
-        ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
+            flightsToReview = new FlightsToReview();
+            ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
 
-        if (displayFlights.size() > 1) {
-            // round trip
-            roundTrip = true;
-        } else {
-            roundTrip = false;
-        }
-
-
-        // make method generateReservationID() <---- create unique reservation number
-        //int reservationID = generateReservationID();
-        int reservationID = 222;// temp
-        generateReservationID();
-
-        departureFlight = displayFlights.get(0);
-        departureDate = departureFlight.getDepartureDate();
-        departureFlightNumber = departureFlight.getFlightID();
-        departurePartySize = 1; // temp
-        departureParty = copyArrayList(departurePartyFrame.getPassengerList());;
-
-        // Create two instances of SeatFrame if roundtrip - false is one way
-        departureSeatFrame = new SeatFrame(false);
-        departureSeatFrame.generateSeatingMap(departurePartySize, 30 + rnd.nextInt(45));
-        departureSeats = departureSeatFrame.getAssignedSeats(departurePartySize);
-        System.out.println("Seats " + departureSeats);
-
-        if (roundTrip) {
-            // round trip
-            returnParty = new ArrayList<Passenger>();
-            returnSeats = new ArrayList<String>();
-            returnPartyFrame = new PassengerFrame();
-
-            returnFlight = displayFlights.get(1);
-            returnDate = returnFlight.getDepartureDate();
-            returnFlightNumber = returnFlight.getFlightID();
-            returnPartySize = 1; // temp
-            returnParty = null; // temp
-
-            returnSeatFrame = new SeatFrame(true);
-            returnSeatFrame.generateSeatingMap(returnPartySize, 30 + rnd.nextInt(45));
-            returnSeats = returnSeatFrame.getAssignedSeats(returnPartySize);
-        }
-
-        displayReview();
-        //displayPrice();
-
-        basePrice = flightsToReview.getTotalPrice();
-        initialBasePrice = basePrice;
-        System.out.println("Flight price " + basePrice);
-        System.out.println("Flight price " + String.format("%.2f", basePrice));
-
-        // Get Flight tax, added fees, and calculate total -> update to Reservation
-        updateTotal(basePrice, true);
-
-
-        /**
-         * Action listener used to code the CONFIRM button of current frame if user decides to confirm
-         * flight reservation.
-         */
-        //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Seats finalSeats;
-
-                // depart reservation
-                finalSeats = new Seats(departureSeats, null);
-                departureFlight.setSeats(finalSeats);
-
-                Reservation reservation;
-                if (roundTrip) {
-                    // return reservation
-                    finalSeats = new Seats(returnSeats, null);
-                    returnFlight.setSeats(finalSeats);
-
-                    reservation = new Reservation(reservationID, basePrice, tax, totalPrice, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
-                            departurePartySize, returnPartySize, departureParty, returnParty);
-                    reservation.setDepartureFlight(departureFlight);
-                    reservation.setReturnFlight(returnFlight);
-
-                } else {
-                    // one way trip
-                    reservation = new Reservation(reservationID, basePrice, tax, totalPrice, departureDate, departureFlightNumber, departurePartySize, departureParty);
-                    reservation.setDepartureFlight(departureFlight);
-                }
-                // Go to checkout
-                ReservationToCheckout checkout = new ReservationToCheckout(reservation);    // reservation to checkout
-                CheckoutFrame checkoutFrame = new CheckoutFrame();
-
-                // clear temp hashmap
-                flightsToReview.clearFlightToReview();
-
-                // clears all static variables
-                resetStaticVariables();
-
-                setVisible(false);
-                checkoutFrame.setVisible(true);
+            if (displayFlights.size() > 1) {
+                // round trip
+                roundTrip = true;
+            } else {
+                roundTrip = false;
             }
-        });
 
-        addPassengerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double initialBasePrice = flightsToReview.getTotalPrice();
-                departurePartyFrame.setVisible(true);
+
+            // make method generateReservationID() <---- create unique reservation number
+            //int reservationID = generateReservationID();
+            int reservationID = 222;// temp
+            generateReservationID();
+
+            departureFlight = displayFlights.get(0);
+            departureDate = departureFlight.getDepartureDate();
+            departureFlightNumber = departureFlight.getFlightID();
+            departurePartySize = 1; // temp
+            departureParty = copyArrayList(departurePartyFrame.getPassengerList());
+            ;
+
+            // Create two instances of SeatFrame if roundtrip - false is one way
+            departureSeatFrame = new SeatFrame(false);
+            departureSeatFrame.generateSeatingMap(departurePartySize, 30 + rnd.nextInt(45));
+            departureSeats = departureSeatFrame.getAssignedSeats(departurePartySize);
+            System.out.println("Seats " + departureSeats);
+
+            if (roundTrip) {
+                // round trip
+                returnParty = new ArrayList<Passenger>();
+                returnSeats = new ArrayList<String>();
+                returnPartyFrame = new PassengerFrame();
+
+                returnFlight = displayFlights.get(1);
+                returnDate = returnFlight.getDepartureDate();
+                returnFlightNumber = returnFlight.getFlightID();
+                returnPartySize = 1; // temp
+                returnParty = null; // temp
+
+                returnSeatFrame = new SeatFrame(true);
+                returnSeatFrame.generateSeatingMap(returnPartySize, 30 + rnd.nextInt(45));
+                returnSeats = returnSeatFrame.getAssignedSeats(returnPartySize);
             }
-        });
 
-        chooseSeatsButton.addActionListener(new ActionListener() {
+            basePrice = flightsToReview.getTotalPrice();
+            initialBasePrice = basePrice;
+            System.out.println("Flight price " + basePrice);
+            System.out.println("Flight price " + String.format("%.2f", basePrice));
+
+            // Get Flight tax, added fees, and calculate total -> update to Reservation
+            updateTotal(basePrice, true);
+
+            updateReviewDisplay();
+
             /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
+             * Action listener used to code the CONFIRM button of current frame if user decides to confirm
+             * flight reservation.
              */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // return flight feature will be added later
-                departureSeatFrame.setVisible(true);
+            //add listeners for confirming flight booking which will return a confirmation frame thanking user for booking
+            confirmButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Seats finalSeats;
 
-                //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
-                // DO NOT DELETE
+                    // depart reservation
+                    finalSeats = new Seats(departureSeats, null);
+                    departureFlight.setSeats(finalSeats);
+
+                    Reservation reservation;
+                    if (roundTrip) {
+                        // return reservation
+                        finalSeats = new Seats(returnSeats, null);
+                        returnFlight.setSeats(finalSeats);
+
+                        reservation = new Reservation(reservationID, basePrice, tax, totalPrice, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
+                                departurePartySize, returnPartySize, departureParty, returnParty);
+                        reservation.setDepartureFlight(departureFlight);
+                        reservation.setReturnFlight(returnFlight);
+
+                    } else {
+                        // one way trip
+                        reservation = new Reservation(reservationID, basePrice, tax, totalPrice, departureDate, departureFlightNumber, departurePartySize, departureParty);
+                        reservation.setDepartureFlight(departureFlight);
+                    }
+                    // Go to checkout
+                    ReservationToCheckout checkout = new ReservationToCheckout(reservation);    // reservation to checkout
+                    CheckoutFrame checkoutFrame = new CheckoutFrame();
+
+                    // clear temp hashmap
+                    flightsToReview.clearFlightToReview();
+
+                    // clears all static variables
+                    resetStaticVariables();
+
+                    setVisible(false);
+                    checkoutFrame.setVisible(true);
+                }
+            });
+
+            addPassengerButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    double initialBasePrice = flightsToReview.getTotalPrice();
+                    departurePartyFrame.setVisible(true);
+                }
+            });
+
+            chooseSeatsButton.addActionListener(new ActionListener() {
+                /**
+                 * Invoked when an action occurs.
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // return flight feature will be added later
+                    departureSeatFrame.setVisible(true);
+
+                    //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
+                    // DO NOT DELETE
                 /*
                 if(roundTrip) {
                     if (!myDialog.isVisible()) {
@@ -262,66 +277,68 @@ public class ReviewFrame extends JFrame {
 
                     add(panel);
                }*/
-            }
-        });
+                }
+            });
 
-        /**
-         * Action listener used to code the CANCEL button of current frame if user decides to cancel
-         * flight reservation and return to dashboard.
-         */
-        //Ana-Still not done
-        //add listener for canceling booking which returns user to dashboard
-        cancelButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
+             * Action listener used to code the CANCEL button of current frame if user decides to cancel
+             * flight reservation and return to dashboard.
              */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DashboardFrame dashboard = new DashboardFrame();
+            //Ana-Still not done
+            //add listener for canceling booking which returns user to dashboard
+            cancelButton.addActionListener(new ActionListener() {
+                /**
+                 * Invoked when an action occurs.
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    DashboardFrame dashboard = new DashboardFrame();
 
-                // clear temp hashmap
-                flightsToReview.clearFlightToReview();
+                    // clear temp hashmap
+                    flightsToReview.clearFlightToReview();
 
-                // clears all static variables
-                resetStaticVariables();
+                    // clears all static variables
+                    resetStaticVariables();
 
-                setVisible(false);
-                dashboard.setVisible(true);
-            }
-        });
-        tempTestButtonButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println();
-                System.out.println("refreshDisplay test");
-                System.out.println("---------------------");
-                System.out.println("departure Seats: " + departureSeats);
-                System.out.println("base price: " + basePrice);
-                System.out.println("seat change fee: " + seatChangeFees);
-                System.out.println("baggage fee: " + baggageFees);
-                System.out.println("tax: " + tax);
-                System.out.println("tax percentage: " + taxPercentage + "%");
-                System.out.println("total price: " + totalPrice);
-                System.out.println("Party: " + departureParty.size());
-                System.out.println();
+                    setVisible(false);
+                    dashboard.setVisible(true);
+                }
+            });
+            updateListButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    /*
+                    System.out.println();
+                    System.out.println("refreshDisplay test");
+                    System.out.println("---------------------");
+                    System.out.println("departure Seats: " + departureSeats);
+                    System.out.println("base price: " + basePrice);
+                    System.out.println("seat change fee: " + seatChangeFees);
+                    System.out.println("baggage fee: " + baggageFees);
+                    System.out.println("tax: " + tax);
+                    System.out.println("tax percentage: " + taxPercentage + "%");
+                    System.out.println("total price: " + totalPrice);
+                    System.out.println("Party: " + departureParty.size());
+                    System.out.println();*/
+                    updateReviewDisplay();
 
+                }
+            });
 
-            }
-        });
-
-        baggageButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                departureBaggageFrame.setVisible(true);
-            }
-        });
+            baggageButton.addActionListener(new ActionListener() {
+                /**
+                 * Invoked when an action occurs.
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    departureBaggageFrame.setVisible(true);
+                }
+            });
+        }
     }
 
 
@@ -483,7 +500,8 @@ public class ReviewFrame extends JFrame {
         return reservationID;
     }
 
-    public void displayReview() {
+    public void updateReviewDisplay() {
+        DecimalFormat formatter = new DecimalFormat("0.00");
         // Use variables above and Flight methods to display booked flight/s
         // SHOULD MAKE THIS A METHOD SO IT CAN BE REFRESHED AFTER SEAT, PARTY, CHANGES
                 /*
@@ -494,6 +512,7 @@ public class ReviewFrame extends JFrame {
                 - Airline name
                 -
                  */
+        returningFlightTitleLabel.setVisible(false);
         // Display base price, tax, fees, total
         departFlightIDLabel.setText("Flight ID : " + departureFlightNumber);
         departureAirlineOPLabel.setText("Airline : " + departureFlight.getAirline().getAirlineID());
@@ -506,6 +525,25 @@ public class ReviewFrame extends JFrame {
 
         if(roundTrip) {
             // display returning flight details
+        }
+
+        // Display Total
+        numDepartTraveler.setText("x" + departurePartySize + " Traveler(s):");
+        departBasePriceLabel.setText("$" + formatter.format(basePrice));
+        seatChangeLabel.setText("Seat Change Fees:");
+        seatChangeFeeLabel.setText("$" + formatter.format(seatChangeFees));
+        baggageLabel.setText("Baggage Fees:");
+        baggageFeeLabel.setText("$" + formatter.format(baggageFees));
+        taxLabel.setText("Tax:");
+        taxTotalLabel.setText("$" + formatter.format(tax));
+        totalLabel.setText("Total:");
+        calcTotalLabel.setText("$" + formatter.format(totalPrice));
+
+        if(!roundTrip) {
+            numReturnTraveler.setVisible(false);
+            returnBasePriceLabel.setVisible(false);
+        } else {
+            // set return price
         }
     }
 

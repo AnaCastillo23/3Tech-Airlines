@@ -46,7 +46,7 @@ public class ReviewFrame extends JFrame {
     private JButton cancelButton;
     private JButton addPassengerButton;
     private JLabel Depart;
-    private JButton tempTestButtonButton;
+    private JButton updateListButton;
     private JLabel returnFlightIDLabel;
     private JLabel departureAirlineOPLabel;
     private JLabel departureAirportIATA;
@@ -62,6 +62,19 @@ public class ReviewFrame extends JFrame {
     private JLabel arrivalAirportLocation2;
     private JLabel returnDateAndTime;
     private JLabel arrivalDateAndTime2;
+    private JLabel numDepartTraveler;
+    private JLabel numReturnTraveler;
+    private JLabel departBasePriceLabel;
+    private JLabel returnBasePriceLabel;
+    private JLabel seatChangeLabel;
+    private JLabel seatChangeFeeLabel;
+    private JLabel baggageLabel;
+    private JLabel baggageFeeLabel;
+    private JLabel taxTotalLabel;
+    private JLabel taxLabel;
+    private JLabel totalLabel;
+    private JLabel calcTotalLabel;
+    private JLabel returningFlightTitleLabel;
 
     FlightsToReview flightsToReview;
 
@@ -300,7 +313,7 @@ public class ReviewFrame extends JFrame {
                 dashboard.setVisible(true);
             }
         });
-        tempTestButtonButton.addActionListener(new ActionListener() {
+        updateListButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println();
