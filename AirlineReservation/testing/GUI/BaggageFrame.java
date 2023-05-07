@@ -136,7 +136,7 @@ public class BaggageFrame extends JFrame {
         for(int i = 0; i < baggageList.size(); i++) {
             JPanel baggagePanel = new JPanel(new GridLayout(2,6));
 
-            baggagePanel.add(new JLabel(baggageList.get(i).getFullName()));
+            baggagePanel.add(new JLabel(baggageList.get(i).getPassengerName()));
             baggagePanel.add(new JLabel(""));
             baggagePanel.add(new JLabel(""));
             baggagePanel.add(new JLabel("Number of bags:"));

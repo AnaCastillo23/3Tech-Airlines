@@ -9,6 +9,8 @@ import Class.Flight;
 import Class.Airline;
 import Class.Airport;
 
+import Database.InData;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,6 +71,11 @@ public class CheckoutFrame extends JFrame {
                 updatedAccount = updatedAccount.getLoginAccount().get(loginUsername);  // updatedAccount will have login account info
                 updatedAccount.addReservationToAccount(reservation);    // update login account with new flight reservation
                 updatedAccount.registerOrUpdate(updatedAccount);        // update hashmap
+
+                // store/update account into database here
+                InData inData = new InData();
+                inData.updateDatabaseAccounts();
+
 
                 reservationToCheckout.deleteCheckout();
 
@@ -154,7 +161,7 @@ public class CheckoutFrame extends JFrame {
 
         System.out.println("\tDeparture Flight Seats:");
         System.out.println("\t\tSeat Number(s): " + departFlight1.getSeats().getReservedSeatNumbers());
-        System.out.println("\t\tSeat Class: " + departFlight1.getSeats().getSeatClass());
+        System.out.println("\t\tSeat Class: " + departFlight1.getSeats().getSeatClasses());
 
         System.out.println("\tDeparture Airport Info:");
         System.out.println("\t\tAirport Code: " + departureAirport1.getAirportCode());

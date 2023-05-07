@@ -4,31 +4,31 @@ import java.util.ArrayList;
 
 public class Seats {
     private ArrayList<String> reservedSeatNumbers;
-    private ArrayList<String> seatClass;
+    private ArrayList<String> seatClasses;
 
     public Seats() {
         this.reservedSeatNumbers = null;
-        this.seatClass = null;
+        this.seatClasses = null;
     }
 
-    public Seats(ArrayList<String> reservedSeatNumbers, ArrayList<String> seatClass) {
+    public Seats(ArrayList<String> reservedSeatNumbers, ArrayList<String> seatClasses) {
         this.reservedSeatNumbers = reservedSeatNumbers;
-        this.seatClass = seatClass;
+        this.seatClasses = seatClasses;
     }
 
     public ArrayList<String> getReservedSeatNumbers() {
         return reservedSeatNumbers;
     }
 
-    public ArrayList<String> getSeatClass() {
-        return seatClass;
+    public ArrayList<String> getSeatClasses() {
+        return seatClasses;
     }
 
     public void setReservedSeatNumbers(ArrayList<String> reservedSeatNumbers) {
         this.reservedSeatNumbers = reservedSeatNumbers;
     }
 
-    public void setSeatClass(ArrayList<String> seatClass) {
-        this.seatClass = seatClass;
+    public void setSeatClasses(ArrayList<String> seatClasses) {
+        this.seatClasses = seatClasses;
     }
 }

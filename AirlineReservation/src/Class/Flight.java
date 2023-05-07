@@ -1,5 +1,7 @@
 package Class;
 
+import java.util.ArrayList;
+
 /**
  * The Flight class is used in conjunction with information recollected from
  * the API used in this project. All data concerning a flights will land in this class.
@@ -23,7 +25,7 @@ public class Flight {
     private Airport departureAirport;
     private Airport arrivalAirport;
     private Airline airline;
-    private Baggage baggage;
+    private ArrayList<Baggage> baggage;
     private Seats seats;
     private String flightID;
     private String departureDate;
@@ -191,6 +193,10 @@ public class Flight {
         return seats;
     }
 
+    public ArrayList<Baggage> getBaggage() {
+        return baggage;
+    }
+
     /**
      *
      * Method for setting the Flight ID. To be used later in project.
@@ -304,6 +310,10 @@ public class Flight {
 
     public void setSeats(Seats seats) {
         this.seats = seats;
+    }
+
+    public void setBaggage(ArrayList<Baggage> baggage) {
+        this.baggage = baggage;
     }
 
 }

@@ -1,7 +1,7 @@
 package Class;
 
 public class Baggage {
-    private String fullName;
+    private String passengerName;
     private int numBags;
 
 
@@ -9,22 +9,22 @@ public class Baggage {
 
     }
 
-    public Baggage(String fullName, int numBags) {
-        this.fullName = fullName;
+    public Baggage(String passengerName, int numBags) {
+        this.passengerName = passengerName;
         this.numBags = numBags;
     }
 
 
-    public String getFullName() {
-        return fullName;
+    public String getPassengerName() {
+        return passengerName;
     }
 
     public int getNumBags() {
         return numBags;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
     }
 
     public void setNumBags(int numBags) {

@@ -96,6 +96,7 @@ public class ReviewFrame extends JFrame {
     static ArrayList<Baggage> returnBaggageList;
     static Flight departureFlight;
     static Flight returnFlight;
+    static ArrayList<String> departureClassSeats;
     static ArrayList<String> departureSeats;
     static ArrayList<String> returnSeats;
     static SeatFrame departureSeatFrame;
@@ -134,6 +135,9 @@ public class ReviewFrame extends JFrame {
 
             departureParty = new ArrayList<Passenger>();
             departureSeats = new ArrayList<String>();
+            departureClassSeats = new ArrayList<>();
+
+            departureClassSeats.add("economy-class");
 
             departurePartyFrame = new PassengerFrame();
             departureBaggageFrame = new BaggageFrame(); // 1 free check in baggage per passenger
@@ -205,8 +209,9 @@ public class ReviewFrame extends JFrame {
                     Seats finalSeats;
 
                     // depart reservation
-                    finalSeats = new Seats(departureSeats, null);
+                    finalSeats = new Seats(departureSeats, departureClassSeats);
                     departureFlight.setSeats(finalSeats);
+                    departureFlight.setBaggage(departureBaggageList);
 
                     Reservation reservation;
                     if (roundTrip) {
@@ -214,14 +219,14 @@ public class ReviewFrame extends JFrame {
                         finalSeats = new Seats(returnSeats, null);
                         returnFlight.setSeats(finalSeats);
 
-                        reservation = new Reservation(reservationID, basePrice, tax, totalPrice, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
+                        reservation = new Reservation(reservationID, basePrice, seatChangeFees, baggageFees, tax, totalPrice, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
                                 departurePartySize, returnPartySize, departureParty, returnParty);
                         reservation.setDepartureFlight(departureFlight);
                         reservation.setReturnFlight(returnFlight);
 
                     } else {
                         // one way trip
-                        reservation = new Reservation(reservationID, basePrice, tax, totalPrice, departureDate, departureFlightNumber, departurePartySize, departureParty);
+                        reservation = new Reservation(reservationID, basePrice, seatChangeFees, baggageFees, tax, totalPrice, departureDate, departureFlightNumber, departurePartySize, departureParty);
                         reservation.setDepartureFlight(departureFlight);
                     }
                     // Go to checkout
@@ -425,6 +430,7 @@ public class ReviewFrame extends JFrame {
             // seats are added to flight
             seatChange = new SeatChange();
             departureSeats = seatChange.getReservedSeats(false);
+            departureClassSeats = seatChange.getClassSeats(false);
             // should change fee aswell
             tempFee = seatChange.getTotal(false);
             seatChangeFees += tempFee;

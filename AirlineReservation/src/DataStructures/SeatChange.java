@@ -11,13 +11,17 @@ public class SeatChange {
 
     }
 
-    public SeatChange(ArrayList<String> reservedSeats, double total, boolean returnTrip) {
-        SeatChangeHelper seatChangeHelper = new SeatChangeHelper(reservedSeats, total);
+    public SeatChange(ArrayList<String> reservedSeats, ArrayList<String> classSeats, double total, boolean returnTrip) {
+        SeatChangeHelper seatChangeHelper = new SeatChangeHelper(reservedSeats, classSeats, total);
         setSeatsToChange(returnTrip, seatChangeHelper);
     }
 
     public ArrayList<String> getReservedSeats(boolean returnTrip) {
         return getSeatToChange(returnTrip).getReservedSeatsHelper();
+    }
+
+    public ArrayList<String> getClassSeats(boolean returnTrip) {
+        return getSeatToChange(returnTrip).getClassSeatsHelper();
     }
 
     public double getTotal(boolean returnTrip) {
@@ -39,15 +43,21 @@ public class SeatChange {
 
     private class SeatChangeHelper {
         ArrayList<String> reservedSeats;
+        ArrayList<String> classSeats;
         double total;
 
-        public SeatChangeHelper(ArrayList<String> reservedSeats, double total) {
+        public SeatChangeHelper(ArrayList<String> reservedSeats, ArrayList<String> classSeats, double total) {
             this.reservedSeats = reservedSeats;
+            this.classSeats = classSeats;
             this.total = total;
         }
 
         public ArrayList<String> getReservedSeatsHelper() {
             return reservedSeats;
+        }
+
+        public ArrayList<String> getClassSeatsHelper() {
+            return classSeats;
         }
 
         public double getTotalHelper() {

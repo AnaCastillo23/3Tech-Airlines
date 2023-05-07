@@ -32,12 +32,14 @@ public class Reservation {
     //                            - round trip: two Flight classes
     private Flight departureFlight;
     private Flight returnFlight;
-
-    //private Passenger passenger;
-    private ArrayList<Passenger> party;
+    public static ArrayList<Passenger> departureParty = new ArrayList<>();
+    public static ArrayList<Passenger> returnParty = new ArrayList<>();
 
     private int reservationID;
     private Double flightPrice;
+    private Double flightSeatFee;
+    private Double flightBaggageFee;
+
     private Double flightTax;
     private Double flightTotal;
     private String departureDate;
@@ -47,8 +49,6 @@ public class Reservation {
     private String returnFlightNumber;
     private int departurePartySize;
     private int returnPartySize;
-    public static ArrayList<Passenger> departureParty = new ArrayList<>();
-    public static ArrayList<Passenger> returnParty = new ArrayList<>();
 
 
     /**
@@ -85,7 +85,7 @@ public class Reservation {
      *
      */
     // one way trip
-    public Reservation(int reservationID, Double flightPrice, Double flightTax, Double flightTotal, String departureDate, String departureFlightNumber, int departurePartySize, ArrayList<Passenger> departureParty) {
+    public Reservation(int reservationID, Double flightPrice, Double flightSeatFee, Double flightBaggageFee, Double flightTax, Double flightTotal, String departureDate, String departureFlightNumber, int departurePartySize, ArrayList<Passenger> departureParty) {
         this.reservationID = reservationID;
         this.flightPrice = flightPrice;
         this.flightTax = flightTax;
@@ -118,7 +118,7 @@ public class Reservation {
      *
      */
     // round trip
-    public Reservation(int reservationID, Double flightPrice,  Double flightTax, Double flightTotal, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
+    public Reservation(int reservationID, Double flightPrice, Double flightSeatFee, Double flightBaggageFee, Double flightTax, Double flightTotal, String departureDate, String returnDate, String departureFlightNumber, String returnFlightNumber, int departurePartySize, int returnPartySize, ArrayList<Passenger> departureParty, ArrayList<Passenger> returnParty) {
         this.reservationID = reservationID;
         this.flightPrice = flightPrice;
         this.flightTax = flightTax;
@@ -147,6 +147,14 @@ public class Reservation {
 
     public Double getFlightPrice() {
         return this.flightPrice;
+    }
+
+    public Double getFlightBaggageFee() {
+        return this.flightBaggageFee;
+    }
+
+    public Double getFlightSeatFee() {
+        return this.flightSeatFee;
     }
 
     public Double getFlightTax() {

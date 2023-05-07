@@ -75,7 +75,7 @@ public class PassengerFrame extends JFrame {
                 String firstName = tfFirstName.getText();
                 String lastName = tfLastName.getText();
                 String passportCountry = cbPassport.getSelectedItem().toString();
-                String dateOfBirth = cbMonth.getSelectedItem() + "\\" + cbDay.getSelectedItem() + "\\" + cbYear.getSelectedItem();
+                String dateOfBirth = cbMonth.getSelectedItem() + "\ + cbDay.getSelectedItem() + "\ + cbYear.getSelectedItem();
 
                 System.out.println(firstName);
                 System.out.println(lastName);

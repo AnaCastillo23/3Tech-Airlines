@@ -86,7 +86,7 @@ public class SeatFrame extends JFrame {
                             System.out.println("Total : " + total);
 
                             // add reservedSeats list to flight instance under login account
-                            SeatChange seatChange = new SeatChange(reservedSeats, total, roundTrip);
+                            SeatChange seatChange = new SeatChange(reservedSeats, null,total, roundTrip);
                             total = 0;
 
                             // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
