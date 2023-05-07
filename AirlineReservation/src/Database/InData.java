@@ -9,6 +9,9 @@ import Class.Baggage;
 import Class.Seats;
 import Class.Passenger;
 
+import Database.DatabaseFileIO;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -67,7 +70,7 @@ public class InData {
 
     //  TEST STORING DATA FROM TEST FILE FIRST!!!!!!!!!!!!!!!!!!
 
-    public void updateDatabaseAccounts() {
+    public void updateDatabaseAccounts() throws IOException {
         Account account = new Account();
         ArrayList<Reservation> reservationList;
 
@@ -185,14 +188,16 @@ public class InData {
         }
         accountStr.append("] }");
 
-        StringBuilder mapToDatabase = new StringBuilder("{ \"all_accounts\": [ ");
-        mapToDatabase.append(accountStr);
-        System.out.println(mapToDatabase);
+        StringBuilder databaseStr = new StringBuilder("{ \"all_accounts\": [ ");
+        databaseStr.append(accountStr);
 
-        // append ending braces
+        System.out.println(databaseStr);
+
+        DatabaseFileIO dataI = new DatabaseFileIO();
+        dataI.databaseFileReader(databaseStr.toString());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         InData inData = new InData();
         OutData outData = new OutData();
 

@@ -155,8 +155,7 @@ public class ReviewFrame extends JFrame {
 
             // make method generateReservationID() <---- create unique reservation number
             //int reservationID = generateReservationID();
-            int reservationID = 222;// temp
-            generateReservationID();
+            int reservationID = generateReservationID();
 
             departureFlight = displayFlights.get(0);
             departureDate = departureFlight.getDepartureDate();
@@ -241,6 +240,7 @@ public class ReviewFrame extends JFrame {
 
                     setVisible(false);
                     checkoutFrame.setVisible(true);
+                    dispose();
                 }
             });
 
@@ -309,26 +309,13 @@ public class ReviewFrame extends JFrame {
 
                     setVisible(false);
                     dashboard.setVisible(true);
+                    dispose();
                 }
             });
             updateListButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*
-                    System.out.println();
-                    System.out.println("refreshDisplay test");
-                    System.out.println("---------------------");
-                    System.out.println("departure Seats: " + departureSeats);
-                    System.out.println("base price: " + basePrice);
-                    System.out.println("seat change fee: " + seatChangeFees);
-                    System.out.println("baggage fee: " + baggageFees);
-                    System.out.println("tax: " + tax);
-                    System.out.println("tax percentage: " + taxPercentage + "%");
-                    System.out.println("total price: " + totalPrice);
-                    System.out.println("Party: " + departureParty.size());
-                    System.out.println();*/
                     updateReviewDisplay();
-
                 }
             });
 
@@ -348,21 +335,28 @@ public class ReviewFrame extends JFrame {
 
 
     public static void resetStaticVariables() {
-        // reset static variables
-        departureFlight = null;
-        returnFlight = null;
+        departurePartySize = 0;
+        returnPartySize = 0;
         departureParty = null;
         returnParty = null;
+        departureBaggageList = null;
+        returnBaggageList = null;
+        departureFlight = null;
+        returnFlight = null;
+        departureClassSeats = null;
         departureSeats = null;
         returnSeats = null;
         departureSeatFrame = null;
         returnSeatFrame = null;
+        initialBasePrice = 0;
         basePrice = 0;
         seatChangeFees = 0;
         baggageFees = 0;
         tax = 0;
         taxPercentage = 0;
         totalPrice = 0;
+        departureBaggageFrame = null;
+        returnBaggageFrame = null;
     }
 
     public static void updateTotal(double updatedBasePrice, boolean initialPricing) {

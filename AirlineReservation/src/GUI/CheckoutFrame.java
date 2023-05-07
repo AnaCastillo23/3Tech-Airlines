@@ -14,6 +14,7 @@ import Database.InData;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class CheckoutFrame extends JFrame {
     private JPanel checkoutFrame;
@@ -74,7 +75,11 @@ public class CheckoutFrame extends JFrame {
 
                 // store/update account into database here
                 InData inData = new InData();
-                inData.updateDatabaseAccounts();
+                try {
+                    inData.updateDatabaseAccounts();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
 
                 reservationToCheckout.deleteCheckout();
