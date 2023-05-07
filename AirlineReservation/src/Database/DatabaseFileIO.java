@@ -8,7 +8,7 @@ public class DatabaseFileIO {
     public void databaseFileReader(String databaseStr) throws IOException {
 
         // attach a file to FileWriter
-        FileWriter fw = new FileWriter("C:\\Users\\Carlos\\IdeaProjects\\3Tech-Airlines\\AirlineReservation\\src\\Database\\databaseFile.txt");
+        FileWriter fw = new FileWriter("src/Database/databaseFile.txt");
 
         // read character wise from string and write
         // into FileWriter
