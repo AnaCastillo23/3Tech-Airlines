@@ -37,10 +37,20 @@ public class OutData {
         JSONObject jsonReservation = jsonObjectArrayList.get(index);
 
         int reservationID = Integer.parseInt(jsonReservation.get("reservation_ID").toString());
-        ;
+
         Double flightPrice = Double.parseDouble(jsonReservation.get("flight_price").toString());
-        Double flightSeatFee = Double.parseDouble(jsonReservation.get("flight_seat_fee").toString());
-        Double flightBaggageFee = Double.parseDouble(jsonReservation.get("flight_baggage_fee").toString());
+        Double flightSeatFee;
+        try {
+            flightSeatFee = Double.parseDouble(jsonReservation.get("flight_seat_fee").toString());
+        } catch (Exception e) {
+            flightSeatFee = 0.0;
+        }
+        Double flightBaggageFee;
+        try {
+            flightBaggageFee = Double.parseDouble(jsonReservation.get("flight_baggage_fee").toString());
+        } catch(Exception e) {
+            flightBaggageFee = 0.0;
+        }
         Double flightTax = Double.parseDouble(jsonReservation.get("flight_tax").toString());
         Double flightTotal = Double.parseDouble(jsonReservation.get("flight_total").toString());
         String departureDate = jsonReservation.get("departure_date").toString();
@@ -140,12 +150,12 @@ public class OutData {
 
 
     //  CHANGE THIS TO A CALLABLE METHOD
-    public void getDatabase() {
+    public void getDatabase(String databaseStr) {
         OutData outData = new OutData();
 
         // All accounts in database
         // test_datah REMOVE LATER
-        ArrayList<JSONObject> accountList = outData.JSONArrayToList1(outData.test_datah, "all_accounts");
+        ArrayList<JSONObject> accountList = outData.JSONArrayToList1(databaseStr, "all_accounts");
 
 
         // get database info and store to app

@@ -4,12 +4,9 @@ import Class.Account;
 import Class.Reservation;
 import Class.Flight;
 import Class.Airport;
-import Class.Airline;
 import Class.Baggage;
 import Class.Seats;
 import Class.Passenger;
-
-import Database.DatabaseFileIO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,7 +119,8 @@ public class InData {
                             "{ \"flight_ID\": \"" + departureFlight.getFlightID() + "\", \"departure_date\": \"" + departureFlight.getDepartureDate() + "\", \"arrival_date\": \"" + departureFlight.getArrivalDate() + "\"," +
                             " \"departure_time\": \"" + departureFlight.getDepartureTime() + "\", \"arrival_time\": \"" + departureFlight.getArrivalTime() + "\", \"departure_location\": \"" + departureFlight.getDepartureLocation() +
                             "\", \"arrival_location\": \"" + departureFlight.getArrivalLocation() + "\", \"departure_airport\": { \"airport_code\": \"" + departureAirport.getAirportCode() + "\", \"airport_name\": \"" +
-                            departureAirport.getAirportName() + "\" }, \"arrival_airport\": { \"airport_code\": \"" + arrivalAirport.getAirportCode() + "\", \"airport_name\": \"" + arrivalAirport.getAirportName() + "\" }, \"baggage\": [ ");
+                            departureAirport.getAirportName() + "\" }, \"arrival_airport\": { \"airport_code\": \"" + arrivalAirport.getAirportCode() + "\", \"airport_name\": \"" + arrivalAirport.getAirportName() + "\" }, " +
+                            "\"airline\": { \"airline_id\": \"" + departureFlight.getAirline().getAirlineID() + "\", \"airline_name\": \"" + departureFlight.getAirline().getAirlineName() + "\" }, \"baggage\": [ ");
 
                     ArrayList<Baggage> departureBaggage = departureFlight.getBaggage();
                     for(int j = 0; j < departureBaggage.size(); j++) {
@@ -194,14 +192,14 @@ public class InData {
         System.out.println(databaseStr);
 
         DatabaseFileIO dataI = new DatabaseFileIO();
-        dataI.databaseFileReader(databaseStr.toString());
+        dataI.databaseFileWriter(databaseStr.toString());
     }
 
     public static void main(String[] args) throws IOException {
         InData inData = new InData();
         OutData outData = new OutData();
 
-        outData.getDatabase();
+        outData.getDatabase(null);
         inData.updateDatabaseAccounts();
     }
 }

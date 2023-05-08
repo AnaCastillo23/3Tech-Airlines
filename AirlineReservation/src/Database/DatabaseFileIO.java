@@ -1,11 +1,13 @@
 package Database;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class DatabaseFileIO {
 
-    public void databaseFileReader(String databaseStr) throws IOException {
+    public void databaseFileWriter(String databaseStr) throws IOException {
 
         // attach a file to FileWriter
         FileWriter fw = new FileWriter("src/Database/databaseFile.txt");
@@ -19,5 +21,35 @@ public class DatabaseFileIO {
         //close the file
         fw.close();
 
+    }
+
+    public String databaseFileReader() throws IOException {
+        String databaseStr = null;
+
+        int ch;
+
+        // check if File exists or not
+        FileReader fr = null;
+        try
+        {
+            fr = new FileReader("src/Database/databaseFile.txt");
+        }
+        catch (FileNotFoundException fe)
+        {
+            System.out.println("File not found");
+        }
+
+        // read from FileReader till the end of file
+        StringBuilder databaseStrBuilder = new StringBuilder();
+        while ((ch=fr.read())!=-1) {
+            System.out.print((char) ch);
+            databaseStrBuilder.append((char) ch);
+        }
+        // close the file
+        fr.close();
+
+        databaseStr = databaseStrBuilder.toString();
+
+        return databaseStr;
     }
 }
