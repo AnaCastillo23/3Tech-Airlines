@@ -154,14 +154,15 @@ public class OutData {
         OutData outData = new OutData();
 
         // All accounts in database
-        // test_datah REMOVE LATER
+        System.out.println();
+        System.out.println(1);
         ArrayList<JSONObject> accountList = outData.JSONArrayToList1(databaseStr, "all_accounts");
 
 
         // get database info and store to app
         for (int i = 0; i < accountList.size(); i++) {
             Account account = outData.getAccountData(accountList, i);
-
+            System.out.println(2);
             // create reservation list here
             ArrayList<JSONObject> resevationList = outData.JSONArrayToList1(accountList.get(i).getJSONObject("account")
                     .toString(), "reservation_list");

@@ -140,9 +140,9 @@ public class InData {
                             accountStr.append(" ], \"seat_classes\": [ ");
                         }
                     }
-                    for(int j = 0; j < seats.getSeatClasses().size(); j++) {
-                        accountStr.append("\"" + seats.getSeatClasses().get(j) + "\"");
-                        if(j != seats.getSeatClasses().size() - 1) {
+                    for(int j = 0; j < seats.getReservedSeatNumbers().size(); j++) {
+                        accountStr.append("\"" + seats.getReservedSeatNumbers().get(j) + "\"");
+                        if(j != seats.getReservedSeatNumbers().size() - 1) {
                             accountStr.append(", ");
                         } else {
                             accountStr.append(" ] } }, ");

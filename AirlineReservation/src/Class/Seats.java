@@ -13,7 +13,7 @@ public class Seats {
 
     public Seats(ArrayList<String> reservedSeatNumbers, ArrayList<String> seatClasses) {
         this.reservedSeatNumbers = reservedSeatNumbers;
-        this.seatClasses = seatClasses;
+        this.seatClasses = null;
     }
 
     public ArrayList<String> getReservedSeatNumbers() {

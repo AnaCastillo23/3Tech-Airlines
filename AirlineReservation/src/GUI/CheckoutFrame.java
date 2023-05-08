@@ -24,6 +24,18 @@ public class CheckoutFrame extends JFrame {
     private JButton completeBookingButton;
     private JTextPane warningTextField;
     private JPanel displayTotal;
+    private JComboBox dropDownMonth;
+    private JTextField tfCardNumber;
+    private JTextField tfCountry;
+    private JTextField tfBillingAddress;
+    private JTextField tfCity;
+    private JComboBox dropDownState;
+    private JTextField tfZipCode;
+    private JButton savePaymentButton;
+    private JButton cancelPaymentButton;
+    private JComboBox dropDownYear;
+    private JTextField textField1;
+    private JCheckBox checkBox1;
     double flightPrice;
     double tax;
     double totalPrice;
