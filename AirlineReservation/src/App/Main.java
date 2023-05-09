@@ -11,8 +11,6 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        // Call data base here
-        // getAllData();  ????
 
         try {
             DatabaseFileIO dataO = new DatabaseFileIO();

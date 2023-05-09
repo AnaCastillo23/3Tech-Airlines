@@ -37,7 +37,7 @@ public class FlightController {
 
     private final String aeroApiUrl = "https://aeroapi.flightaware.com/aeroapi/";
     private final String airportAPI = "https://aeroapi.flightaware.com/aeroapi/airports";
-    private String API_KEY = "NMHhMozcCtn3FBViMiczGJBcA1mDCuA1";
+    //private String API_KEY = "TOP SECRET";
 
     /**
      *
