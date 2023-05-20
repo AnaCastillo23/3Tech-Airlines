@@ -30,6 +30,7 @@ public class PassengerFrame extends JFrame {
     private JScrollPane passengerScroll;
     private JPanel passengerListPanel;
 
+
     AccountAccessor accountAccessor;
     Account loginAccount;
     Flight departingFlight;
@@ -40,6 +41,23 @@ public class PassengerFrame extends JFrame {
     String gender;
     int newPassengerCounter;
 
+    /**
+     * The PassengerFrame is used in conjunction with information recollected from
+     * our system and that is stored in our database (in order to be able to add passengers to a current reservation).
+     * @since 03/27/2023
+     * @author Carlos Figueroa (developed code, added documentation comments) and Ana Emily Castillo Perez (added documentation comments).
+     * <p>
+     * <b>Explanation of important functions:</b> Frame allows user to input details about each passenger.
+     * <p>
+     * <b>Important data structure in class/important methods in class:</b>
+     * <ul>
+     * <li><i>addPassenger(Passenger passenger):</i> used to add new passengers.</li>
+     * </ul>
+     * <p>
+     *
+     * <b>Any algorithms used?</b> Not at the moment.
+     *
+     */
 
     public PassengerFrame() {
         setContentPane(addPassengerPanel);
@@ -65,7 +83,7 @@ public class PassengerFrame extends JFrame {
 
         addPassengerButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to confirm addition of passenger.
              *
              * @param e the event to be processed
              */
@@ -90,7 +108,7 @@ public class PassengerFrame extends JFrame {
 
         maleRadioButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to signify passenger is male.
              *
              * @param e the event to be processed
              */
@@ -107,7 +125,7 @@ public class PassengerFrame extends JFrame {
         });
         femaleRadioButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to signify passenger is female.
              *
              * @param e the event to be processed
              */
@@ -125,7 +143,7 @@ public class PassengerFrame extends JFrame {
 
         confirmButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to confirm addition of passenger.
              *
              * @param e the event to be processed
              */
@@ -142,7 +160,7 @@ public class PassengerFrame extends JFrame {
 
         cancelButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to cancel addition of passenger.
              *
              * @param e the event to be processed
              */
@@ -159,7 +177,7 @@ public class PassengerFrame extends JFrame {
         });
         clearButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to clear the form.
              *
              * @param e the event to be processed
              */
@@ -170,6 +188,12 @@ public class PassengerFrame extends JFrame {
         });
     }
 
+    /**
+     *
+     * Method for adding a passenger onto the reservation.
+     *
+     * @param passenger passenger
+     */
     public void addPassenger(Passenger passenger) {
         passengerList.add(passenger);
         newPassengerCounter++;
@@ -177,6 +201,11 @@ public class PassengerFrame extends JFrame {
         updatePartyDisplay();
     }
 
+    /**
+     *
+     * Method for updating the passenger form with the entered data.
+     *
+     */
     public void updatePartyDisplay() {
         // panel and scroll stuff
         passengerListPanel = new JPanel(new GridLayout(passengerList.size(),1));
@@ -213,6 +242,11 @@ public class PassengerFrame extends JFrame {
         return passengerList;
     }
 
+    /**
+     *
+     * Method for clearing the passenger form.
+     *
+     */
     public void clearForm() {
         tfFirstName.setText("");
         tfLastName.setText("");
@@ -224,6 +258,12 @@ public class PassengerFrame extends JFrame {
         cbYear.setSelectedIndex(0);
     }
 
+    /**
+     *
+     * Main program.
+     *
+     * @param args Unused.
+     */
     public static void main(String[] args) {
         PassengerFrame passengerFrame = new PassengerFrame();
         passengerFrame.setVisible(true);
