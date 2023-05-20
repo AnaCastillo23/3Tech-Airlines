@@ -10,6 +10,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The BaggageFrame is used in conjunction with information recollected from
+ * our system and that is stored in our database (in order to be able to assign baggage to each of the added passengers in the reservation).
+ * @since 03/27/2023
+ * @author Carlos Figueroa (developed code, added documentation comments) and Ana Emily Castillo Perez (added documentation comments).
+ * <p>
+ * <b>Explanation of important functions:</b> Frame prompts user to increase or decrease the number of baggage per each passenger.
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>getBaggagePrice(ArrayList<Baggage> baggageList):</i> used to calculate the price for the total amount of addded baggage.</li>
+ * <li><i>updateDisplay():</i> used to update the price for the reservation.</li>
+ * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ *
+ */
+
 public class BaggageFrame extends JFrame {
     private JPanel baggagePanel;
     private JButton confirmButton;
@@ -83,6 +102,13 @@ public class BaggageFrame extends JFrame {
         });
     }
 
+    /**
+     *
+     * Method for adding baggage to a list of total baggage for the reservation.
+     *
+     * @param defaultPassenger defaultPassenger
+     *
+     */
     public void addFreeBaggage(Baggage defaultPassenger) {
         baggageList.add(defaultPassenger);
         //addBaggageCounter.add(1);
@@ -98,6 +124,15 @@ public class BaggageFrame extends JFrame {
         updateDisplay();
     }
 
+    /**
+     *
+     * Method for calculating the total price of added baggage and add it to the grand total
+     * for the reservation
+     *
+     * @param baggageList baggageList
+     * @return baggagePrice
+     *
+     */
     private double getBaggagePrice(ArrayList<Baggage> baggageList) {
         double baggagePrice = 0;
 
@@ -125,6 +160,11 @@ public class BaggageFrame extends JFrame {
         return baggagePrice;
     }
 
+    /**
+     *
+     * Method for updating the grand total of the reservation after baggage has been added.
+     *
+     */
     private void updateDisplay() {
         numBagsInventory = new ArrayList<>();
 
@@ -172,7 +212,9 @@ public class BaggageFrame extends JFrame {
 
     private class ButtonClicked extends Component implements ActionListener {
         /**
-         * Action listener that identifies which "Book" button is clicked
+         *
+         * Action listener that identifies which "Book" button is clicked.
+         *
          */
         public void actionPerformed(ActionEvent e) {
             if (e.toString().contains("cmd=+")) {
@@ -246,7 +288,7 @@ public class BaggageFrame extends JFrame {
         }
     }
 
-
+    //Unused method
     public static boolean[][] copyArray(boolean[][] src) {
         if (src == null) {
             return null;
@@ -259,6 +301,14 @@ public class BaggageFrame extends JFrame {
         return copy;
     }
 
+    /**
+     *
+     * Method for cloning the baggage array into a new array list.
+     *
+     * @param oldList oldList
+     * @return clonedList
+     *
+     */
     public static ArrayList<Baggage> copyArrayList1(ArrayList<Baggage> oldList) {
         ArrayList<Baggage> clonedList = new ArrayList<Baggage>(oldList.size());
         for (Baggage baggage: oldList) {
@@ -266,6 +316,8 @@ public class BaggageFrame extends JFrame {
         }
         return clonedList;
     }
+
+    //Unused method
     public static ArrayList<Integer> copyArrayList2(ArrayList<Integer> oldList) {
         ArrayList<Integer> clonedList = new ArrayList<Integer>(oldList.size());
         for (Integer seatNum : oldList) {
