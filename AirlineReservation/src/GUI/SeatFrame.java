@@ -42,7 +42,24 @@ public class SeatFrame extends JFrame {
     double total;
     int econIndex;
 
-
+    /**
+     * The SeatFrame is used in conjunction with information recollected from
+     * our system and that is stored in our database (in order to be able to assign seats to passengers).
+     * @since 03/27/2023
+     * @author Carlos Figueroa (developed code, added documentation comments) and Ana Emily Castillo Perez (added documentation comments).
+     * <p>
+     * <b>Explanation of important functions:</b> Frame allows user to assign seats to passengers in the current reservation and display a map of seats available.
+     * <p>
+     * <b>Important data structure in class/important methods in class:</b>
+     * <ul>
+     * <li><i>generateSeatPrice(String seatingType):</i> used to calculate the price for selected seats to be added to grand total.</li>
+     * <li><i>generateSeatingMap(int partySize, int numRows):</i> used to create seating map.</li>
+     * </ul>
+     * <p>
+     *
+     * <b>Any algorithms used?</b> Not at the moment.
+     *
+     */
     public SeatFrame(boolean roundTrip) {
         setContentPane(seatsPanel);
         setTitle("Seating Map");
@@ -148,7 +165,11 @@ public class SeatFrame extends JFrame {
         });
     }
 
-
+    /**
+     * Method for updating the party size.
+     *
+     * @param partySize partySize
+     */
     public void updatePartySize(int partySize) {
         this.partySize = partySize;
         // should not assign old party size
@@ -192,6 +213,13 @@ public class SeatFrame extends JFrame {
         return reservedSeats;
     }
 
+    /**
+     *
+     * Method for generating the cost of the seats.
+     *
+     * @param seatingType seatingType
+     * @return seatPrice
+     */
     public Double generateSeatPrice(String seatingType) {
         // 30 - 60 rows
         double seatPrice = 0.0;
@@ -211,6 +239,14 @@ public class SeatFrame extends JFrame {
         }
         return seatPrice;
     }
+
+    /**
+     *
+     * Method for creating the seating map from which user can select preferred seats.
+     *
+     * @param partySize partySize
+     * @param numRows numRows
+     */
     public void generateSeatingMap(int partySize, int numRows) {
         reservedSeats = new ArrayList<>();
         reservedClassSeats = new ArrayList<>();
@@ -440,6 +476,13 @@ public class SeatFrame extends JFrame {
         return copy;
     }
 
+    /**
+     *
+     * Method for cloning seats array list.
+     *
+     * @param oldList oldList
+     * @return clonedList
+     */
     public static ArrayList<String> copyArrayList(ArrayList<String> oldList) {
         ArrayList<String> clonedList = new ArrayList<String>(oldList.size());
         for (String seatNum: oldList) {
@@ -448,7 +491,11 @@ public class SeatFrame extends JFrame {
         return clonedList;
     }
 
-
+    /**
+     * Main program.
+     *
+     * @param args Unused.
+     */
     public static void main(String[] args) {
         //SeatFrame seatFrame = new SeatFrame(false);
         //seatFrame.generateSeatingMap(1, 30);
