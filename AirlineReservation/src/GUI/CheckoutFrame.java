@@ -45,6 +45,23 @@ public class CheckoutFrame extends JFrame {
     ReservationToCheckout reservationToCheckout;
     Reservation reservation;
 
+    /**
+     * The CheckoutFrame is used in conjunction with information recollected from
+     * our system and that is stored in our database. Used to allow user to pay for reservation.
+     * @since 03/27/2023
+     * @author Carlos Figueroa (developed code, added documentation comments) and Ana Emily Castillo Perez (added documentation comments).
+     * <p>
+     * <b>Explanation of important functions:</b> Frame allows user to enter their credit card info and reserve.
+     * <p>
+     * <b>Important data structure in class/important methods in class:</b>
+     * <ul>
+     * <li><i>CheckoutFrame():</i> used to either adding a new reservation to an user's account or canceling the booking process.</li>
+     * </ul>
+     * <p>
+     *
+     * <b>Any algorithms used?</b> Not at the moment.
+     *
+     */
 
     public CheckoutFrame() {
         setContentPane(checkoutFrame);
@@ -55,7 +72,6 @@ public class CheckoutFrame extends JFrame {
         updatedAccount = new Account();
         reservationToCheckout = new ReservationToCheckout();
         reservation = reservationToCheckout.getReservationToPayment();
-
 
 
         // Display Tax, Fees, and Total
@@ -73,7 +89,9 @@ public class CheckoutFrame extends JFrame {
 
         completeBookingButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             *
+             * Invoked when an action occurs. When booking is confirmed, this is used to add
+             * the new reservation to the user's account.
              *
              * @param e the event to be processed
              */
@@ -111,7 +129,7 @@ public class CheckoutFrame extends JFrame {
 
         cancelButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to cancel the reservation and returning to dashboard.
              *
              * @param e the event to be processed
              */
@@ -126,7 +144,7 @@ public class CheckoutFrame extends JFrame {
         });
     }
 
-
+    //Unused method
     public void testReservation(Account account) {
         // TEST
         // get last reservation in list

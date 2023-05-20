@@ -17,6 +17,24 @@ public class ManageReservationFrame extends JFrame {
     private JScrollPane reservationListScroll;
     private JPanel reservationPanel;
 
+    /**
+     * The ManageReservationFrame is used in conjunction with information recollected from
+     * our system and that is stored in our database (in order to allow user to manage their reservations).
+     * @since 03/27/2023
+     * @author Carlos Figueroa (developed code, added documentation comments) and Ana Emily Castillo Perez (added documentation comments).
+     * <p>
+     * <b>Explanation of important functions:</b> Frame allows user to manage their recently booked reservations.
+     * <p>
+     * <b>Important data structure in class/important methods in class:</b>
+     * <ul>
+     * <li><i>generateReservations():</i> used to display the recent reservations in an user's account.</li>
+     * </ul>
+     * <p>
+     *
+     * <b>Any algorithms used?</b> Not at the moment.
+     *
+     */
+
     ButtonClicked clicked = new ButtonClicked();
 
     public ManageReservationFrame() {
@@ -29,7 +47,7 @@ public class ManageReservationFrame extends JFrame {
 
         backButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used to code the back button, taking user to their dashboard.
              *
              * @param e the event to be processed
              */
@@ -43,6 +61,10 @@ public class ManageReservationFrame extends JFrame {
         });
     }
 
+    /**
+     *
+     * For displaying user's reservations.
+     */
     private void generateReservations() {
         Account loginAccount = new Account();
         AccountAccessor accountAccessor = new AccountAccessor();
