@@ -26,7 +26,7 @@ public class DashboardFrame extends JFrame {
 
         bookFlightButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used for advancing to the flight search frame after book button is clicked.
              *
              * @param e the event to be processed
              */
@@ -41,7 +41,7 @@ public class DashboardFrame extends JFrame {
 
         manageReservationButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used for advancing to the user's recent reservations when manage reservation button is clicked.
              *
              * @param e the event to be processed
              */
@@ -63,7 +63,7 @@ public class DashboardFrame extends JFrame {
 
         accountButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used for advancing user to their account when account button is clicked.
              *
              * @param e the event to be processed
              */
@@ -77,7 +77,7 @@ public class DashboardFrame extends JFrame {
 
         logOutButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Invoked when an action occurs. Used for logging user out when button is clicked.
              *
              * @param e the event to be processed
              */
@@ -94,6 +94,13 @@ public class DashboardFrame extends JFrame {
     }
 
 
+    /**
+     *
+     * Method for retrieving a user's reservations and its details. Else, if user has no reservations an error message is printed.
+     *
+     * @param account account
+     *
+     */
     public void testReservation(Account account) {
         if(account.getReservationList().size() > 0) {
             // TEST
@@ -195,7 +202,13 @@ public class DashboardFrame extends JFrame {
         }
     }
 
-
+    /**
+     *
+     * Main program.
+     *
+     * @param args Unused.
+     *
+     */
     public static void main(String[] args) {
         DashboardFrame dashboardFrame = new DashboardFrame();
     }
