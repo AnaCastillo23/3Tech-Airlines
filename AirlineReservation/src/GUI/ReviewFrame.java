@@ -22,7 +22,7 @@ import java.util.Random;
  * window which displays user's selection of flight that they wish to book in order for the user to review if
  * details about the flight are correct.
  * @since 03/27/2023
- * @author Ana Emily Castillo Perez
+ * @author Carlos Figueroa (code and documentation comments) & Ana Emily Castillo Perez (documentation comments)
  * <p>
  * <b>Explanation of important functions:</b> Displays user's choice of flight for its review. Displays CONFIRM button (to finish booking)
  * and CANCEL button (to return users to their dashboard).
@@ -359,6 +359,13 @@ public class ReviewFrame extends JFrame {
         returnBaggageFrame = null;
     }
 
+    /**
+     *
+     * Method for updating the grand total for its review for the current reservation.
+     *
+     * @param updatedBasePrice updatedBasePrice
+     * @param initialPricing initialPricing
+     */
     public static void updateTotal(double updatedBasePrice, boolean initialPricing) {
         //fees = calcTax.getFees(); <--- Seating and Baggage
         //totalPrice = flightPrice + fees + tax ;
@@ -376,6 +383,15 @@ public class ReviewFrame extends JFrame {
     }
 
     // IF TOTAL IS NEGATIVE THEN ADDING IT TO TOTAL WOULD WORK
+
+    /**
+     *
+     * Method for adding passengers to party for its review.
+     *
+     * @param passengerList passengerList
+     * @param newPassengerCount newPassengerCount
+     * @param returnFlight returnFlight
+     */
     public static void addToParty(ArrayList<Passenger> passengerList, int newPassengerCount, boolean returnFlight) {
         if(!returnFlight) {
 
@@ -414,6 +430,13 @@ public class ReviewFrame extends JFrame {
     }
 
     // IF TOTAL IS NEGATIVE THEN ADDING IT TO TOTAL WOULD WORK
+
+    /**
+     *
+     * Method for adding the seats user has selected into the current frame for their review.
+     *
+     * @param returnTrip returnTrip
+     */
     public static void addSeatsToReview(boolean returnTrip) {
         SeatChange seatChange;
         Seats seatChanges;
@@ -450,6 +473,14 @@ public class ReviewFrame extends JFrame {
 
     }
 
+    /**
+     *
+     * Method for adding baggage that user has added into the current frame for calculating grand total.
+     *
+     * @param baggageList baggageList
+     * @param baggageFee baggageFee
+     * @param returnTrip returnTrip
+     */
     public static void addBaggageToReview(ArrayList<Baggage> baggageList, double baggageFee, boolean returnTrip) {
         if(!returnTrip) {
             // not taxable
@@ -500,6 +531,11 @@ public class ReviewFrame extends JFrame {
         return reservationID;
     }
 
+    /**
+     *
+     * Used to refresh the grand total for the reservation when user has edited something in the reservation.
+     *
+     */
     public void updateReviewDisplay() {
         DecimalFormat formatter = new DecimalFormat("0.00");
         // Use variables above and Flight methods to display booked flight/s
@@ -547,6 +583,13 @@ public class ReviewFrame extends JFrame {
         }
     }
 
+    /**
+     *
+     * Used to clone the list of passengers.
+     *
+     * @param oldList oldList
+     * @return clonedList
+     */
     public static ArrayList<Passenger> copyArrayList(ArrayList<Passenger> oldList) {
         ArrayList<Passenger> clonedList = new ArrayList<Passenger>(oldList.size());
         for (Passenger passenger : oldList) {
