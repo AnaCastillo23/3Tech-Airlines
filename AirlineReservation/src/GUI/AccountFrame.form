@@ -333,7 +333,7 @@
                         </constraints>
                         <properties>
                           <model>
-                            <item value="Select"/>
+                            <item value="Month"/>
                             <item value="01"/>
                             <item value="02"/>
                             <item value="03"/>
@@ -524,7 +524,7 @@
                         </constraints>
                         <properties>
                           <model>
-                            <item value="Select"/>
+                            <item value="Year"/>
                             <item value="2023"/>
                             <item value="2024"/>
                             <item value="2025"/>

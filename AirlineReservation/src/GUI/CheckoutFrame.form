@@ -64,13 +64,13 @@
                   <text value="Billing Address"/>
                 </properties>
               </component>
-              <component id="e7550" class="javax.swing.JComboBox" binding="dropDownMonth">
+              <component id="e7550" class="javax.swing.JComboBox" binding="jcbMonth">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <model>
-                    <item value="Select"/>
+                    <item value="Month"/>
                     <item value="01"/>
                     <item value="02"/>
                     <item value="03"/>
@@ -156,7 +156,7 @@
                   <text value="State"/>
                 </properties>
               </component>
-              <component id="fce4f" class="javax.swing.JComboBox" binding="dropDownState">
+              <component id="fce4f" class="javax.swing.JComboBox" binding="jcbState">
                 <constraints>
                   <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -239,13 +239,13 @@
                   <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
-              <component id="1eb8f" class="javax.swing.JComboBox" binding="dropDownYear">
+              <component id="1eb8f" class="javax.swing.JComboBox" binding="jcbYear">
                 <constraints>
                   <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <model>
-                    <item value="Select"/>
+                    <item value="Year"/>
                     <item value="2023"/>
                     <item value="2024"/>
                     <item value="2025"/>
@@ -270,7 +270,7 @@
                   <text value="Cardholder's Name"/>
                 </properties>
               </component>
-              <component id="1049d" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="1049d" class="javax.swing.JTextField" binding="tfCardHolderName">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -278,7 +278,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="d9232" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+              <component id="d9232" class="javax.swing.JCheckBox" binding="saveToAccount">
                 <constraints>
                   <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>

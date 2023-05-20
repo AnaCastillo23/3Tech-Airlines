@@ -8,6 +8,7 @@ import Class.Reservation;
 import Class.Flight;
 import Class.Airline;
 import Class.Airport;
+import Class.Payment;
 
 import Database.InData;
 
@@ -24,18 +25,19 @@ public class CheckoutFrame extends JFrame {
     private JButton completeBookingButton;
     private JTextPane warningTextField;
     private JPanel displayTotal;
-    private JComboBox dropDownMonth;
+    private JTextField tfCardHolderName;
+    private JComboBox jcbMonth;
+    private JComboBox jcbYear;
     private JTextField tfCardNumber;
     private JTextField tfCountry;
     private JTextField tfBillingAddress;
     private JTextField tfCity;
-    private JComboBox dropDownState;
+    private JComboBox jcbState;
     private JTextField tfZipCode;
     private JButton savePaymentButton;
     private JButton cancelPaymentButton;
     private JComboBox dropDownYear;
-    private JTextField textField1;
-    private JCheckBox checkBox1;
+    private JCheckBox saveToAccount;
     double flightPrice;
     double tax;
     double totalPrice;
@@ -77,31 +79,33 @@ public class CheckoutFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add Reservation to Account
-                // update Reservation in logged-in account
-                AccountAccessor accountAccessor = new AccountAccessor();
-                String loginUsername = accountAccessor.getLoginUsername();
-                updatedAccount = updatedAccount.getLoginAccount().get(loginUsername);  // updatedAccount will have login account info
-                updatedAccount.addReservationToAccount(reservation);    // update login account with new flight reservation
-                updatedAccount.registerOrUpdate(updatedAccount);        // update hashmap
+                if(validatePayment()) {
+                    // Add Reservation to Account
+                    // update Reservation in logged-in account
+                    AccountAccessor accountAccessor = new AccountAccessor();
+                    String loginUsername = accountAccessor.getLoginUsername();
+                    updatedAccount = updatedAccount.getLoginAccount().get(loginUsername);  // updatedAccount will have login account info
+                    updatedAccount.addReservationToAccount(reservation);    // update login account with new flight reservation
+                    updatedAccount.registerOrUpdate(updatedAccount);        // update hashmap
 
-                // store/update account into database here
-                InData inData = new InData();
-                try {
-                    inData.updateDatabaseAccounts();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    // store/update account into database here
+                    InData inData = new InData();
+                    try {
+                        inData.updateDatabaseAccounts();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+
+                    reservationToCheckout.deleteCheckout();
+
+                    //test
+                    //testReservation(updatedAccount);
+
+                    DashboardFrame dashboardFrame = new DashboardFrame();
+                    setVisible(false);
+                    dashboardFrame.setVisible(true);
                 }
-
-
-                reservationToCheckout.deleteCheckout();
-
-                //test
-                //testReservation(updatedAccount);
-
-                DashboardFrame dashboardFrame = new DashboardFrame();
-                setVisible(false);
-                dashboardFrame.setVisible(true);
             }
         });
 
@@ -227,4 +231,36 @@ public class CheckoutFrame extends JFrame {
         System.out.println();
     }
 
+
+    public boolean validatePayment() {
+        String cardHolderName = tfCardHolderName.getText();
+        String expirationMonth = jcbMonth.getSelectedItem().toString();
+        String expirationYear = jcbYear.getSelectedItem().toString();
+        String expirationDate = expirationMonth + "-" + expirationYear;
+        String cardNumber = tfCardNumber.getText();
+        String country = tfCountry.getText();
+        String address = tfBillingAddress.getText();
+        String city = tfCity.getText();
+        String state = jcbState.getSelectedItem().toString();
+        String zipCode = tfZipCode.getText();
+
+        if (cardHolderName.isEmpty() || expirationMonth.equals("Month") || expirationYear.equals("Year") || cardNumber.isEmpty() ||
+                country.isEmpty() || address.isEmpty() || city.isEmpty() || state.isEmpty() || zipCode.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill out all sections of the form.", "Invalid Payment Method", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            if(saveToAccount.isSelected()) {
+                Payment payment = new Payment(cardHolderName, expirationDate, cardNumber, country, address, city, state, zipCode);
+
+                Account account = new Account();
+                AccountAccessor accountAccessor = new AccountAccessor();
+                String loginUsername = accountAccessor.getLoginUsername();
+                account = account.getLoginAccount().get(loginUsername);
+                account.setPayment(payment);
+                account.registerOrUpdate(account);
+            }
+
+            return true;
+        }
+    }
 }

@@ -113,6 +113,15 @@ public class DashboardFrame extends JFrame {
                 System.out.println(account.getEmailAddress());
                 System.out.println(account.getPhoneNumber());
                 System.out.println();
+                System.out.println(account.getPayment().getCardHolderName());
+                System.out.println(account.getPayment().getCardNumber());
+                System.out.println(account.getPayment().getExpirationDate());
+                System.out.println(account.getPayment().getAddress());
+                System.out.println(account.getPayment().getCity());
+                System.out.println(account.getPayment().getState());
+                System.out.println(account.getPayment().getCountry());
+                System.out.println(account.getPayment().getZipCode());
+                System.out.println();
 
                 System.out.println("------------------------------------------------------------------------");
                 System.out.println("-------------------------------Itinerary----------------------------------");

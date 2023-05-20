@@ -50,6 +50,7 @@ import java.util.Map;
  */
 public class Account {
     private ArrayList<Reservation> reservationList;
+    private Payment payment;
     private Reservation reservation;
     private String username;
     private String password;
@@ -155,6 +156,14 @@ public class Account {
     public String getPhoneNumber() { return this.phoneNumber; }
 
     /**
+     * Method for obtaining the user's saved payment information
+     * @return payment
+     */
+    public Payment getPayment() {
+        return this.payment;
+    }
+
+    /**
      * Method for setting the account's username
      * @param username username requirement: "at least 8 characters and unique"
      */
@@ -210,6 +219,13 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Method for saving the user's payment information into account
+     * @param payment user's payment information
+     */
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
     /**
      * Method that returns hashmap containing all app accounts

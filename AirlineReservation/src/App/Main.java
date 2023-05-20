@@ -13,8 +13,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         try {
-            DatabaseFileIO dataO = new DatabaseFileIO();
-            String databaseStr = dataO.databaseFileReader();
+            DatabaseFileIO data = new DatabaseFileIO();
+            String databaseStr = data.databaseFileReader();
 
             OutData outData = new OutData();
             outData.getDatabase(databaseStr);
