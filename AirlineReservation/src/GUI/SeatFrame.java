@@ -81,64 +81,59 @@ public class SeatFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(!roundTrip) {
-                    // if departureFlight
-                    if (reservedSeats.size() < partySize) {
-                        JOptionPane.showMessageDialog(null, "Please select seats for all party members.", "Confirmation Error", JOptionPane.ERROR_MESSAGE);
-                    } else {
-
-                        if(!Arrays.deepEquals(initialSeatingArray, seatingArray)) {
-                            // confirm
-                            System.out.println("Confirm - before");
-                            System.out.println("initial Reserved seats : " + initialReservedSeats);
-                            System.out.println("Reserved seats : " + reservedSeats);
-                            System.out.println("Total : " + total);
-                            System.out.println();
-
-                            initialSeatingArray = copyArray(seatingArray);
-                            initialReservedSeats = copyArrayList(reservedSeats);
-                            initialReservedClassSeats = copyArrayList(reservedClassSeats);
-
-
-                            System.out.println("Confirm - after");
-                            System.out.println("initial Reserved seats : " + initialReservedSeats);
-                            System.out.println("Reserved seats : " + reservedSeats);
-                            System.out.println("Total : " + total);
-
-                            // add reservedSeats list to flight instance under login account
-                            SeatChange seatChange = new SeatChange(reservedSeats, reservedClassSeats, total, roundTrip);
-                            total = 0;
-
-                            // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
-                            //ReviewFrame.departureSeats = reservedSeats;
-                            // static method updates original instance using SeatChange() -> deletes hashmap aswell
-                            ReviewFrame.addSeatsToReview(false);
-
-                            setVisible(false);
-                        } else {
-                            // if same as default seating then cancel:
-                            System.out.println("Confirm - no changes - before");
-                            System.out.println("initial Reserved seats : " + initialReservedSeats);
-                            System.out.println("Reserved seats : " + reservedSeats);
-                            System.out.println("Total : " + total);
-                            System.out.println();
-
-                            seatingArray = copyArray(initialSeatingArray);
-                            reservedSeats = copyArrayList(initialReservedSeats);
-                            reservedClassSeats = copyArrayList(initialReservedClassSeats);
-
-
-                            total = 0;
-                            setVisible(false);
-                            System.out.println("Confirm - no changes - after");
-                            System.out.println("initial Reserved seats : " + initialReservedSeats);
-                            System.out.println("Reserved seats : " + reservedSeats);
-                            System.out.println("Total : " + total);
-                        }
-                    }
+                if (reservedSeats.size() < partySize) {
+                    JOptionPane.showMessageDialog(null, "Please select seats for all party members.", "Confirmation Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    // roundtrip features will be added later
+
+                    if(!Arrays.deepEquals(initialSeatingArray, seatingArray)) {
+                        // confirm
+                        System.out.println("Confirm - before");
+                        System.out.println("initial Reserved seats : " + initialReservedSeats);
+                        System.out.println("Reserved seats : " + reservedSeats);
+                        System.out.println("Total : " + total);
+                        System.out.println();
+
+                        initialSeatingArray = copyArray(seatingArray);
+                        initialReservedSeats = copyArrayList(reservedSeats);
+                        initialReservedClassSeats = copyArrayList(reservedClassSeats);
+
+                        System.out.println("Confirm - after");
+                        System.out.println("initial Reserved seats : " + initialReservedSeats);
+                        System.out.println("Reserved seats : " + reservedSeats);
+                        System.out.println("Total : " + total);
+
+                        // add reservedSeats list to flight instance under login account
+                        SeatChange seatChange = new SeatChange(reservedSeats, reservedClassSeats, total, roundTrip);
+                        total = 0;
+
+                        // MAYBE USE STATIC "ReviewFrame.variable" INSTEAD OF SeatChange datastructure
+                        //ReviewFrame.departureSeats = reservedSeats;
+                        // static method updates original instance using SeatChange() -> deletes hashmap aswell
+                        ReviewFrame.addSeatsToReview(roundTrip);
+
+                        setVisible(false);
+                    } else {
+                        // if same as default seating then cancel:
+                        System.out.println("Confirm - no changes - before");
+                        System.out.println("initial Reserved seats : " + initialReservedSeats);
+                        System.out.println("Reserved seats : " + reservedSeats);
+                        System.out.println("Total : " + total);
+                        System.out.println();
+
+                        seatingArray = copyArray(initialSeatingArray);
+                        reservedSeats = copyArrayList(initialReservedSeats);
+                        reservedClassSeats = copyArrayList(initialReservedClassSeats);
+
+
+                        total = 0;
+                        setVisible(false);
+                        System.out.println("Confirm - no changes - after");
+                        System.out.println("initial Reserved seats : " + initialReservedSeats);
+                        System.out.println("Reserved seats : " + reservedSeats);
+                        System.out.println("Total : " + total);
+                    }
                 }
+
             }
         });
         cancelButton.addActionListener(new ActionListener() {
@@ -441,7 +436,7 @@ public class SeatFrame extends JFrame {
                 if(reservedSeats.contains(seatNumber)) {
                     // deselect seat
                     reservedSeats.remove(seatNumber);
-                    reservedClassSeats.remove(row);
+                    //reservedClassSeats.remove(row);
                     seatingArray[row][j] = true;
                     System.out.println("hello??");
                     clickedSeatButton.setBorder(new JButton().getBorder());

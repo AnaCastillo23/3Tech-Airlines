@@ -82,7 +82,8 @@ public class BaggageFrame extends JFrame {
                 //initialAddBaggageCounter = copyArrayList2(addBaggageCounter);
 
                 // send updated baggage data to review
-                ReviewFrame.addBaggageToReview(baggageList, getBaggagePrice(baggageList), false);
+                System.out.println("getTitle().contains(Add Return Baggage) == " + getTitle().contains("Add Return Baggage"));
+                ReviewFrame.addBaggageToReview(baggageList, getBaggagePrice(baggageList), getTitle().contains("Add Return Baggage"));
 
                 setVisible(false);
             }

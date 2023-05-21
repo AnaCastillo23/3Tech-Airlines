@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * The Flight Search GUI is used to create a desktop application
@@ -60,11 +59,13 @@ public class FlightSearchFrame extends JFrame {
     private JButton bookButton;
     private JPanel flightInfo;
     ButtonClicked clicked = new ButtonClicked();
-    Boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
+    boolean displayReturnFlights;   // true if roundtrip radio button is checked otherwise false
     ArrayList<JSONObject> searchData;
     ArrayList<JSONObject> bookedFlights; // send to ReviewFrame (size: 0,1(one way),2(round-trip))
     ArrayList<Double> priceList;
     double totalPrice = 0;
+    double departurePrice = 0;
+    double returnPrice = 0;
 
     /**
      *
@@ -79,7 +80,6 @@ public class FlightSearchFrame extends JFrame {
         setVisible(true);
 
         bookedFlights = new ArrayList<>();
-        priceList = new ArrayList<>();
 
         //Button actions
         searchButton.addActionListener(new ActionListener() {
@@ -97,7 +97,7 @@ public class FlightSearchFrame extends JFrame {
                 // reset display arrays(REFRESH):
                 searchData = new ArrayList<>();
 
-                if(searchFlight()) {
+                if(validateSearchFlight()) {
                     try {
                         // API Call
                         searchFilter = new ScheduledDeparturesFilter(tfDeparture.getText(), tfArrival.getText(), tfDepartureDate.getText());
@@ -136,9 +136,14 @@ public class FlightSearchFrame extends JFrame {
                 //displayReturnFlights = true;
                 if (!roundTripRadioButton.isCursorSet()) {
                     tfReturnDate.setEditable(true);
+
+                    System.out.println("");
+                    System.out.println("1 diplayReturnFlights = " + displayReturnFlights);
                     displayReturnFlights = true;
+                    System.out.println("1 diplayReturnFlights = " + displayReturnFlights);
                 } else {
                     tfReturnDate.setEditable(false);
+                    System.out.println("2 diplayReturnFlights = " + displayReturnFlights);
                 }
             }
         });
@@ -147,10 +152,16 @@ public class FlightSearchFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //displayReturnFlights = false;
                 if (oneWayRadioButton.isCursorSet()) {
+                    System.out.println("3 diplayReturnFlights = " + displayReturnFlights);
                     tfReturnDate.setEditable(true);
                     displayReturnFlights = false;
                 } else {
                     tfReturnDate.setEditable(false);
+
+                    System.out.println("");
+                    System.out.println("4 diplayReturnFlights = " + displayReturnFlights);
+                    displayReturnFlights = false;
+                    System.out.println("4 diplayReturnFlights = " + displayReturnFlights);
                 }
             }
         });
@@ -164,11 +175,9 @@ public class FlightSearchFrame extends JFrame {
      *
      */
     private void generateSearchList(ArrayList<JSONObject> searchResult) {
-        System.out.println(searchResult);
-        System.out.println(searchResult.size());
-        System.out.println();
 
         PriceGenerator priceGenerator = new PriceGenerator();
+        priceList = new ArrayList<>();
 
         searchList = new JPanel();
         searchList.setLayout(new GridLayout(searchResult.size(), 1, 0, 10));
@@ -176,9 +185,8 @@ public class FlightSearchFrame extends JFrame {
 
         for (int i = 0; i < searchResult.size(); i++) {
             try {
-                //  ATTENTION: MIGHT CAUSE PROBLEMS FOR RETURN FLIGHT
-                displayReturnFlights = false;//temp
-                priceList.add(priceGenerator.getFlightPrice(displayReturnFlights));
+
+                priceList.add(priceGenerator.getFlightPrice(false));
 
                 // pane maker
                 flightInfo = new JPanel();
@@ -225,43 +233,40 @@ public class FlightSearchFrame extends JFrame {
      * Checks if text fields are empty.
      *
      */
-    private boolean searchFlight() {
+    private boolean validateSearchFlight() {
         String departureLocation = tfDeparture.getText();
         String arrivalLocation = tfArrival.getText();
         String departureDate = tfDepartureDate.getText();
         String returnDate = tfReturnDate.getText();
 
 
-
-        /*if(displayReturnFlights) {
-            if (oneWayRadioButton.isCursorSet()) {
-                if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                } else {
-                    System.out.println(displayReturnFlights);
-                }
-            } else if (!roundTripRadioButton.isCursorSet()) {
-                if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                } else {
-                    System.out.println(displayReturnFlights);
-                }
+        if (oneWayRadioButton.isCursorSet()) {
+            if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else {
+                System.out.println(displayReturnFlights);
+            }
+        } else if (!roundTripRadioButton.isCursorSet()) {
+            if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else {
+                System.out.println(displayReturnFlights);
             }
         }
+
 
         if(displayReturnFlights) {
             if(valDate(departureDate) && valDateReturn(returnDate)) {
                 return true;
-            } else {
-                valDate(departureDate);
+            }
+        } else {
+            if(valDate(departureDate)) {
                 return true;
             }
-        }*/
-        //return false;
-
-        return true;
+        }
+        return false;
     }
 
     /**
@@ -355,18 +360,22 @@ public class FlightSearchFrame extends JFrame {
                 // fill in searchData array and bookButton array based on api call
                 // reset searchData and jscroll pane
 
+                int bookButtonIndex = Integer.parseInt(((JButton) e.getSource()).getName().substring(bookButton.getName().length() - 1));
+
                 if(bookedFlights.size() > 0) {
                     // after flight search display has been refreshed one time (round-trip)
                     displayReturnFlights = false;
+                    returnPrice = priceList.get(bookButtonIndex);
+                } else {
+                    departurePrice = priceList.get(bookButtonIndex);
                 }
 
-                int bookButtonIndex = Integer.parseInt(((JButton) e.getSource()).getName().substring(bookButton.getName().length() - 1));
                 System.out.println(searchData.get(bookButtonIndex)); // test
                 bookedFlights.add(searchData.get(bookButtonIndex));
+
                 System.out.println(priceList);
                 System.out.println(priceList.get(bookButtonIndex));
 
-                // might be buggy with roundtrip if return flight not available
                 totalPrice += priceList.get(bookButtonIndex);
 
                 searchData = new ArrayList<>();
@@ -405,7 +414,7 @@ public class FlightSearchFrame extends JFrame {
                     }
 
                     System.out.println(bookedFlightList.size());
-                    FlightsToReview flightsToReview = new FlightsToReview(bookedFlightList, totalPrice);
+                    FlightsToReview flightsToReview = new FlightsToReview(bookedFlightList, departurePrice, returnPrice);
 
                     ReviewFrame review = new ReviewFrame(false);
                     dispose();

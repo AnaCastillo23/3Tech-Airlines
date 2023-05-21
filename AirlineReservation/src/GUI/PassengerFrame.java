@@ -78,6 +78,7 @@ public class PassengerFrame extends JFrame {
         // ADD COUNTRY, GENDER, DOB TO ACCOUNT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Passenger defaultPassenger = new Passenger(loginAccount.getFirstName(), loginAccount.getLastName(), null, null, null);
         addPassenger(defaultPassenger);
+        originalPassengerList = copyArrayList(passengerList);
 
         newPassengerCounter = 0; // initial passenger is charged after booking in FlightSearchFrame, so = 0
 
@@ -149,10 +150,10 @@ public class PassengerFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                originalPassengerList = passengerList;
+                originalPassengerList = copyArrayList(passengerList);
 
                 // if return-flight == false
-                ReviewFrame.addToParty(passengerList,newPassengerCounter,false);
+                ReviewFrame.addToParty(passengerList,newPassengerCounter, getTitle().contains("Return"));
                 newPassengerCounter = 0;
                 setVisible(false);
             }
@@ -166,8 +167,8 @@ public class PassengerFrame extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(passengerList.size() > 1) {
-                    passengerList = originalPassengerList; //undo changes
+                if(passengerList.size() > 0) {
+                    passengerList = copyArrayList(originalPassengerList); //undo changes
                     newPassengerCounter = 0;
                     setVisible(false);
                 } else {
@@ -267,5 +268,13 @@ public class PassengerFrame extends JFrame {
     public static void main(String[] args) {
         PassengerFrame passengerFrame = new PassengerFrame();
         passengerFrame.setVisible(true);
+    }
+
+    public static ArrayList<Passenger> copyArrayList(ArrayList<Passenger> oldList) {
+        ArrayList<Passenger> clonedList = new ArrayList<Passenger>(oldList.size());
+        for (Passenger passenger : oldList) {
+            clonedList.add(passenger);
+        }
+        return clonedList;
     }
 }

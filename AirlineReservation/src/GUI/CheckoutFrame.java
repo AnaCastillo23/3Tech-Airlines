@@ -250,6 +250,13 @@ public class CheckoutFrame extends JFrame {
     }
 
 
+    /**
+     * Validates the payment information provided by the user.
+     * Checks if all sections of the form have been filled out and displays an error message if any information is missing.
+     * If the payment is valid and the user has selected to save it to their account, the payment information is saved in the account.
+     *
+     * @return true if the payment is valid and saved successfully (or not saved), false otherwise.
+     */
     public boolean validatePayment() {
         String cardHolderName = tfCardHolderName.getText();
         String expirationMonth = jcbMonth.getSelectedItem().toString();

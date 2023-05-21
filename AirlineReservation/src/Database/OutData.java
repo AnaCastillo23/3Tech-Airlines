@@ -15,10 +15,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
+/**
+ * The OutData class is responsible for retrieving data from a database and converting it into usable objects.
+ */
 public class OutData {
     public String test_datah = "{ \"all_accounts\": [ { \"username\": \"cfig32\", \"account\": { \"username\": \"cfig32\", \"password\": \"123\", \"first_name\": \"Carlos\", \"last_name\": \"Figueroa\", \"address\": \"1400 Trash st. Burbank CA.\", \"email_address\": \"cfig32@AOL.com\", \"phone_number\": \"(818)666-1111\", \"reservation_list\": [ { \"reservation_ID\": 2222222, \"flight_price\": \"111.1\", \"flight_seat_fee\": \"25.6\", \"flight_baggage_fee\": \"35.0\", \"flight_tax\": \"50.3\", \"flight_total\": \"222.0\", \"departure_date\": \"05/08/2023\", \"return_date\": null, \"round_trip\": false, \"departure_flight_number\": \"AA3248\", \"return_flight_number\": null, \"departure_party_size\": 1, \"return_party_size\": 0, \"departure_flight\": { \"flight_ID\": \"AA3248\", \"departure_date\": \"05/08/2023\", \"arrival_date\": \"05/09/2023\", \"departure_time\": \"23:30:00\", \"arrival_time\": \"11:11:00\", \"departure_location\": \"Los Angeles\", \"arrival_location\": \"Tokyo\", \"departure_airport\": { \"airport_code\": \"LAX\", \"airport_name\": \"Los Angeles Int'l\" }, \"arrival_airport\": { \"airport_code\": \"HND\", \"airport_name\": \"Tokyo Int'l Airport\" }, \"airline\": { \"airline_id\": \"AAL\", \"airline_name\": \"American Airlines\" }, \"baggage\": [ { \"passenger_name\": \"Carlos Figueroa\", \"number_bags\": 4 } ], \"seats\": { \"reserved_seat_numbers\": [ \"2A\" ], \"seat_classes\": [ \"first-class\" ] } }, \"return_flight\": null, \"departure_party\": [ { \"first_name\": \"Carlos\", \"last_name\": \"Figueroa\", \"passport_country\": \"United States\", \"gender\": \"male\", \"date_of_birth\": \"09/14/1994\" } ], \"return_party\": null } ] } }, { \"username\": \"bob123\", \"account\": { \"username\": \"bob123\", \"password\": \"123\", \"first_name\": \"bob\", \"last_name\": \"sanchez\", \"address\": \"666 Garbage st. Burbank CA.\", \"email_address\": \"cfig32@AOL.com\", \"phone_number\": \"(666)666-4545\", \"reservation_list\": [ { \"reservation_ID\": 6546521, \"flight_price\": \"462.1\", \"flight_seat_fee\": \"254.6\", \"flight_baggage_fee\": \"35.0\", \"flight_tax\": \"301.3\", \"flight_total\": \"1053.0\", \"departure_date\": \"08/25/2023\", \"return_date\": null, \"round_trip\": false, \"departure_flight_number\": \"SW6125\", \"return_flight_number\": null, \"departure_party_size\": 3, \"return_party_size\": 0, \"departure_flight\": { \"flight_ID\": \"SW6125\", \"departure_date\": \"08/25/2023\", \"arrival_date\": \"08/25/2023\", \"departure_time\": \"03:33:00\", \"arrival_time\": \"07:13:00\", \"departure_location\": \"Las Vegas\", \"arrival_location\": \"New York\", \"departure_airport\": { \"airport_code\": \"LAS\", \"airport_name\": \"Las Vegas Int'l\" }, \"arrival_airport\": { \"airport_code\": \"NYA\", \"airport_name\": \"New York Airport\" }, \"airline\": { \"airline_id\": \"SWA\", \"airline_name\": \"idk\" }, \"baggage\": [ { \"passenger_name\": \"bob sanchez\", \"number_bags\": 1 }, { \"passenger_name\": \"sam schwartz\", \"number_bags\": 4 }, { \"passenger_name\": \"dick richard wellington\", \"number_bags\": 2 } ], \"seats\": { \"reserved_seat_numbers\": [ \"23A\", \"41B\", \"30C\" ], \"seat_classes\": [ \"econ-class\", \"econ-class\", \"econ-class\" ] } }, \"return_flight\": null, \"departure_party\": [ { \"first_name\": \"bob\", \"last_name\": \"sanchez\", \"passport_country\": \"United States\", \"gender\": \"male\", \"date_of_birth\": \"10/24/1954\" }, { \"first_name\": \"sam\", \"last_name\": \"schwartz\", \"passport_country\": \"Germany\", \"gender\": \"male\", \"date_of_birth\": \"02/02/1964\" }, { \"first_name\": \"dick richard\", \"last_name\": \"wellington\", \"passport_country\": \"Wales\", \"gender\": \"female\", \"date_of_birth\": \"10/30/2005\" } ], \"return_party\": null } ] } } ] }";
 
-
+    /**
+     * Retrieves account data from the database and creates an Account object.
+     *
+     * @param jsonObjectArrayList An ArrayList of JSONObjects containing the account data.
+     * @param index The index of the account data in the ArrayList.
+     * @return An Account object created from the retrieved data.
+     */
     public Account getAccountData(ArrayList<JSONObject> jsonObjectArrayList, int index) {
         JSONObject jsonObject = jsonObjectArrayList.get(index).getJSONObject("account");
 
@@ -33,6 +43,13 @@ public class OutData {
         return new Account(username, password, firstName, lastName, address, emailAddress, phoneNumber);
     }
 
+    /**
+     * Retrieves reservation data from the database and creates a Reservation object.
+     *
+     * @param jsonObjectArrayList An ArrayList of JSONObjects containing the reservation data.
+     * @param index The index of the reservation data in the ArrayList.
+     * @return A Reservation object created from the retrieved data.
+     */
     public Reservation getReservationData(ArrayList<JSONObject> jsonObjectArrayList, int index) {
         JSONObject jsonReservation = jsonObjectArrayList.get(index);
 
@@ -62,8 +79,8 @@ public class OutData {
         if (roundTripStr.equals("true")) {
             roundTrip = true;
             String returnDate = jsonReservation.get("return_date").toString();
-            String returnFlightNumber = jsonReservation.get("").toString();
-            int returnPartySize = Integer.parseInt(jsonReservation.get("").toString());
+            String returnFlightNumber = jsonReservation.get("return_flight_number").toString();
+            int returnPartySize = Integer.parseInt(jsonReservation.get("return_party_size").toString());
 
             return new Reservation();
         } else {
@@ -73,7 +90,13 @@ public class OutData {
         }
     }
 
-
+    /**
+     * Retrieves flight data from the database and creates a Flight object.
+     *
+     * @param jsonObject The JSONObject containing the flight data.
+     * @param index The index of the flight data in the JSONObject.
+     * @return A Flight object created from the retrieved data.
+     */
     public Flight getFlightData(JSONObject jsonObject, int index) {
         String flightID = jsonObject.get("flight_ID").toString();
         String departureDate = jsonObject.get("departure_date").toString();
@@ -86,6 +109,13 @@ public class OutData {
         return new Flight(flightID, departureDate, arrivalDate, departureTime, arrivalTime, departureLocation, arrivalLocation);
     }
 
+    /**
+     * Retrieves airport data from the database and creates an Airport object.
+     *
+     * @param jsonObject The JSONObject containing the airport data.
+     * @param index      The index of the airport data in the JSONObject.
+     * @return An Airport object created from the retrieved data.
+     */
     public Airport getAirportData(JSONObject jsonObject, int index) {
         String airportCode = jsonObject.get("airport_code").toString();
         String airportName = jsonObject.get("airport_name").toString();
@@ -93,7 +123,13 @@ public class OutData {
         return new Airport(airportCode, airportName);
     }
 
-
+    /**
+     * Retrieves airline data from the database and creates an Airline object.
+     *
+     * @param jsonObject The JSONObject containing the airline data.
+     * @param index      The index of the airline data in the JSONObject.
+     * @return An Airline object created from the retrieved data.
+     */
     public Airline getAirlineData(JSONObject jsonObject, int index) {
         String airlineID = jsonObject.get("airline_id").toString();
         String airlineName = jsonObject.get("airline_name").toString();
@@ -101,7 +137,13 @@ public class OutData {
         return new Airline(airlineID, airlineName);
     }
 
-
+    /**
+     * Retrieves baggage data from the database and creates an ArrayList of Baggage objects.
+     *
+     * @param jsonObjectArrayList An ArrayList of JSONObjects containing the baggage data.
+     * @param index               The index of the baggage data in the ArrayList.
+     * @return An ArrayList of Baggage objects created from the retrieved data.
+     */
     public ArrayList<Baggage> getBaggageData(JSONArray jsonObjectArrayList, int index) {
         //JSONObject jsonBaggage = jsonObjectArrayList.getJSONObject();
         ArrayList<Baggage> baggageList = new ArrayList<>();
@@ -119,6 +161,13 @@ public class OutData {
         return baggageList;
     }
 
+    /**
+     * Retrieves seats data from the database and creates a Seats object.
+     *
+     * @param jsonObject The JSONObject containing the seats data.
+     * @param index      The index of the seats data in the JSONObject.
+     * @return A Seats object created from the retrieved data.
+     */
     public Seats getSeatsData(JSONObject jsonObject, int index) {
         JSONArray jsonArraySeatNumbers = jsonObject.getJSONArray("reserved_seat_numbers");
         JSONArray jsonArraySeatClasses = jsonObject.getJSONArray("seat_classes");
@@ -129,6 +178,13 @@ public class OutData {
         return new Seats(reservedSeatNumbers, seatClasses);
     }
 
+    /**
+     * Retrieves party data from the database and creates an ArrayList of Passenger objects.
+     *
+     * @param jsonObjectArrayList An ArrayList of JSONObjects containing the party data.
+     * @param index               The index of the party data in the ArrayList.
+     * @return An ArrayList of Passenger objects created from the retrieved data.
+     */
     public ArrayList<Passenger> getPartyData(JSONArray jsonObjectArrayList, int index) {
         ArrayList<Passenger> partyList = new ArrayList<>();
 
@@ -149,6 +205,11 @@ public class OutData {
     }
 
 
+    /**
+     * Retrieves the database information and stores it in the application.
+     *
+     * @param databaseStr The database string containing the required information.
+     */
     //  CHANGE THIS TO A CALLABLE METHOD
     public void getDatabase(String databaseStr) {
         OutData outData = new OutData();
@@ -239,6 +300,13 @@ public class OutData {
         }
     }
 
+    /**
+     * Retrieves data from a JSON array and converts it into an ArrayList of JSONObjects.
+     *
+     * @param data The JSON array as a string.
+     * @param key  The key used to extract the JSON array from the JSON object.
+     * @return An ArrayList of JSONObjects converted from the JSON array.
+     */
     public ArrayList<JSONObject> JSONArrayToList1(String data, String key) {
 
         ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
@@ -252,6 +320,12 @@ public class OutData {
         return jsonObjectArrayList;
     }
 
+    /**
+     * Converts a JSON array into an ArrayList of strings.
+     *
+     * @param jArray The JSON array to be converted.
+     * @return An ArrayList of strings converted from the JSON array.
+     */
     public ArrayList<String> JSONArrayToList2(JSONArray jArray) {
         ArrayList<String> listdata = new ArrayList<String>();
         if (jArray != null) {

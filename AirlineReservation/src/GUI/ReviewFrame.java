@@ -103,6 +103,8 @@ public class ReviewFrame extends JFrame {
     static SeatFrame returnSeatFrame;
     static double initialBasePrice;
     static double basePrice;
+    static double departureBasePrice;
+    static double returnBasePrice;
     static double seatChangeFees;
     static double baggageFees;
     static double tax;
@@ -110,6 +112,8 @@ public class ReviewFrame extends JFrame {
     static double totalPrice;
     static BaggageFrame departureBaggageFrame;
     static BaggageFrame returnBaggageFrame;
+    static double departureBaggageFees;
+    static double returnBaggageFees;
     PassengerFrame departurePartyFrame;
     PassengerFrame returnPartyFrame;
 
@@ -140,14 +144,19 @@ public class ReviewFrame extends JFrame {
             departureClassSeats.add("economy-class");
 
             departurePartyFrame = new PassengerFrame();
+            departurePartyFrame.setTitle("Add Departure Passengers");
+
             departureBaggageFrame = new BaggageFrame(); // 1 free check in baggage per passenger
+            departureBaggageFrame.setTitle("Add Departure Baggage");
 
             flightsToReview = new FlightsToReview();
             ArrayList<Flight> displayFlights = flightsToReview.getFlightsToDisplay();
 
+            departureBasePrice = flightsToReview.getTotalPrice().get(0);
             if (displayFlights.size() > 1) {
                 // round trip
                 roundTrip = true;
+                returnBasePrice = flightsToReview.getTotalPrice().get(1);
             } else {
                 roundTrip = false;
             }
@@ -162,32 +171,39 @@ public class ReviewFrame extends JFrame {
             departureFlightNumber = departureFlight.getFlightID();
             departurePartySize = 1; // temp
             departureParty = copyArrayList(departurePartyFrame.getPassengerList());
-            ;
 
             // Create two instances of SeatFrame if roundtrip - false is one way
             departureSeatFrame = new SeatFrame(false);
+            departureSeatFrame.setTitle("Departure Seating Map");
             departureSeatFrame.generateSeatingMap(departurePartySize, 30 + rnd.nextInt(45));
             departureSeats = departureSeatFrame.getAssignedSeats(departurePartySize);
             System.out.println("Seats " + departureSeats);
 
             if (roundTrip) {
                 // round trip
+                System.out.println("Return trip!!!!!!!");
                 returnParty = new ArrayList<Passenger>();
                 returnSeats = new ArrayList<String>();
-                returnPartyFrame = new PassengerFrame();
 
                 returnFlight = displayFlights.get(1);
                 returnDate = returnFlight.getDepartureDate();
                 returnFlightNumber = returnFlight.getFlightID();
                 returnPartySize = 1; // temp
-                returnParty = null; // temp
+
+                returnPartyFrame = new PassengerFrame();
+                returnPartyFrame.setTitle("Add Return Passengers");
+                returnParty = copyArrayList(returnPartyFrame.getPassengerList());
+
+                returnBaggageFrame = new BaggageFrame(); // 1 free check in baggage per passenger
+                returnBaggageFrame.setTitle("Add Return Baggage");
 
                 returnSeatFrame = new SeatFrame(true);
+                returnSeatFrame.setTitle("Return Seating Map");
                 returnSeatFrame.generateSeatingMap(returnPartySize, 30 + rnd.nextInt(45));
                 returnSeats = returnSeatFrame.getAssignedSeats(returnPartySize);
             }
 
-            basePrice = flightsToReview.getTotalPrice();
+            basePrice = departureBasePrice + returnBasePrice;
             initialBasePrice = basePrice;
             System.out.println("Flight price " + basePrice);
             System.out.println("Flight price " + String.format("%.2f", basePrice));
@@ -217,6 +233,7 @@ public class ReviewFrame extends JFrame {
                         // return reservation
                         finalSeats = new Seats(returnSeats, null);
                         returnFlight.setSeats(finalSeats);
+                        returnFlight.setBaggage(returnBaggageList);
 
                         reservation = new Reservation(reservationID, basePrice, seatChangeFees, baggageFees, tax, totalPrice, departureDate, returnDate, departureFlightNumber, returnFlightNumber,
                                 departurePartySize, returnPartySize, departureParty, returnParty);
@@ -247,8 +264,9 @@ public class ReviewFrame extends JFrame {
             addPassengerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    double initialBasePrice = flightsToReview.getTotalPrice();
+                    //double initialBasePrice = flightsToReview.getTotalPrice();
                     departurePartyFrame.setVisible(true);
+                    returnPartyFrame.setVisible(true);
                 }
             });
 
@@ -262,26 +280,7 @@ public class ReviewFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // return flight feature will be added later
                     departureSeatFrame.setVisible(true);
-
-                    //  NEEDS DIALOG BOX asking which flight TO CHANGE!!!!!!!!!
-                    // DO NOT DELETE
-                /*
-                if(roundTrip) {
-                    if (!myDialog.isVisible()) {
-                        myDialog.setVisible(true);
-                    }
-                    myDialog.addConfirmListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            String text = myDialog.getTextFieldText();
-                            textField.setText(text);
-                        }
-                    });
-                    JPanel panel = new JPanel();
-                    panel.add(textField);
-                    panel.add(showDialogBtn);
-
-                    add(panel);
-               }*/
+                    returnSeatFrame.setVisible(true);
                 }
             });
 
@@ -328,6 +327,7 @@ public class ReviewFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     departureBaggageFrame.setVisible(true);
+                    returnBaggageFrame.setVisible(true);
                 }
             });
         }
@@ -382,8 +382,6 @@ public class ReviewFrame extends JFrame {
         }
     }
 
-    // IF TOTAL IS NEGATIVE THEN ADDING IT TO TOTAL WOULD WORK
-
     /**
      *
      * Method for adding passengers to party for its review.
@@ -393,9 +391,8 @@ public class ReviewFrame extends JFrame {
      * @param returnFlight returnFlight
      */
     public static void addToParty(ArrayList<Passenger> passengerList, int newPassengerCount, boolean returnFlight) {
+
         if(!returnFlight) {
-
-
             System.out.println();
             for(int i = 0; i < departureParty.size(); i++) {
                 System.out.print(departureParty.get(i).getFirstName() + ", ");
@@ -421,15 +418,39 @@ public class ReviewFrame extends JFrame {
 
             // add original base price per new passenger to total
             // add new passenger ticket costs to updated base price and then get it taxed
-            basePrice += initialBasePrice * newPassengerCount;
-            updateTotal(basePrice, false);
+            basePrice = (departureBasePrice * passengerList.size()) + (returnBasePrice * returnPartySize);
+
         } else {
-            // add later
+
+            System.out.println();
+            for(int i = 0; i < returnParty.size(); i++) {
+                System.out.print(returnParty.get(i).getFirstName() + ", ");
+            }
+            System.out.println();
+            for(int i = 0; i < passengerList.size(); i++) {
+                System.out.print(passengerList.get(i).getFirstName() + ", ");
+            }
+            System.out.println();
+
+            // assign each new passenger a free check-in baggage
+            for(int i = 0; i < passengerList.size(); i++) {
+                if(!returnParty.contains(passengerList.get(i))) {
+                    Baggage newPassenger = new Baggage(passengerList.get(i).getFirstName() + " " + passengerList.get(i).getLastName(), 1);
+                    returnBaggageFrame.addFreeBaggage(newPassenger);
+                }
+            }
+            returnParty = copyArrayList(passengerList);
+            returnPartySize = passengerList.size();
+
+            // assign seats to updated passengers - no seat change charge:
+            returnSeatFrame.updatePartySize(returnPartySize);
+
+            // add original base price per new passenger to total
+            // add new passenger ticket costs to updated base price and then get it taxed
+            basePrice = (returnBasePrice * passengerList.size()) + (departureBasePrice * departurePartySize);
         }
-
+        updateTotal(basePrice, false);
     }
-
-    // IF TOTAL IS NEGATIVE THEN ADDING IT TO TOTAL WOULD WORK
 
     /**
      *
@@ -454,14 +475,13 @@ public class ReviewFrame extends JFrame {
             seatChange.deleteSeatsToChange(false);
 
         } else {
-            // TEMPFEE????
-            // return trip feature will be added later
-            returnSeatFrame.setVisible(true);
-
+            // round trip
             // seats are added to flight
             seatChange = new SeatChange();
             returnSeats = seatChange.getReservedSeats(true);
+            //returnClassSeats = seatChange.getSeatToChange(true);
             // should change fee aswell
+            tempFee = seatChange.getTotal(true);
             seatChangeFees += seatChange.getTotal(true);
             seatChange.deleteSeatsToChange(true);
 
@@ -482,46 +502,27 @@ public class ReviewFrame extends JFrame {
      * @param returnTrip returnTrip
      */
     public static void addBaggageToReview(ArrayList<Baggage> baggageList, double baggageFee, boolean returnTrip) {
+        // not taxable
+        System.out.println();
+        System.out.println("return trip == " + returnTrip);
         if(!returnTrip) {
-            // not taxable
-            baggageFees = baggageFee;
+            departureBaggageFees = baggageFee;
             departureBaggageList = baggageList;
+            System.out.println(departureBaggageFees);
         } else {
-            // add later
+            returnBaggageFees = baggageFee;
+            returnBaggageList = baggageList;
+            System.out.println(returnBaggageFees);
         }
+        baggageFees = departureBaggageFees + returnBaggageFees;
+        System.out.println(baggageFees);
+
         System.out.println("baggage fee(review): " + baggageFee);
         System.out.println("baggage fee(review): " + baggageFee);
         updateTotal(basePrice, false);
     }
 
 
-    //  FOR ROUND TRIP - FIX LATER
-/*
-    class MyDialog extends JDialog {
-        private JTextField textfield = new JTextField(10);
-        private JButton confirmBtn = new JButton("Confirm");
-
-        public MyDialog(JFrame frame, String title) {
-            super(frame, title, false);
-            JPanel panel = new JPanel();
-            panel.add(textfield);
-            panel.add(confirmBtn);
-
-            add(panel);
-            pack();
-            setLocationRelativeTo(frame);
-        }
-
-        public String getTextFieldText() {
-            return textfield.getText();
-        }
-
-        public void addConfirmListener(ActionListener listener) {
-            confirmBtn.addActionListener(listener);
-        }
-    }
-
- */
     public int generateReservationID() {
         int reservationID;
 
@@ -561,11 +562,21 @@ public class ReviewFrame extends JFrame {
 
         if(roundTrip) {
             // display returning flight details
+            returningFlightTitleLabel.setVisible(true);
+
+            returnFlightIDLabel.setText("Flight ID : " + returnFlightNumber);
+            returnAirlineOPLabel.setText("Airline : " + returnFlight.getAirline().getAirlineID());
+            returnAirportIATA.setText(returnFlight.getDepartureAirport().getAirportName() + "(" + returnFlight.getDepartureAirport().getAirportCode() + ")");
+            arrivalAirportIATA2.setText( returnFlight.getArrivalAirport().getAirportName() + "(" + returnFlight.getArrivalAirport().getAirportCode() + ")");
+            returnAirportLocation.setText(returnFlight.getDepartureLocation());
+            arrivalAirportLocation2.setText(returnFlight.getArrivalLocation());
+            returnDateAndTime.setText(returnFlight.getDepartureDate() + " " + returnFlight.getDepartureTime());
+            arrivalDateAndTime2.setText(returnFlight.getArrivalDate() + " " + returnFlight.getArrivalTime());
         }
 
         // Display Total
-        numDepartTraveler.setText("x" + departurePartySize + " Traveler(s):");
-        departBasePriceLabel.setText("$" + formatter.format(basePrice));
+        numDepartTraveler.setText("Departure: x" + departurePartySize + " Traveler(s):");
+        departBasePriceLabel.setText("$" + formatter.format(departureBasePrice) + " per Traveler");
         seatChangeLabel.setText("Seat Change Fees:");
         seatChangeFeeLabel.setText("$" + formatter.format(seatChangeFees));
         baggageLabel.setText("Baggage Fees:");
@@ -580,6 +591,11 @@ public class ReviewFrame extends JFrame {
             returnBasePriceLabel.setVisible(false);
         } else {
             // set return price
+            numReturnTraveler.setVisible(true);
+            returnBasePriceLabel.setVisible(true);
+
+            numReturnTraveler.setText("Return: x" + returnPartySize + " Traveler(s):");
+            returnBasePriceLabel.setText("$" + formatter.format(returnBasePrice) + " per Traveler");
         }
     }
 

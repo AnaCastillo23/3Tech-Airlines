@@ -5,8 +5,30 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The DatabaseFileIO class provides methods for reading from and writing to the database file.
+ * <p>
+ * @since 05/04/2023
+ * @author Carlos Figueroa
+ * <b>Explanation of important functions:</b>  Allows the application to store and retrieve the database information from a text file..
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>databaseFileWriter(String databaseStr)</i></li>
+ * <li><i>databaseFileReader()</i></li>
+ * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ */
 public class DatabaseFileIO {
 
+    /**
+     * Writes the provided database string to the database file.
+     *
+     * @param databaseStr the database string to be written.
+     * @throws IOException if there is an error while writing to the file.
+     */
     public void databaseFileWriter(String databaseStr) throws IOException {
 
         // attach a file to FileWriter
@@ -23,6 +45,12 @@ public class DatabaseFileIO {
 
     }
 
+    /**
+     * Reads the database string from the database file.
+     *
+     * @return the database string read from the file.
+     * @throws IOException if there is an error while reading the file.
+     */
     public String databaseFileReader() throws IOException {
         String databaseStr = null;
 

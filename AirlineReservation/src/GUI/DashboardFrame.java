@@ -120,15 +120,19 @@ public class DashboardFrame extends JFrame {
                 System.out.println(account.getEmailAddress());
                 System.out.println(account.getPhoneNumber());
                 System.out.println();
-                System.out.println(account.getPayment().getCardHolderName());
-                System.out.println(account.getPayment().getCardNumber());
-                System.out.println(account.getPayment().getExpirationDate());
-                System.out.println(account.getPayment().getAddress());
-                System.out.println(account.getPayment().getCity());
-                System.out.println(account.getPayment().getState());
-                System.out.println(account.getPayment().getCountry());
-                System.out.println(account.getPayment().getZipCode());
-                System.out.println();
+                try {
+                    System.out.println(account.getPayment().getCardHolderName());
+                    System.out.println(account.getPayment().getCardNumber());
+                    System.out.println(account.getPayment().getExpirationDate());
+                    System.out.println(account.getPayment().getAddress());
+                    System.out.println(account.getPayment().getCity());
+                    System.out.println(account.getPayment().getState());
+                    System.out.println(account.getPayment().getCountry());
+                    System.out.println(account.getPayment().getZipCode());
+                    System.out.println();
+                } catch(Exception e) {
+                    System.out.println(e.toString());
+                }
 
                 System.out.println("------------------------------------------------------------------------");
                 System.out.println("-------------------------------Itinerary----------------------------------");
@@ -136,6 +140,8 @@ public class DashboardFrame extends JFrame {
                 System.out.println("Reservation Info:");
                 System.out.println("\tReservation ID: " + reservation1.getReservationID());
                 System.out.println("\tReservation Base Price: " + "$" + String.format("%.2f", reservation1.getFlightPrice()));
+                System.out.println("\tReservation Seat Fee: " + "$" + String.format("%.2f", reservation1.getFlightSeatFee()));
+                System.out.println("\tReservation Baggage Fee: " + "$" + String.format("%.2f", reservation1.getFlightBaggageFee()));
                 System.out.println("\tReservation Tax Price: " + "$" + String.format("%.2f", reservation1.getFlightTax()));
                 System.out.println("\tReservation Total Price: " + "$" + String.format("%.2f", reservation1.getFlightTotal()));
                 System.out.println("\tRound-Trip? : " + reservation1.isRoundTrip());
@@ -163,6 +169,10 @@ public class DashboardFrame extends JFrame {
                 System.out.println("\tDeparture Flight Seats:");
                 System.out.println("\t\tSeat Number(s): " + departFlight1.getSeats().getReservedSeatNumbers());
                 System.out.println("\t\tSeat Class: " + departFlight1.getSeats().getSeatClasses());
+
+                System.out.println("\tDeparture Flight Baggage:");
+                System.out.println("\t\tBaggage Name: " + departFlight1.getBaggage().get(0).getPassengerName());
+                System.out.println("\t\tBaggage Amount: " + departFlight1.getBaggage().get(0).getNumBags());
 
                 System.out.println("\tDeparture Airport Info:");
                 System.out.println("\t\tAirport Code: " + departureAirport1.getAirportCode());
@@ -192,6 +202,18 @@ public class DashboardFrame extends JFrame {
                     System.out.println("\t\tArrival Date: " + departFlight2.getArrivalDate());
                     System.out.println("\t\tArrival Time: " + departFlight2.getArrivalTime());
                     System.out.println("\t\tArrival City: " + departFlight2.getArrivalLocation());
+
+                    System.out.println("\tReturn Flight Seats:");
+                    System.out.println("\t\tSeat Number(s): " + departFlight2.getSeats().getReservedSeatNumbers());
+                    System.out.println("\t\tSeat Class: " + departFlight2.getSeats().getSeatClasses());
+
+                    try {
+                        System.out.println("\tDeparture Flight Baggage:");
+                        System.out.println("\t\tBaggage Name: " + departFlight2.getBaggage().get(0).getPassengerName());
+                        System.out.println("\t\tBaggage Amount: " + departFlight2.getBaggage().get(0).getNumBags());
+                    } catch(Exception e) {
+                        System.out.println(e.toString());
+                    }
 
                     System.out.println("\tDeparture Airport Info:");
                     System.out.println("\t\tAirport Code: " + departureAirport2.getAirportCode());

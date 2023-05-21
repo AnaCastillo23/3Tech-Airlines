@@ -12,6 +12,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The InData class is responsible for updating the database with account information. It converts all application information
+ * into JSON format and stores it in a text file.
+ * <p>
+ * @since 05/04/2023
+ * @author Carlos Figueroa
+ * <b>Explanation of important functions:</b>  Iterates through all app and account(s) information and converts it to JSON format
+ * to be stored into a txt file.
+ * <p>
+ * <b>Important data structure in class/important methods in class:</b>
+ * <ul>
+ * <li><i>updateDatabaseAccounts()</i></li>
+ * </ul>
+ * <p>
+ *
+ * <b>Any algorithms used?</b> Not at the moment.
+ */
 public class InData {
     /*      1) storeAccount(): store basic account info : username, pass, name, address, etc
             2) storeReservation(): for each reservation (loop) or reservationList
@@ -65,28 +82,16 @@ public class InData {
             n) update account HashMap storeAccountHashMap(hashmap)
     */
 
-    //  TEST STORING DATA FROM TEST FILE FIRST!!!!!!!!!!!!!!!!!!
-
+    /**
+     * Updates the database with account information.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
     public void updateDatabaseAccounts() throws IOException {
         Account account = new Account();
         ArrayList<Reservation> reservationList;
 
         Map<String, Account> map = account.getLoginAccount();
-
-        /*
-        key : bob123
-        value : Class.Account@7413de8e
-        key : cfig32
-        value : Class.Account@396f946b
-        */
-        /*
-        System.out.println("key : " + key);
-        System.out.println("value : " + map.get(key));
-
-         */
-
-
-        //StringBuilder allAccounts = new StringBuilder();
         StringBuilder accountStr = new StringBuilder();
         
         ArrayList<String> allAccounts = new ArrayList<>(); // not sure what this is for
@@ -111,7 +116,8 @@ public class InData {
                 Airport departureAirport = departureFlight.getDepartureAirport();
                 Airport arrivalAirport = departureFlight.getArrivalAirport();
 
-                if(!reservation.isRoundTrip()) {
+                // !reservation.isRoundTrip()
+                if(true) {
                     accountStr.append("{ \"reservation_ID\": " + reservation.getReservationID() + ", \"flight_price\": \"" + reservation.getFlightPrice() + "\", \"flight_seat_fee\": \"" + reservation.getFlightSeatFee() +
                             "\", \"flight_baggage_fee\": \"" + reservation.getFlightBaggageFee() + "\", \"flight_tax\": \"" + reservation.getFlightTax() + "\", \"flight_total\": \"" + reservation.getFlightTotal() + "\", \"departure_date\":" +
                             " " + "\"" + reservation.getDepartureDate() + "\", \"return_date\": null, \"round_trip\": " + reservation.isRoundTrip() + ", \"departure_flight_number\": \"" + reservation.getDepartureFlightNumber() +
@@ -195,6 +201,12 @@ public class InData {
         dataI.databaseFileWriter(databaseStr.toString());
     }
 
+    /**
+     * Main method to test the functionality of updating the database accounts.
+     *
+     * @param args command-line arguments.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
         InData inData = new InData();
         OutData outData = new OutData();
