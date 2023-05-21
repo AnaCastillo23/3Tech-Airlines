@@ -249,8 +249,8 @@ public class FlightSearchFrame extends JFrame {
             }
         } else if (!roundTripRadioButton.isCursorSet()) {
             if (departureLocation.isEmpty() || arrivalLocation.isEmpty() || departureDate.isEmpty() || returnDate.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
-                return false;
+                //JOptionPane.showMessageDialog(this, "Please fill out any empty fields.", "Invalid Flight Information", JOptionPane.ERROR_MESSAGE);
+                return true;
             } else {
                 System.out.println(displayReturnFlights);
             }
